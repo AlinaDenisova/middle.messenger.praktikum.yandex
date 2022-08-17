@@ -1,0 +1,6 @@
+.idea/
+.git/
+.parcel-cache/
+dist/
+node_modules/
+*.log

@@ -1,0 +1,18 @@
+
+    <section class="chat-sidebar">
+        <a href="">Профиль</a>
+        <input class='search-input' placeholder='Поиск' />
+        <div class="chat__list">
+            {{#each chats}}
+                {{> chat-item this}}
+            {{/each}}
+        </div>
+    </section>
+
+    <section class="messages">
+        <div class="messages__date">21 марта</div>
+        {{#each messages}}
+            {{> message this}}
+        {{/each}}
+    </section>
+

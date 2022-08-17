@@ -1,0 +1,10 @@
+<div class="chat-item {{#if this.currentChat}} chat-item--current{{/if}}">
+  <div class="chat-item__avatar">
+     {{#if this.avatar}}
+        <img src={{avatar}} alt="Фото собеседника."/>
+     {{/if}}
+  </div>
+  <p class="chat-item__name">{{name}}</p>
+  <p class="chat-item__text">{{message}}</p>
+  <div class="chat-item__time">{{time}}</div>
+</div>

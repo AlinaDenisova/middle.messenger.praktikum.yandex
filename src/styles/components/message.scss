@@ -1,0 +1,14 @@
+@import "../colors";
+
+.message {
+  color: $text-main-color;
+  font-size: 12px;
+  line-height: 15px;
+  padding: 11px;
+  background: $input-color;
+  display:  flex;
+
+  &-my-message {
+    color: $my-message-color;
+  }
+}

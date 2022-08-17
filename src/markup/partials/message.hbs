@@ -1,0 +1,18 @@
+<div class="message {{#if this.myMessage}}message--my-message{{/if}}">
+  {{#if this.image}}
+    <img
+      src={{image}}
+      alt="Изображение, приложенное к сообщению."
+      class="message__image"
+    />
+  {{/if}}
+  {{#if this.text}}
+  <p class="message__text">{{text}}</p>
+  {{/if}}
+  <div class="message__time">
+    {{#if this.read}}
+      <img src="../assets/icons/read.svg" alt="Сообщение прочитано"/>
+    {{/if}}
+    {{time}}
+  </div>
+</div>

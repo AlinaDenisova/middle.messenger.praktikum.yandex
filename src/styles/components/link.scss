@@ -1,0 +1,10 @@
+@import "../colors";
+
+.link {
+  color: $marker-color;
+  text-decoration: none;
+
+  &--highlight {
+    color: $text-highlight-color;
+  }
+}

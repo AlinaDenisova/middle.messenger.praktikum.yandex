@@ -1,0 +1,18 @@
+@import "./normalize";
+@import "./fonts";
+@import "./colors";
+
+body {
+  width: 100%;
+  min-width: 320px;
+  color: $text-main-color;
+  background-color: $bg-color;
+  height: 100vh;
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  max-height: 100vh;
+  overflow-y: hidden;
+}
