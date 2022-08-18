@@ -1,4 +1,4 @@
-<div class="chat-item {{#if this.currentChat}} chat-item--current{{/if}}">
+<a class="chat-item {{#if this.currentChat}} chat-item--current{{/if}}">
   <div class="chat-item__avatar">
      {{#if this.avatar}}
         <img src={{avatar}} alt="Фото собеседника."/>
@@ -9,4 +9,4 @@
       <p class="chat-item__message">{{message}}</p>
   </div>
   <div class="chat-item__time">{{time}}</div>
-</div>
+</a>

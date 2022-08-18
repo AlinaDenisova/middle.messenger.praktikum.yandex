@@ -1,29 +1,30 @@
-
-    <section class="chat-sidebar">
-        <a href="">Профиль</a>
-        <input class="search-input" placeholder="Поиск" />
-        <div class="chat__list">
-            {{#each chats}}
-                {{> chat-item this}}
-            {{/each}}
+<section class="chat-sidebar">
+    <div class="chat-sidebar__top">
+        <a class="chat-sidebar__link" href="./profile-overview.hbs">Профиль ></a>
+        <input class="chat-sidebar__search-input" placeholder="Поиск" />
+    </div>
+    <div class="chat__list">
+        {{#each chats}}
+            {{> chat-item this}}
+        {{/each}}
+    </div>
+</section>
+<section class="message">
+    <div class="message-interlocutor">
+        <div class="message-interlocutor__avatar">
+            {{#if this.userAvatar}}
+                <img src={{userAvatar}} alt="Фото собеседника" />
+            {{/if}}
         </div>
-    </section>
-
-    <section class="message">
-        <div class="message-interlocutor">
-            <div class="message-interlocutor__avatar">
-                {{#if this.userAvatar}}
-                    <img src={{userAvatar}} alt="Фото собеседника" />
-                {{/if}}
-            </div>
-            <div class="message-interlocutor__name">{{userName}}</div>
-            <div class="message-actions">
-                <button class="message-actions__button">
-                    <span class="message-actions__dot"></span>
-                </button>
-            </div>
+        <div class="message-interlocutor__name">{{userName}}</div>
+        <div class="message-actions">
+            <button class="message-actions__btn">
+                <span class="message-actions__dot"></span>
+            </button>
         </div>
-        <div class="message__date">21 марта</div>
+    </div>
+    <div class="message__container">
+        <div class="message__date">{{date}}</div>
         {{#each messages}}
             {{> message this}}
         {{/each}}
@@ -34,10 +35,49 @@
                 />
             </button>
             <input class="message-send__field" id="message" placeholder="Сообщение">
-            <button class="message-send__send-btn">
-                <img class="message-send__send-btn-img" src="../assets/icons/arrow-back.svg" alt="Отправить сообщение"
-                />
+            <button class="message-send__btn">
+                <img class="message-send__btn-img" src="../assets/icons/arrow-back.svg" alt="Отправить сообщение"/>
             </button>
         </div>
-    </section>
+    </div>
+
+    <div class="popover">
+        <ul class="popover__list">
+            <li class="popover__item">
+                <a class="popover__link">
+                    <img class="popover__link-img" src="../assets/icons/add-photo.svg" alt="Прикрепить фото или видео"/>
+                    <p class="popover__link-text">Фото или Видео</p>
+                </a>
+            </li>
+            <li class="popover__item">
+                <a class="popover__link">
+                    <img class="popover__link-img" src="../assets/icons/add-file.svg" alt="Прикрепить файл"/>
+                    <p class="popover__link-text">Фото или Видео</p>
+                </a>
+            </li>
+            <li class="popover__item">
+                <a class="popover__link">
+                    <img class="popover__link-img" src="../assets/icons/add-location.svg" alt="Прикрепить локацию"/>
+                    <p class="popover__link-text">Фото или Видео</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="popover">
+        <ul class="popover__list">
+            <li class="popover__item">
+                <a class="popover__link">
+                    <img class="popover__link-img" src="../assets/icons/add-user.svg" alt="Добавить пользователя"/>
+                    <p class="popover__link-text">Добавить пользователя</p>
+                </a>
+            </li>
+            <li class="popover__item">
+                <a class="popover__link">
+                    <img class="popover__link-img" src="../assets/icons/delete-user.svg" alt="Удалить пользователя"/>
+                    <p class="popover__link-text">Удалить пользователя</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
 
