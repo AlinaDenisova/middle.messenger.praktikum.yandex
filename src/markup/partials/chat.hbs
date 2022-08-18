@@ -1,7 +1,7 @@
 
     <section class="chat-sidebar">
         <a href="">Профиль</a>
-        <input class='search-input' placeholder='Поиск' />
+        <input class="search-input" placeholder="Поиск" />
         <div class="chat__list">
             {{#each chats}}
                 {{> chat-item this}}
@@ -9,10 +9,35 @@
         </div>
     </section>
 
-    <section class="messages">
-        <div class="messages__date">21 марта</div>
+    <section class="message">
+        <div class="message-interlocutor">
+            <div class="message-interlocutor__avatar">
+                {{#if this.userAvatar}}
+                    <img src={{userAvatar}} alt="Фото собеседника" />
+                {{/if}}
+            </div>
+            <div class="message-interlocutor__name">{{userName}}</div>
+            <div class="message-actions">
+                <button class="message-actions__button">
+                    <span class="message-actions__dot"></span>
+                </button>
+            </div>
+        </div>
+        <div class="message__date">21 марта</div>
         {{#each messages}}
             {{> message this}}
         {{/each}}
+
+        <div class="message-send">
+            <button class="message-send__attachment">
+                <img class="message-send__attachment-img" src="../assets/icons/add.svg" alt="Прикрепить вложение"
+                />
+            </button>
+            <input class="message-send__field" id="message" placeholder="Сообщение">
+            <button class="message-send__send-btn">
+                <img class="message-send__send-btn-img" src="../assets/icons/arrow-back.svg" alt="Отправить сообщение"
+                />
+            </button>
+        </div>
     </section>
 

@@ -8,17 +8,46 @@
     background: $panel-color;
     height: 100vh;
     overflow-y: auto;
+    border-right: 1px solid $border-color;
   }
 
   &-item {
     margin: 2px 10px;
     padding: 10px 0;
     border-bottom: 1px solid $border-color;
+    display: flex;
 
     &--current {
       margin: 2px 0;
       padding: 10px;
       background: $my-message-color;
+      position: relative;
+      border-bottom: none;
+
+      &::after {
+        position: absolute;
+        content: '';
+        border-bottom: 1px solid $border-color;
+        width: 90%;
+        transform: translateX(-50%);
+        bottom: -3px;
+        left: 50%;
+      }
+    }
+
+    &__avatar {
+      max-width: 47px;
+      min-width: 47px;
+      min-height: 47px;
+      max-height: 47px;
+      border-radius: 50%;
+      background: $input-color;
+      margin-right: 10px;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
     }
 
     &__name {
@@ -29,7 +58,7 @@
       margin: 0 0 4px 0;
     }
 
-    &__text {
+    &__message {
       font-size: 12px;
       line-height: 15px;
       color: $text-second-color;
