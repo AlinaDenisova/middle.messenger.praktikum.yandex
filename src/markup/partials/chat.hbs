@@ -17,10 +17,26 @@
             {{/if}}
         </div>
         <div class="message-interlocutor__name">{{userName}}</div>
-        <div class="message-actions">
-            <button class="message-actions__btn">
+        <div class="message-actions popover-container">
+            <button class="message-actions__btn popover-btn">
                 <span class="message-actions__dot"></span>
             </button>
+            <div class="popover popover--top-right">
+                <ul class="popover__list">
+                    <li class="popover__item">
+                        <a class="popover__link" href="#">
+                            <img class="popover__link-img" src="../assets/icons/add-user.svg" alt="Добавить пользователя"/>
+                            <p class="popover__link-text">Добавить пользователя</p>
+                        </a>
+                    </li>
+                    <li class="popover__item">
+                        <a class="popover__link" href="#">
+                            <img class="popover__link-img" src="../assets/icons/delete-user.svg" alt="Удалить пользователя"/>
+                            <p class="popover__link-text">Удалить пользователя</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="message__container">
@@ -29,55 +45,64 @@
             {{> message this}}
         {{/each}}
 
-        <div class="message-send">
-            <button class="message-send__attachment">
+        <div class="message-send popover-container">
+            <button class="message-send__attachment popover-btn">
                 <img class="message-send__attachment-img" src="../assets/icons/add.svg" alt="Прикрепить вложение"
                 />
             </button>
+            <div class="popover popover--bottom-left">
+                <ul class="popover__list">
+                    <li class="popover__item">
+                        <a class="popover__link" href="#">
+                            <img class="popover__link-img" src="../assets/icons/add-photo.svg" alt="Прикрепить фото или видео"/>
+                            <p class="popover__link-text">Фото или Видео</p>
+                        </a>
+                    </li>
+                    <li class="popover__item">
+                        <a class="popover__link" href="#">
+                            <img class="popover__link-img" src="../assets/icons/add-file.svg" alt="Прикрепить файл"/>
+                            <p class="popover__link-text">Файл</p>
+                        </a>
+                    </li>
+                    <li class="popover__item">
+                        <a class="popover__link" href="#">
+                            <img class="popover__link-img" src="../assets/icons/add-location.svg" alt="Прикрепить локацию"/>
+                            <p class="popover__link-text">Локация</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <input class="message-send__field" id="message" placeholder="Сообщение">
             <button class="message-send__btn">
                 <img class="message-send__btn-img" src="../assets/icons/arrow-back.svg" alt="Отправить сообщение"/>
             </button>
         </div>
     </div>
-
-    <div class="popover">
-        <ul class="popover__list">
-            <li class="popover__item">
-                <a class="popover__link">
-                    <img class="popover__link-img" src="../assets/icons/add-photo.svg" alt="Прикрепить фото или видео"/>
-                    <p class="popover__link-text">Фото или Видео</p>
-                </a>
-            </li>
-            <li class="popover__item">
-                <a class="popover__link">
-                    <img class="popover__link-img" src="../assets/icons/add-file.svg" alt="Прикрепить файл"/>
-                    <p class="popover__link-text">Фото или Видео</p>
-                </a>
-            </li>
-            <li class="popover__item">
-                <a class="popover__link">
-                    <img class="popover__link-img" src="../assets/icons/add-location.svg" alt="Прикрепить локацию"/>
-                    <p class="popover__link-text">Фото или Видео</p>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="popover">
-        <ul class="popover__list">
-            <li class="popover__item">
-                <a class="popover__link">
-                    <img class="popover__link-img" src="../assets/icons/add-user.svg" alt="Добавить пользователя"/>
-                    <p class="popover__link-text">Добавить пользователя</p>
-                </a>
-            </li>
-            <li class="popover__item">
-                <a class="popover__link">
-                    <img class="popover__link-img" src="../assets/icons/delete-user.svg" alt="Удалить пользователя"/>
-                    <p class="popover__link-text">Удалить пользователя</p>
-                </a>
-            </li>
-        </ul>
-    </div>
 </section>
+<div class="modal">
+    <h3 class="modal__title">Добавить пользователя</h3>
+    <div class="input__wrapper">
+        <label class="input__label" for="addUseId">ID</label>
+        <input class="input__field" id="addUserId" type="tel" required="">
+        <div class="input__error"></div>
+    </div>
+    <div class="modal__actions">
+        {{> btn btnText='Добавить' }}
+        {{> link}}
+    </div>
+</div>
+<div class="modal">
+    <h3 class="modal__title">Удалить пользователя</h3>
+    <div class="input__wrapper">
+        <label class="input__label" for="addUseId">ID</label>
+        <input class="input__field" id="addUserId" type="tel" required="">
+        <div class="input__error"></div>
+    </div>
+    <div class="modal__actions">
+        {{> btn btnText='Удалить' }}
+        {{> link}}
+    </div>
+</div>
+{{> overlay}}
+
 

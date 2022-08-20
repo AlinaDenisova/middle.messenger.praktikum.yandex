@@ -3,6 +3,7 @@
 .link {
   color: $marker-color;
   text-decoration: none;
+  display: block;
 
   &--highlight {
     color: $text-highlight-color;

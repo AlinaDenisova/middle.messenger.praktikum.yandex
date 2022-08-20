@@ -1,4 +1,4 @@
-<div class="profile-avatar__overlay show">
+<div class="profile-avatar__overlay">
     <div class="profile-avatar__overlay-label" for={{this.inputAvatarId}}>Поменять аватар</div>
     <input
             id={{inputAvatarId}}
@@ -6,13 +6,12 @@
             type="file"/>
 </div>
 
+
 <div class="modal">
-    <div class="modal-content">
-        <p class="modal__header">Загрузите файл</p>
-        <label class="modal__upload">
-            <input type="file"/>
-            Выбрать фото на устройстве
-        </label>
-    </div>
+    <h3 class="modal__title">Загрузите файл</h3>
+    <label class="modal__upload-label" for="upload-photo">Выбрать файл на устройстве</label>
+    <input class="modal__upload-input" type="file" id="upload-photo"/>
+    <div class="modal__upload-error">Ошибка, попробуйте еще раз</div>
 </div>
+
 {{> profile-avatar}}
