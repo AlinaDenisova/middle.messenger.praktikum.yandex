@@ -21,9 +21,5 @@ linkHref: ./registration-page.hbs
 linkText: Нет аккаунта?
 ---
 
-{{#extend "document"}}
-  {{#content "content"}}
-      {{> auth}}
-  {{/content}}
-{{/extend}}
+{{!< login}}
 

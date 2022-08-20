@@ -66,8 +66,4 @@ messages:
     read: true
 ---
 
-{{#extend "document"}}
-    {{#content "content"}}
-        {{> chat}}
-    {{/content}}
-{{/extend}}
+{{!< chat}}

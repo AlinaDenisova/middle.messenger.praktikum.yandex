@@ -28,6 +28,10 @@
     margin-right: auto;
     max-width: 50%;
 
+    @media screen and (max-width: 768px) {
+      max-width: 90%;
+    }
+
     &--my-message {
       background: $my-message-color;
       border-radius: 10px 10px 0 10px;
@@ -98,11 +102,11 @@
 
       &::after,
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         width: 3px;
         height: 3px;
-        display:  block;
+        display: block;
         border-radius: 50%;
         background: $text-main-color;
         left: 50%;
@@ -122,7 +126,7 @@
       background: $text-main-color;
       width: 3px;
       height: 3px;
-      display:  block;
+      display: block;
       border-radius: 50%;
       position: relative;
       margin: 0 auto;
@@ -178,9 +182,10 @@
       cursor: pointer;
       border: none;
       padding: 0;
-      margin-right: 10px;
-      width: 28px;
-      height: 28px;
+      min-width: 28px;
+      min-height: 28px;
+      max-height: 28px;
+      max-width: 28px;
       background: $marker-color;
       border-radius: 50%;
       display: flex;
