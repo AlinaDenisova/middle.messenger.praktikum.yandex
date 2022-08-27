@@ -1,0 +1,15 @@
+@import "../../styles/colors";
+
+.btn {
+  background: $marker-color;
+  border-radius: 8px;
+  margin: 0 auto;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 13px;
+  padding: 12px;
+  border: none;
+  color: $input-color;
+  max-width: 280px;
+  width: 100%;
+}
