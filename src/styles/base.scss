@@ -1,0 +1,23 @@
+@import "./normalize";
+@import "./fonts";
+@import "./colors";
+
+body {
+  width: 100%;
+  min-width: 320px;
+  color: $text-main-color;
+  background-color: $bg-color;
+  font-family: "Inter", "Arial", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  min-height: 100vh;
+
+  &.no-scroll {
+    height: 100%;
+    overflow: hidden !important;
+    width: 100%;
+    z-index: 0;
+  }
+}

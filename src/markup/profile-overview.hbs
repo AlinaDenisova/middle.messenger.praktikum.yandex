@@ -1,0 +1,56 @@
+---
+title: Профиль
+styles: ../styles/profile.scss
+className: profile
+rows:
+  -
+    label: Почта
+    value: pochta@yandex.ru
+  -
+    label: Логин
+    value: ivanivanov
+  -
+    label: Имя
+    value: Иван
+  -
+    label: Фамилия
+    value: Иванов
+  -
+    label: Имя в чате
+    value: Иван
+  -
+    label: Телефон
+    value: +7(909)9673030
+actions:
+  rows:
+    -
+      label: Изменить данные
+      value: ~
+      link: "profile-edit.hbs"
+    -
+      label: Изменить пароль
+      value: ~
+      link: "profile-password.hbs"
+    -
+      label: Выйти
+      value: ~
+      link: "auth-page.hbs"
+      highlight: true
+userName: Иван
+btnText: Поменять
+inputAvatarId: avatar
+---
+
+{{#extend "profile"}}
+    {{#content "profileBlock"}}
+        <div class="profile-avatar">
+            {{> upload-avatar}}
+        </div>
+        <h2 class="profile-name">{{userName}}</h2>
+        {{> profile-table}}
+        <div class="profile-actions">
+            {{> profile-table actions}}
+        </div>
+        <div class="overlay"></div>
+    {{/content}}
+{{/extend}}

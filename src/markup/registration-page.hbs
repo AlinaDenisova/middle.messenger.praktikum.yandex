@@ -1,0 +1,54 @@
+---
+title: Регистрация
+styles: ../styles/login.scss
+className: login
+btnText: Зарегистрироваться
+linkHref: auth-page.hbs
+linkText: Войти
+inputs:
+  -
+    label: Почта
+    inputName: email
+    value: pochta@yandex.ru
+    inputType: email
+    required: true
+  -
+    label: Логин
+    inputName: login
+    value: ivanivanov
+    inputType: text
+    required: true
+  -
+    label: Имя
+    inputName: first_name
+    value: Иван
+    inputType: text
+    required: true
+  -
+    label: Фамилия
+    inputName: second_name
+    value: Иванов
+    inputType: text
+    required: true
+  -
+    label: Телефон
+    inputName: phone
+    value: +7(909)9673030
+    inputType: tel
+    required: true
+  -
+    label: Пароль
+    inputName: password
+    value: 123456789
+    inputType: password
+    required: true
+  -
+    label: Пароль (ещё раз)
+    inputName: password-check
+    value: 1234567891
+    error: Пароли не совпадают
+    inputType: password
+    required: true
+---
+
+{{!< login}}

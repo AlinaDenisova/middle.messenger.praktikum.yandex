@@ -1,0 +1,36 @@
+@import "../colors";
+
+.input {
+  &__wrapper {
+    width: 280px;
+    margin: 7px 0;
+  }
+
+  &__label {
+    color: $text-second-color;
+    font-size: 9px;
+    line-height: 9px;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  &__field {
+    width: 100%;
+    border: none;
+    background-color: $bg-color;
+    color: $text-main-color;
+    border-bottom: 1px solid $marker-color;
+    font-size: 13px;
+    line-height: 13px;
+    box-sizing: border-box;
+    padding: 0 0 5px 0;
+    margin-bottom: 7px;
+  }
+
+  &__error {
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 8px;
+    color: $text-highlight-color;
+  }
+}

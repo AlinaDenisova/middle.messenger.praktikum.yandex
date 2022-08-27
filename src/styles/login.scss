@@ -1,0 +1,29 @@
+@import "components/btn";
+@import "components/input";
+@import "components/link";
+@import "components/panel";
+@import "components/title";
+
+.login {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background: $panel-color;
+
+  &__panel {
+    padding: 40px 30px;
+  }
+
+  &__btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  &__btn {
+    margin-bottom: 14px;
+  }
+}
