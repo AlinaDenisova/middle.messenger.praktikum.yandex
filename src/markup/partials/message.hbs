@@ -9,10 +9,10 @@
   {{#if this.text}}
   <p class="message-item__text">{{text}}</p>
   {{/if}}
-  <div class="message-item__time">
+  <time class="message-item__time">
     {{#if this.read}}
       <img src="../assets/icons/read.svg" alt="Сообщение прочитано"/>
     {{/if}}
     {{time}}
-  </div>
+  </time>
 </div>
