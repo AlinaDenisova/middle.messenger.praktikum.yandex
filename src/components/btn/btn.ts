@@ -12,7 +12,6 @@ export class Btn extends Block {
         super('div', {
             context: {
                 ...context,
-                btnClassName: `${isClassName(context.className)}`,
             },
             template: buttonTemplate,
             events,
