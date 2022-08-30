@@ -5,6 +5,8 @@ export const routes: Dictionary = Object.freeze({
   registration: 'registration',
   notFound: 'notFound',
   internalServerError: 'internalServerError',
+  selectChat: 'selectChat',
+  openChat: 'openChat'
 });
 
 export const errorPageCodes: Dictionary = Object.freeze({

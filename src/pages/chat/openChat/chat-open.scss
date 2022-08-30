@@ -1,6 +1,6 @@
-@import "../colors";
+@import "../../../styles/colors";
 
-.message {
+.chat-open {
   padding: 10px 20px;
   display: flex;
   flex-direction: column;
@@ -10,53 +10,6 @@
 
   @media screen and (max-width: 768px) {
     width: 100%;
-  }
-
-  &-item {
-    $block: &;
-    color: $text-main-color;
-    font-size: 12px;
-    line-height: 15px;
-    padding: 8px 11px;
-    background: $input-color;
-    width: fit-content;
-    display: flex;
-    border-radius: 0 10px 10px 10px;
-    justify-content: flex-end;
-    align-items: flex-end;
-    margin-bottom: 10px;
-    margin-right: auto;
-    max-width: 50%;
-
-    @media screen and (max-width: 768px) {
-      max-width: 90%;
-    }
-
-    &--my-message {
-      background: $my-message-color;
-      border-radius: 10px 10px 0 10px;
-      margin-right: 0;
-      margin-left: auto;
-
-      #{$block}__time {
-        color: $marker-color;
-      }
-    }
-
-    &__image {
-      background-color: $border-color;
-    }
-
-    &__text {
-      margin: 0;
-    }
-
-    &__time {
-      color: $text-second-color;
-      font-size: 9px;
-      line-height: 9px;
-      margin-left: 15px;
-    }
   }
 
   &-interlocutor {
@@ -83,7 +36,7 @@
     }
   }
 
-  &__container {
+  &__message-container {
     margin-top: auto;
   }
 
@@ -133,7 +86,7 @@
     }
   }
 
-  &__date {
+  &__message-date {
     font-size: 12px;
     line-height: 12px;
     color: $text-second-color;

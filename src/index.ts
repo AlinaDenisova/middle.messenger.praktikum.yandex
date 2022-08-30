@@ -1,5 +1,6 @@
 import { errorPage } from './pages/error';
 import { login } from './pages/login';
+import { chat } from './pages/chat';
 import {
     errorPageCodes,
     errorPageSchema,
@@ -21,7 +22,10 @@ const content = {
     internalServerError: errorPage(
         getErrorScheme(errorPageCodes.internalServerError)
     ),
-    notFound: errorPage(getErrorScheme(errorPageCodes.notFound))
+    notFound: errorPage(getErrorScheme(errorPageCodes.notFound)),
+    openChat: chat(routes.openChat),
+    selectChat: chat(routes.selectChat),
+
 };
 
 if (app) {
@@ -39,6 +43,12 @@ if (app) {
             break;
         case `/${routes.registration}`:
             app.innerHTML = content.registration;
+            break;
+        case `/${routes.selectChat}`:
+            app.innerHTML = content.selectChat;
+            break;
+        case `/${routes.openChat}`:
+            app.innerHTML = content.openChat;
             break;
     }
 }

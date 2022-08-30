@@ -11,6 +11,7 @@ export type TInput = {
     required?: boolean;
     value?: string | number;
     disabled?: boolean;
+    placeholder?: string;
 };
 
 export class Input extends Block {
