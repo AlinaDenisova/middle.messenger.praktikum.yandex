@@ -1,5 +1,6 @@
 import { errorPage } from './pages/error';
 import { login } from './pages/login';
+import { profile } from './pages/profile';
 import { chat } from './pages/chat';
 import {
     errorPageCodes,
@@ -25,7 +26,8 @@ const content = {
     notFound: errorPage(getErrorScheme(errorPageCodes.notFound)),
     openChat: chat(routes.openChat),
     selectChat: chat(routes.selectChat),
-
+    overviewProfile: profile(routes.overviewProfile),
+    editProfile: profile(routes.editProfile),
 };
 
 if (app) {
@@ -49,6 +51,12 @@ if (app) {
             break;
         case `/${routes.openChat}`:
             app.innerHTML = content.openChat;
+            break;
+        case `/${routes.overviewProfile}`:
+            app.innerHTML = content.overviewProfile;
+            break;
+        case `/${routes.editProfileData}`:
+            app.innerHTML = content.editProfile;
             break;
     }
 }

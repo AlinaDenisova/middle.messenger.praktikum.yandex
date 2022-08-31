@@ -38,8 +38,9 @@ export function openChat() {
         date: '21 марта',
         userName: 'Вадим',
         message: message.transformToString(),
-        messages: [messages1.transformToString(), messages2.transformToString(),messages3.transformToString()]
+        messages: [messages1.transformToString(), messages2.transformToString(),messages3.transformToString()],
     };
 
-    return template(context);
+
+    return template(context)
 }

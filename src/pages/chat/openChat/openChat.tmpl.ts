@@ -1,5 +1,5 @@
 export default
-`<section class="chat-open">
+`<div class="chat-open">
    <div class="chat-open-interlocutor">
        <div class="chat-open-interlocutor__avatar">
             {{#if this.userAvatar}}
