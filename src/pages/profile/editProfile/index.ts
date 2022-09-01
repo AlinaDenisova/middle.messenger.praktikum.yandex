@@ -1,0 +1,1 @@
+export { editProfile } from './editProfile';

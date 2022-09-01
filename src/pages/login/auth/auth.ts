@@ -30,6 +30,7 @@ export function auth() {
 
   const button = new Btn({
     btnText: 'Авторизоваться',
+    btnClassName: 'login',
   });
 
   const link = new Link({

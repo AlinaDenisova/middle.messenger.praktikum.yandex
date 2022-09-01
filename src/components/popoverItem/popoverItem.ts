@@ -6,12 +6,11 @@ export type TPopoverItem = {
     img: string;
     imgDescr: string;
     text: string;
-    className: string
 };
 
 export class PopoverItem extends Block {
     constructor(context: TPopoverItem, events = {}) {
-        super('li', {
+        super('div', {
             context: {
                 ...context,
             },

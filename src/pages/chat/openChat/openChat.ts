@@ -3,9 +3,21 @@ import openChatTemplate from './openChat.tmpl';
 import { Input } from '../../../components/input';
 import { Message } from '../../../components/message';
 import './chat-open.scss';
+import {Popover} from "../../../components/popover";
+import {PopoverItem} from "../../../components/popoverItem";
+import popoverTemplate from "../../../components/popover/popover.tmpl";
+import arrowIcon from "../../../assets/icons/arrow-back.svg";
+import addIcon from "../../../assets/icons/add.svg";
+import addFileIcon from "../../../assets/icons/add-file.svg";
+import addLocationIcon from "../../../assets/icons/add-location.svg";
+import addPhotoIcon from "../../../assets/icons/add-photo.svg";
+import deleteUserIcon from "../../../assets/icons/delete-user.svg";
+import addUserIcon from "../../../assets/icons/add-user.svg";
+import readIcon from "../../../assets/icons/read.svg";
 
 export function openChat() {
     const template = Handlebars.compile(openChatTemplate);
+    const templatePopover = Handlebars.compile(popoverTemplate);
 
     const message = new Input(
         {
@@ -32,15 +44,87 @@ export function openChat() {
         read: true,
         text: 'Круто!',
         time: '12:00',
+        readIcon,
     });
+
+    const popoverItemsArr1 = [
+        new PopoverItem(
+            {
+                img: addUserIcon,
+                imgDescr: 'Добавить пользователя',
+                text: 'Добавить пользователя',
+            }
+        ),
+
+        new PopoverItem(
+            {
+                img: deleteUserIcon,
+                imgDescr: 'Удалить пользователя',
+                text: 'Удалить пользователя',
+            }
+        )
+    ];
+
+    const popoverItemsArr2 = [
+        new PopoverItem(
+            {
+                img: addPhotoIcon,
+                imgDescr: 'Прикрепить фото или видео',
+                text: 'Фото или Видео',
+            }
+        ),
+
+        new PopoverItem(
+            {
+                img: addFileIcon,
+                imgDescr: 'Прикрепить файл',
+                text: 'Файл',
+            }
+        ),
+
+        new PopoverItem (
+            {
+                img: addLocationIcon,
+                imgDescr: 'Прикрепить локацию',
+                text: 'Локация',
+            }
+        )
+    ];
 
     const context = {
         date: '21 марта',
         userName: 'Вадим',
+        readIcon,
+        addIcon,
+        arrowIcon,
         message: message.transformToString(),
         messages: [messages1.transformToString(), messages2.transformToString(),messages3.transformToString()],
+        popoverItems1: [popoverItemsArr1.map((popoverItem) => popoverItem.transformToString())],
+        popoverItems2: [popoverItemsArr2.map((popoverItem) => popoverItem.transformToString())]
     };
 
+    const popover1 = new Popover(
+        {
+            children: {
+                popoverItems: popoverItemsArr1
+            },
+            popoverClassName: 'top-right',
+            content: templatePopover(context.popoverItems1),
+        }
+    );
 
-    return template(context)
+    const popover2 = new Popover(
+        {
+            children: {
+                popoverItems: popoverItemsArr2
+            },
+            popoverClassName: 'bottom-left',
+            content: templatePopover(context.popoverItems2),
+        }
+    );
+
+    return template(context);
+
+    return popover1.transformToString();
+    return popover2.transformToString();
 }

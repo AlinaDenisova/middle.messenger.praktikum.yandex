@@ -3,21 +3,18 @@
 .popover-item {
     font-size: 12px;
     line-height: 14px;
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: $text-main-color;
 
-    &__link {
-      display: flex;
-      align-items: center;
-      padding: 8px 15px;
-      text-decoration: none;
-      color: $text-main-color;
-
-      &-img {
-        margin-right: 15px;
-      }
-
-      &-text {
-        margin: 0;
-        white-space: nowrap;
-      }
+    &__img {
+      margin-right: 15px;
     }
+
+    &__text {
+      margin: 0;
+      white-space: nowrap;
+  }
 }

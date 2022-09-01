@@ -1,4 +1,4 @@
 export default
-`<a href="{{linkHref}}" class="link{{#if this.className}} {{this.className}}__link{{/if}}">
+`<a href="{{linkHref}}" class="link {{linkClassName}}__btn">
     {{linkText}}
 </a>`

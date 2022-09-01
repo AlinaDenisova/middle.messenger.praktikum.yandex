@@ -81,7 +81,8 @@ export function registration() {
   ];
 
   const button = new Btn({
-    btnText: 'Зарегистрироваться',
+      btnText: 'Зарегистрироваться',
+      btnClassName: 'login',
   });
 
   const link = new Link({
@@ -93,6 +94,7 @@ export function registration() {
     inputs: inputs.map((input) => input.transformToString()),
     btn: button.transformToString(),
     link: link.transformToString(),
+
   };
 
   const form = new Form(

@@ -1,10 +1,10 @@
 export default
 `<div class="profile-sidebar">
-      <a class="profile-sidebar__link" href="./chatOpen">
+      <a class="profile-sidebar__link" href="./chat-page.hbs">
         <div class="profile-sidebar__img-wrapper">
           <img
             class="profile-sidebar__img"
-            src="{{arrowIcon}}"
+            src="../assets/icons/arrow-back.svg"
             alt="Вернуться к чатам"
           />
         </div>

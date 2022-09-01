@@ -11,7 +11,7 @@ export default
     {{/if}}
     <time class="message-item__time">
         {{#if this.read}}
-            <img src="@/assets/icons/read.svg" alt="Сообщение прочитано"/>
+            <img src="{{readIcon}}" alt="Сообщение прочитано"/>
         {{/if}}
         {{time}}
     </time>

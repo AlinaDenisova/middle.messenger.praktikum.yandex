@@ -8,6 +8,7 @@ export type TMessage = {
     read?: boolean;
     text?: string;
     time: string;
+    readIcon?: any;
 };
 
 export class Message extends Block {

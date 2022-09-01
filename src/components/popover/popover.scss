@@ -1,0 +1,33 @@
+@import "../../styles/colors";
+
+.popover {
+  background: $bg-color;
+  position: absolute;
+  padding: 10px 0;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  border-radius: 12px;
+  z-index: 10;
+  display: none;
+
+  &--top-right {
+    right: 0;
+    top: 50px;
+  }
+
+  &--bottom-left {
+    left: 0;
+    bottom: 50px;
+  }
+
+  &-container {
+    position: relative;
+  }
+
+  &-btn {
+    &:hover {
+      ~ .popover {
+        display: block;
+      }
+    }
+  }
+}

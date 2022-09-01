@@ -7,6 +7,7 @@ export type TChatItem = {
     name: string;
     message: string;
     time: string;
+    currentChat: boolean;
 };
 
 export class ChatItem extends Block {
