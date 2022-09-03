@@ -7,7 +7,6 @@ import {
     errorPageCodes,
     errorPageSchema,
     routes,
-    editProfile,
 } from "./utils";
 import "./styles/base.scss";
 
@@ -30,8 +29,8 @@ const content = {
     openChat: chat(routes.openChat),
     selectChat: chat(routes.selectChat),
     overviewProfile: profile(routes.overviewProfile),
-    editProfile: profile(editProfile.editProfile),
-    editProfilePassword: profile(editProfile.editProfilePassword),
+    editProfile: profile(routes.editProfile),
+    editProfilePassword: profile(routes.editProfilePassword),
 };
 
 if (app) {

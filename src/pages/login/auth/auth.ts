@@ -2,8 +2,8 @@ import * as Handlebars from "handlebars";
 import authTemplate from "./auth.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn"
-import { Form } from "../../../components/form";
 import { Link } from "../../../components/link";
+import {nanoid} from "nanoid";
 
 export function auth() {
   const template = Handlebars.compile(authTemplate);
@@ -43,17 +43,8 @@ export function auth() {
     inputs: [loginInput.transformToString(), passwordInput.transformToString()],
     btn: button.transformToString(),
     link: link.transformToString(),
+    id: nanoid(6)
   };
 
-  const form = new Form(
-    {
-      children: {
-        inputs: [loginInput, passwordInput],
-        button,
-      },
-      content: template(context),
-    }
-  );
-
-  return form.transformToString();
+  return template(context);
 }

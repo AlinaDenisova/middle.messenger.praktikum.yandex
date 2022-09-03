@@ -1,7 +1,10 @@
 import * as Handlebars from "handlebars";
 import overviewProfileTemplate from "./overviewProfile.tmpl";
+import {ProfileAvatar} from "../../../components/profileAvatar";
 import { Input } from "../../../components/input";
 import "./profile-overview.scss";
+import uploadPhoto from "../../../assets/icons/upload-photo.svg";
+import {nanoid} from "nanoid";
 
 export function overviewProfile() {
     const template = Handlebars.compile(overviewProfileTemplate);
@@ -62,12 +65,18 @@ export function overviewProfile() {
         }),
     ];
 
+    const profileAvatar = new ProfileAvatar ({
+        uploadAvatarImage: uploadPhoto
+    });
+
     const context = {
         inputs: inputs.map((input) => input.transformToString()),
         userName: "Иван",
         changeData: "Изменить данные",
         changePassword: "Изменить пароль",
         back: "Выйти",
+        profileAvatar: profileAvatar.transformToString(),
+        id: nanoid()
     };
 
     return template(context);

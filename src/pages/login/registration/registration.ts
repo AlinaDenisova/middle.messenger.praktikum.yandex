@@ -2,8 +2,8 @@ import * as Handlebars from "handlebars";
 import registrationTemplate from "./registration.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn"
-import { Form } from "../../../components/form";
 import { Link } from "../../../components/link";
+import {nanoid} from "nanoid";
 
 export function registration() {
   const template = Handlebars.compile(registrationTemplate);
@@ -36,7 +36,7 @@ export function registration() {
         type: "text",
         required: false,
         errorMessage:
-          "В имени не допускается использование цифр или символов, первая буква - заглавная",
+          "Ввведите имя с заглавной буквы без цифр и символов",
       }
     ),
     new Input(
@@ -46,7 +46,7 @@ export function registration() {
         type: "text",
         required: false,
         errorMessage:
-          "В фамилии не допускается использование цифр или символов, первая буква - заглавная",
+          "Ввведите фамилию с заглавной буквы без цифр и символов",
       }
     ),
     new Input(
@@ -66,7 +66,7 @@ export function registration() {
         type: "password",
         required: true,
         errorMessage:
-          "Длина пароля 8-40 символов, обязательна хотя бы одна заглавная буква и одна цифра",
+          "Длина пароля 8-40 символов, обязательна заглавная буква и цифра",
       }
     ),
     new Input(
@@ -95,18 +95,8 @@ export function registration() {
     inputs: inputs.map((input) => input.transformToString()),
     btn: button.transformToString(),
     link: link.transformToString(),
-
+    id: nanoid(6)
   };
 
-  const form = new Form(
-    {
-      children: {
-        inputs,
-        button,
-      },
-      content: template(context),
-    }
-  );
-
-  return form.transformToString();
+    return template(context);
 }

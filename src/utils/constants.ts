@@ -28,8 +28,3 @@ export const errorPageSchema: Dictionary = Object.freeze({
     linkText: "Назад к чатам",
   },
 });
-
-export const editProfile: Dictionary = Object.freeze({
-  editProfile: "profileInputs",
-  editProfilePassword: "passwordInputs",
-});
