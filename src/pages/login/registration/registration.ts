@@ -1,9 +1,9 @@
-import * as Handlebars from 'handlebars';
-import registrationTemplate from './registration.tmpl';
-import { Input } from '../../../components/input';
-import { Btn } from '../../../components/btn'
-import { Form } from '../../../components/form';
-import { Link } from '../../../components/link';
+import * as Handlebars from "handlebars";
+import registrationTemplate from "./registration.tmpl";
+import { Input } from "../../../components/input";
+import { Btn } from "../../../components/btn"
+import { Form } from "../../../components/form";
+import { Link } from "../../../components/link";
 
 export function registration() {
   const template = Handlebars.compile(registrationTemplate);
@@ -11,83 +11,84 @@ export function registration() {
   const inputs = [
     new Input(
       {
-        name: 'email',
-        label: 'Почта',
-        type: 'text',
+        name: "email",
+        label: "Почта",
+        type: "text",
         required: true,
         errorMessage:
-          'Адрес электронной почты содержит ошибки',
+          "Адрес электронной почты содержит ошибки",
       }
     ),
     new Input(
       {
-        name: 'login',
-        label: 'Логин',
-        type: 'text',
+        name: "login",
+        label: "Логин",
+        type: "text",
         required: true,
         errorMessage:
-          'Длина логина 3-20символов',
+          "Длина логина 3-20 символов, должен быть написан латиницей",
       }
     ),
     new Input(
       {
-        name: 'name',
-        label: 'Имя',
-        type: 'text',
+        name: "name",
+        label: "Имя",
+        type: "text",
         required: false,
         errorMessage:
-          'В имени не допускается использование цифр или символов',
+          "В имени не допускается использование цифр или символов, первая буква - заглавная",
       }
     ),
     new Input(
       {
-        name: 'lastName',
-        label: 'Фамилия',
-        type: 'text',
+        name: "lastName",
+        label: "Фамилия",
+        type: "text",
         required: false,
         errorMessage:
-          'В фамилии не допускается использование цифр или символов',
+          "В фамилии не допускается использование цифр или символов, первая буква - заглавная",
       }
     ),
     new Input(
       {
-        name: 'phone',
-        label: 'Телефон',
-        type: 'text',
+        name: "phone",
+        label: "Телефон",
+        type: "text",
         required: false,
         errorMessage:
-          'Введите номер в международном формате, например: +7..',
+          "Введите номер в международном формате, например: +7..",
       }
     ),
     new Input(
       {
-        name: 'password',
-        label: 'Пароль',
-        type: 'password',
+        name: "password",
+        label: "Пароль",
+        type: "password",
         required: true,
         errorMessage:
-          'Длина пароля 8-40 символов, обязательно хотя бы одна заглавная буква и одна цифра',
+          "Длина пароля 8-40 символов, обязательна хотя бы одна заглавная буква и одна цифра",
       }
     ),
     new Input(
       {
-        name: 'secondPassword',
-        label: 'Пароль (ещё раз)',
-        type: 'password',
+        name: "secondPassword",
+        label: "Пароль (ещё раз)",
+        type: "password",
         required: true,
-        errorMessage: 'Введенные пароли не совпадают',
+        errorMessage: "Введенные пароли не совпадают",
       }
     ),
   ];
 
   const button = new Btn({
-      btnText: 'Зарегистрироваться',
-      btnClassName: 'login',
+      btnText: "Зарегистрироваться",
+      btnClassName: "login",
+      btnType: "submit"
   });
 
   const link = new Link({
-      linkText: 'Войти',
-      linkHref: '/registration',
+      linkText: "Войти",
+      linkHref: "/registration",
   });
 
   const context = {

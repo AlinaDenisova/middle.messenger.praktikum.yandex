@@ -1,6 +1,6 @@
-import chatItemTemplate from './chatItem.tmpl';
-import { Block } from '../../utils/block';
-import './chatItem.scss';
+import chatItemTemplate from "./chatItem.tmpl";
+import { Block } from "../../utils/block";
+import "./chatItem.scss";
 
 export type TChatItem = {
     avatar?: string;
@@ -12,7 +12,7 @@ export type TChatItem = {
 
 export class ChatItem extends Block {
     constructor(context: TChatItem, events = {}) {
-        super('div', {
+        super("div", {
             context: {
                 ...context,
             },

@@ -2,5 +2,6 @@ export {
   routes,
   errorPageCodes,
   errorPageSchema,
-} from './constants';
-export { isClassDefined } from './helpers';
+  editProfile,
+} from "./constants";
+export { isClassDefined, classIfElse } from "./helpers";

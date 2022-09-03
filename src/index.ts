@@ -1,15 +1,17 @@
-import { errorPage } from './pages/error';
-import { login } from './pages/login';
-import { profile } from './pages/profile';
-import { chat } from './pages/chat';
+import { siteMap } from "./pages/siteMap";
+import { errorPage } from "./pages/error";
+import { login } from "./pages/login";
+import { profile } from "./pages/profile";
+import { chat } from "./pages/chat";
 import {
     errorPageCodes,
     errorPageSchema,
     routes,
-} from './utils';
-import './styles/base.scss';
+    editProfile,
+} from "./utils";
+import "./styles/base.scss";
 
-const app: HTMLElement | null = document.getElementById('app');
+const app: HTMLElement | null = document.getElementById("app");
 
 const getErrorScheme = (errorCode: string) => ({
     errorCode,
@@ -18,6 +20,7 @@ const getErrorScheme = (errorCode: string) => ({
 });
 
 const content = {
+    siteMap: siteMap(routes.siteMap),
     auth: login(routes.auth),
     registration: login(routes.registration),
     internalServerError: errorPage(
@@ -27,12 +30,16 @@ const content = {
     openChat: chat(routes.openChat),
     selectChat: chat(routes.selectChat),
     overviewProfile: profile(routes.overviewProfile),
-    editProfile: profile(routes.editProfile),
+    editProfile: profile(editProfile.editProfile),
+    editProfilePassword: profile(editProfile.editProfilePassword),
 };
 
 if (app) {
     switch (window.location.pathname) {
-        case '/':
+        case "/":
+        case `/${routes.siteMap}`:
+            app.innerHTML = content.siteMap;
+            break;
         case `/${routes.internalServerError}`:
             app.innerHTML = content.internalServerError;
             break;
@@ -55,8 +62,11 @@ if (app) {
         case `/${routes.overviewProfile}`:
             app.innerHTML = content.overviewProfile;
             break;
-        case `/${routes.editProfileData}`:
+        case `/${routes.editProfile}`:
             app.innerHTML = content.editProfile;
+            break;
+        case `/${routes.editProfilePassword}`:
+            app.innerHTML = content.editProfilePassword;
             break;
     }
 }

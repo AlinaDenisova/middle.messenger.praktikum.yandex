@@ -11,7 +11,7 @@ export default
             <button class="chat-open-actions__btn popover-btn">
                 <span class="chat-open-actions__dot"></span>
             </button>
-            <div class="popover {{popoverClassName}}">
+            <div class="popover popover--top-right">
                 {{#each popoverItems1}}
                     {{{this}}}
                 {{/each}}
@@ -29,7 +29,7 @@ export default
                 <img class="chat-open-send__attachment-img" src="{{addIcon}}" alt="Прикрепить вложение"
                 />
             </button>
-            <div class="popover {{popoverClassName}}">
+            <div class="popover popover--bottom-left">
                 {{#each popoverItems2}}
                     {{{this}}}
                 {{/each}}

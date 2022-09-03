@@ -1,5 +1,5 @@
-import * as Handlebars from 'handlebars';
-import { EventBus } from './eventBus';
+import * as Handlebars from "handlebars";
+import { EventBus } from "./eventBus";
 
 export type Dictionary = Record<string, any>;
 
@@ -16,10 +16,10 @@ export type TMetaBlock = {
 
 export class Block {
     static EVENTS = {
-        INIT: 'init',
-        FLOW_CDM: 'flow:component-did-mount',
-        FLOW_RENDER: 'flow:render',
-        FLOW_CDU: 'flow:component-did-update',
+        INIT: "init",
+        FLOW_CDM: "flow:component-did-mount",
+        FLOW_RENDER: "flow:render",
+        FLOW_CDU: "flow:component-did-update",
     };
 
     private _element: HTMLElement;
@@ -34,7 +34,7 @@ export class Block {
 
     protected _template: Handlebars.TemplateDelegate<any>;
 
-    constructor(tagName: string = 'div', props = {}) {
+    constructor(tagName: string = "div", props = {}) {
         this._meta = {
             tagName,
             props,
@@ -115,7 +115,7 @@ export class Block {
     }
 
     render() {
-        const container = document.createElement('div');
+        const container = document.createElement("div");
         const { context } = this.props;
         container.innerHTML = this._template(context);
         return container.firstElementChild;
@@ -125,7 +125,7 @@ export class Block {
         return new Proxy(props, {
             get: (target, prop: string) => {
                 const value = target[prop];
-                return typeof value === 'function' ? value.bind(target) : value;
+                return typeof value === "function" ? value.bind(target) : value;
             },
             set: (target, prop: string, value: unknown) => {
                 target[prop] = value;
@@ -133,7 +133,7 @@ export class Block {
                 return true;
             },
             deleteProperty: () => {
-                throw new Error('Нет доступа');
+                throw new Error("Нет доступа");
             },
         });
     }
@@ -144,7 +144,7 @@ export class Block {
 
     _triggerEvent(event: Event, func: Function) {
         const target = event.target as HTMLElement;
-        const id = target.getAttribute('data-id');
+        const id = target.getAttribute("data-id");
 
         if (target && this._elementId === id) {
             event.preventDefault();
@@ -155,7 +155,7 @@ export class Block {
     _addEventListeners() {
         const { events = {} } = this.props;
         Object.keys(events).forEach((event) => {
-            const app = document.querySelector('#app') as HTMLElement;
+            const app = document.querySelector("#app") as HTMLElement;
             app.addEventListener(
                 event,
                 (e: Event) => {
@@ -169,7 +169,7 @@ export class Block {
     _removeEventListeners() {
         const { events = {} } = this.props;
         Object.keys(events).forEach((event) => {
-            const app = document.querySelector('#app') as HTMLElement;
+            const app = document.querySelector("#app") as HTMLElement;
             app.removeEventListener(event, (e: Event) => {
                 this._triggerEvent(e, events[event]);
             });
@@ -177,16 +177,16 @@ export class Block {
     }
 
     transformToString(): string {
-        const container = document.createElement('div');
+        const container = document.createElement("div");
         container.appendChild(this.element);
         return container.innerHTML;
     }
 
     show() {
-        this.element.classList.remove('hidden');
+        this.element.classList.remove("hidden");
     }
 
     hide() {
-        this.element.classList.add('hidden');
+        this.element.classList.add("hidden");
     }
 }

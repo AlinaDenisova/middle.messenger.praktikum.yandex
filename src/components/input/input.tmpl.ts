@@ -1,12 +1,12 @@
 export default
-`<div class="input__wrapper">
-    <label class="input__label" for='{{name}}'>{{label}}</label>
+`<div class="{{wrapperClassName}}">
+    <label class="input__label" for="{{name}}">{{label}}</label>
     <input
-    class="input__field"
-    type='{{type}}'
-    name='{{name}}'
-    value='{{value}}'
-    id='{{id}}'
+    class="{{inputClassName}}"
+    type="{{type}}"
+    name="{{name}}"
+    value="{{value}}"
+    id="{{id}}"
     required={{required}}/>
-    <div class="input__error">{{errorMessage}}</div>
+    <div class="input__error hidden">{{errorMessage}}</div>
 </div>`

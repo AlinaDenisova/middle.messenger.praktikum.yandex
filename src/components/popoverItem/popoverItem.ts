@@ -1,6 +1,6 @@
-import popoverItemTemplate from './popoverItem.tmpl';
-import { Block } from '../../utils/block';
-import './popover-item.scss';
+import popoverItemTemplate from "./popoverItem.tmpl";
+import { Block } from "../../utils/block";
+import "./popover-item.scss";
 
 export type TPopoverItem = {
     img: string;
@@ -10,7 +10,7 @@ export type TPopoverItem = {
 
 export class PopoverItem extends Block {
     constructor(context: TPopoverItem, events = {}) {
-        super('div', {
+        super("div", {
             context: {
                 ...context,
             },

@@ -1,11 +1,11 @@
-import * as Handlebars from 'handlebars';
-import chatTemplate from './chat.tmpl';
-import { ChatItem } from '../../components/chatItem';
-import { openChat } from './openChat';
-import { selectChat } from './selectChat';
-import { routes } from '../../utils';
-import { Input } from '../../components/input';
-import './chat.scss';
+import * as Handlebars from "handlebars";
+import chatTemplate from "./chat.tmpl";
+import { ChatItem } from "../../components/chatItem";
+import { openChat } from "./openChat";
+import { selectChat } from "./selectChat";
+import { routes } from "../../utils";
+import { Input } from "../../components/input";
+import "./chat.scss";
 
 export function chat(route: string) {
     const template = Handlebars.compile(chatTemplate);
@@ -14,9 +14,9 @@ export function chat(route: string) {
 
     const searchInput = new Input(
         {
-            label: '&#x1F50E;&#xFE0E; Поиск',
-            name: 'search',
-            type: 'text',
+            label: "&#x1F50E;&#xFE0E; Поиск",
+            name: "search",
+            type: "text",
         }
     );
 
@@ -27,7 +27,7 @@ export function chat(route: string) {
                 message: "Изображение",
                 time: "10:49",
                 currentChat: false
-            },
+            }
         ),
         new ChatItem(
             {
@@ -49,7 +49,7 @@ export function chat(route: string) {
             {
                 name: "Вадим",
                 message: "Вы: Круто!",
-                time: 'Пт',
+                time: "Пт",
                 currentChat: true
             }
         ),
@@ -57,7 +57,7 @@ export function chat(route: string) {
             {
                 name: "тет-а-теты",
                 message: "И Human Interface Guidelines и Material Design рекомендуют",
-                time: 'Пт',
+                time: "Пт",
                 currentChat: false
             }
         ),
@@ -65,7 +65,7 @@ export function chat(route: string) {
             {
                 name: "1, 2, 3",
                 message: "Миллионы россиян ежедневно проводят десятки часов свое",
-                time: 'Пн',
+                time: "Пн",
                 currentChat: false
             }
         ),
@@ -73,7 +73,7 @@ export function chat(route: string) {
             {
                 name: "Design Destroyer",
                 message: "В 2008 году художник Jon Rafman начал собирать",
-                time: 'Пн',
+                time: "Пн",
                 currentChat: false
             }
         ),
@@ -81,7 +81,7 @@ export function chat(route: string) {
             {
                 name: "Day",
                 message: "Так увлёкся работой по курсу, что совсем забыл его анонсировать",
-                time: '1 Мая 2020',
+                time: "1 Мая 2020",
                 currentChat: false
             }
         ),
@@ -89,7 +89,7 @@ export function chat(route: string) {
             {
                 name: "Стас Рогозин",
                 message: "Можно или сегодня или завтра вечером",
-                time: '12 Апр 2020',
+                time: "12 Апр 2020",
                 currentChat: false
             }
         ),

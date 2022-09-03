@@ -1,6 +1,6 @@
-import linkTemplate from './link.tmpl';
-import { Block } from '../../utils/block';
-import './link.scss';
+import linkTemplate from "./link.tmpl";
+import { Block } from "../../utils/block";
+import "./link.scss";
 
 export type TBtn = {
     linkHref: string;
@@ -10,7 +10,7 @@ export type TBtn = {
 
 export class Link extends Block {
     constructor(context: TBtn, events = {}) {
-        super('a', {
+        super("a", {
             context: {
                 ...context,
             },

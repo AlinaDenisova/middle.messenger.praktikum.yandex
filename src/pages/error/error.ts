@@ -1,6 +1,6 @@
-import * as Handlebars from 'handlebars';
-import errorPageTemplate from './error.tmpl';
-import './error.scss';
+import * as Handlebars from "handlebars";
+import errorPageTemplate from "./error.tmpl";
+import "./error.scss";
 
 export function errorPage(scheme: {
     errorCode: string;

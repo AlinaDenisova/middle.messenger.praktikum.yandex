@@ -1,8 +1,8 @@
-import * as Handlebars from 'handlebars';
-import authTemplate from './auth.tmpl';
-import { Input } from '../../../components/input';
-import { Btn } from '../../../components/btn'
-import { Form } from '../../../components/form';
+import * as Handlebars from "handlebars";
+import authTemplate from "./auth.tmpl";
+import { Input } from "../../../components/input";
+import { Btn } from "../../../components/btn"
+import { Form } from "../../../components/form";
 import { Link } from "../../../components/link";
 
 export function auth() {
@@ -10,32 +10,33 @@ export function auth() {
 
   const loginInput = new Input(
     {
-      name: 'login',
-      label: 'Логин',
-      type: 'text',
+      name: "login",
+      label: "Логин",
+      type: "text",
       required: true,
-      errorMessage: 'Неверный логин',
+      errorMessage: "Неверный логин",
     }
   );
 
   const passwordInput = new Input(
     {
-      name: 'password',
-      label: 'Пароль',
-      type: 'password',
+      name: "password",
+      label: "Пароль",
+      type: "password",
       required: true,
-      errorMessage: 'Неверный пароль',
+      errorMessage: "Неверный пароль",
     },
   );
 
   const button = new Btn({
-    btnText: 'Авторизоваться',
-    btnClassName: 'login',
+    btnText: "Авторизоваться",
+    btnClassName: "login",
+    btnType: "submit"
   });
 
   const link = new Link({
-      linkText: 'Войти',
-      linkHref: '/registration',
+      linkText: "Войти",
+      linkHref: "/registration",
   });
 
   const context = {

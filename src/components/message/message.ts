@@ -1,6 +1,6 @@
-import messageTemplate from './message.tmpl';
-import { Block } from '../../utils/block';
-import './message.scss';
+import messageTemplate from "./message.tmpl";
+import { Block } from "../../utils/block";
+import "./message.scss";
 
 export type TMessage = {
     myMessage: boolean;
@@ -13,7 +13,7 @@ export type TMessage = {
 
 export class Message extends Block {
     constructor(context: TMessage, events = {}) {
-        super('div', {
+        super("div", {
             context: {
                 ...context,
             },
