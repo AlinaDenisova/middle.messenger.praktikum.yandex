@@ -2,6 +2,7 @@ export default
 `<div class="{{wrapperClassName}}">
     <label class="input__label" for="{{name}}">{{label}}</label>
     <input
+    placeholder="{{placeholder}}"
     class="{{inputClassName}}"
     type="{{type}}"
     name="{{name}}"

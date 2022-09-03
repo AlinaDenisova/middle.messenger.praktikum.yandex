@@ -9,7 +9,7 @@ import { isClassDefined, classIfElse } from "../../utils";
 export type TInput = {
     type: string;
     errorMessage?: string;
-    label: string;
+    label?: string;
     name: string;
     required?: boolean;
     value?: string | number;

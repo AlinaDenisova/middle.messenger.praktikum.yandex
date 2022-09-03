@@ -14,9 +14,10 @@ export function chat(route: string) {
 
     const searchInput = new Input(
         {
-            label: "&#x1F50E;&#xFE0E; Поиск",
+            placeholder: "Поиск",
             name: "search",
             type: "text",
+            inputClassName: 'chat-sidebar__search-input'
         }
     );
 

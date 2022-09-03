@@ -15,6 +15,7 @@ export function registration() {
         label: "Почта",
         type: "text",
         required: true,
+        wrapperClassName: "login__input-wrapper",
         errorMessage:
           "Адрес электронной почты содержит ошибки",
       }
@@ -25,6 +26,7 @@ export function registration() {
         label: "Логин",
         type: "text",
         required: true,
+        wrapperClassName: "login__input-wrapper",
         errorMessage:
           "Длина логина 3-20 символов, должен быть написан латиницей",
       }
@@ -35,6 +37,7 @@ export function registration() {
         label: "Имя",
         type: "text",
         required: false,
+        wrapperClassName: "login__input-wrapper",
         errorMessage:
           "Ввведите имя с заглавной буквы без цифр и символов",
       }
@@ -45,6 +48,7 @@ export function registration() {
         label: "Фамилия",
         type: "text",
         required: false,
+        wrapperClassName: "login__input-wrapper",
         errorMessage:
           "Ввведите фамилию с заглавной буквы без цифр и символов",
       }
@@ -55,6 +59,7 @@ export function registration() {
         label: "Телефон",
         type: "text",
         required: false,
+        wrapperClassName: "login__input-wrapper",
         errorMessage:
           "Введите номер в международном формате, например: +7..",
       }
@@ -65,6 +70,7 @@ export function registration() {
         label: "Пароль",
         type: "password",
         required: true,
+        wrapperClassName: "login__input-wrapper",
         errorMessage:
           "Длина пароля 8-40 символов, обязательна заглавная буква и цифра",
       }

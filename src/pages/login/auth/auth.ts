@@ -14,6 +14,7 @@ export function auth() {
       label: "Логин",
       type: "text",
       required: true,
+      wrapperClassName: "login__input-wrapper",
       errorMessage: "Неверный логин",
     }
   );
@@ -24,6 +25,7 @@ export function auth() {
       label: "Пароль",
       type: "password",
       required: true,
+      wrapperClassName: "login__input-wrapper",
       errorMessage: "Неверный пароль",
     },
   );

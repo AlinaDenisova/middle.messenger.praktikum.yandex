@@ -3,7 +3,7 @@ export default
     <section class="chat-sidebar">
         <div class="chat-sidebar__top">
         <a class="chat-sidebar__link" href="./profile-overview.hbs">Профиль ></a>
-            {{{ input }}}
+            {{{ searchInput }}}
         </div>
         <div class="chat__list">
             {{#each chatItems}}
