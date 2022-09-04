@@ -1,5 +1,5 @@
 export default
-`<div class="modal show" id="{{id}}">
+`<div class="modal" id="{{id}}">
     <h3 class="modal__title">{{titleText}}</h3>
     <div class="modal-input__wrapper">
         <label class="modal-input__label {{labelClassName}}" for="{{inputId}}">{{labelText}}</label>

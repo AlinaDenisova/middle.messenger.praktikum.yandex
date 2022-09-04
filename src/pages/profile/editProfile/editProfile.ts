@@ -8,6 +8,7 @@ import {ProfileAvatar} from "../../../components/profileAvatar";
 import uploadPhoto from "../../../assets/icons/upload-photo.svg";
 import {nanoid} from "nanoid";
 import {Modal} from "../../../components/modal";
+import {validation} from '../../../utils';
 
 export function editProfile() {
     const template = Handlebars.compile(editProfileTemplate);
@@ -24,6 +25,11 @@ export function editProfile() {
                 errorMessage:
                     "Адрес электронной почты содержит ошибки",
                 isProfileInput: true,
+            },
+            {
+                blur: (event: Event) => {
+                    validation({ event });
+                },
             }
         ),
         new Input(
@@ -37,6 +43,11 @@ export function editProfile() {
                 errorMessage:
                     "Длина логина 3-20 символов, должен быть написан латиницей",
                 isProfileInput: true,
+            },
+            {
+                blur: (event: Event) => {
+                    validation({ event });
+                },
             }
         ),
         new Input(
@@ -50,6 +61,11 @@ export function editProfile() {
                 errorMessage:
                     "Ввведите имя с заглавной буквы без цифр и символов",
                 isProfileInput: true,
+            },
+            {
+                blur: (event: Event) => {
+                    validation({ event });
+                },
             }
         ),
         new Input(
@@ -63,6 +79,11 @@ export function editProfile() {
                 errorMessage:
                     "Ввведите фамилию с заглавной буквы без цифр и символов",
                 isProfileInput: true,
+            },
+            {
+                blur: (event: Event) => {
+                    validation({ event });
+                },
             }
         ),
         new Input(
@@ -76,6 +97,11 @@ export function editProfile() {
                 errorMessage:
                     "Длина ника 3-20 символов, должен быть написан латиницей",
                 isProfileInput: true,
+            },
+            {
+                blur: (event: Event) => {
+                    validation({ event });
+                },
             }
         ),
         new Input(
@@ -89,6 +115,11 @@ export function editProfile() {
                 errorMessage:
                     "Введите номер в международном формате, например: +7..",
                 isProfileInput: true,
+            },
+            {
+                blur: (event: Event) => {
+                    validation({ event });
+                },
             }
         )
     ]
@@ -96,8 +127,9 @@ export function editProfile() {
     const button = new Btn({
         btnText: "Сохранить",
         btnType: "submit",
-        btnClassName: "profile-edit"
-    });
+        btnClassName: "profile-edit",
+    },
+        );
 
     const profileAvatar = new ProfileAvatar ({
         uploadAvatarImage: uploadPhoto

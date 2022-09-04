@@ -12,7 +12,7 @@ export type TMessage = {
 };
 
 export class Message extends Block {
-    constructor(context: TMessage, events = {}) {
+    constructor(context: TMessage, events: Object = {}) {
         super("div", {
             context: {
                 ...context,

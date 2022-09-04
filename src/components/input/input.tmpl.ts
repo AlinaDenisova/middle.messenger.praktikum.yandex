@@ -8,6 +8,6 @@ export default
     name="{{name}}"
     value="{{value}}"
     id="{{id}}"
-    required={{required}}/>
+    required={{required}}>
     <div class="input__error hidden">{{errorMessage}}</div>
 </div>`

@@ -10,7 +10,7 @@ export type TBtn = {
 };
 
 export class Btn extends Block {
-    constructor(context: TBtn, events = {}) {
+    constructor(context: TBtn, events: Object = {}) {
         super("div", {
             context: {
                 ...context,

@@ -1,5 +1,5 @@
 import * as Handlebars from "handlebars";
-import { EventBus } from "./eventBus";
+import { EventBus } from './EventBus';
 
 export type Dictionary = Record<string, any>;
 

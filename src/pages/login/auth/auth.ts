@@ -1,4 +1,5 @@
 import * as Handlebars from "handlebars";
+import {validation} from '../../../utils';
 import authTemplate from "./auth.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn"
@@ -16,7 +17,12 @@ export function auth() {
       required: true,
       wrapperClassName: "login__input-wrapper",
       errorMessage: "Неверный логин",
-    }
+    },
+      {
+          blur: (event: Event) => {
+              validation({ event });
+          },
+      }
   );
 
   const passwordInput = new Input(
@@ -28,6 +34,11 @@ export function auth() {
       wrapperClassName: "login__input-wrapper",
       errorMessage: "Неверный пароль",
     },
+      {
+          change: (event: Event) => {
+              validation({ event });
+          },
+      }
   );
 
   const button = new Btn({

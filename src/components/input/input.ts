@@ -18,6 +18,7 @@ export type TInput = {
     isProfileInput?: boolean;
     wrapperClassName?: string;
     inputClassName?: string;
+    dataType?: string;
 };
 
 export class Input extends Block {

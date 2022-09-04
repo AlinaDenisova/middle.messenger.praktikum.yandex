@@ -12,7 +12,5 @@ export default
     id="{{id}}"
     {{#if disabledInput }}disabled{{/if}}
   />
-  <div class="input-profile__error hidden">
-    {{errorMessage}}
-  </div>
+  <div class="input-profile__error hidden">{{errorMessage}}</div>
 </div>`;
