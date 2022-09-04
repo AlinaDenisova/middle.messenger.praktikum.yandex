@@ -7,6 +7,7 @@ import "./profile-edit.scss";
 import {ProfileAvatar} from "../../../components/profileAvatar";
 import uploadPhoto from "../../../assets/icons/upload-photo.svg";
 import {nanoid} from "nanoid";
+import {Modal} from "../../../components/modal";
 
 export function editProfile() {
     const template = Handlebars.compile(editProfileTemplate);
@@ -102,12 +103,27 @@ export function editProfile() {
         uploadAvatarImage: uploadPhoto
     });
 
+    const modal = new Modal (
+        {
+            id: "uploadAvatar",
+            titleText: "Загрузите файл",
+            labelText: "Выбрать файл на устройстве",
+            inputId: "uploadAvatarField",
+            required: false,
+            inputType: "file",
+            inputClassName: "modal-input--upload-avatar",
+            labelClassName: "modal-input__label--upload-avatar"
+        }
+    )
+
 
     const context = {
         inputs: inputs.map((input: Dictionary) => input.transformToString()),
         button: button.transformToString(),
         profileAvatar: profileAvatar.transformToString(),
-        id: nanoid()
+        id: nanoid(),
+        modal: modal.transformToString(),
+        userName: "Иван",
     };
 
     return template(context);

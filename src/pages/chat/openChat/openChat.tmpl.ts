@@ -40,5 +40,9 @@ export default
             </button>
         </div>
     </div>
-</section>
+    {{#each modals}}
+       {{{this}}}
+    {{/each}}
+    <div class="overlay"><div>
+</div>
 `

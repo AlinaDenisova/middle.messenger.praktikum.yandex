@@ -2,6 +2,7 @@ import * as Handlebars from "handlebars";
 import openChatTemplate from "./openChat.tmpl";
 import { Input } from "../../../components/input";
 import { Message } from "../../../components/message";
+import { Modal } from "../../../components/modal";
 import "./chat-open.scss";
 import {PopoverItem} from "../../../components/popoverItem";
 import { Dictionary } from "../../../utils/block";
@@ -89,6 +90,36 @@ export function openChat() {
         )
     ];
 
+    const modals = [
+        new Modal (
+            {
+                id: "deleteUser",
+                titleText: "Удалить пользователя",
+                labelText: "ID",
+                inputId: "deleteUserField",
+                required: false,
+                inputType: "text",
+                buttonText: "Удалить",
+                linkHref: "javascript:void(0)",
+                linkText: "Отмена",
+            }
+        ),
+
+        new Modal (
+            {
+                id: "addUser",
+                titleText: "Добавить пользователя",
+                labelText: "ID",
+                inputId: "addUserInput",
+                required: false,
+                inputType: "text",
+                buttonText: "Добавить",
+                linkHref: "javascript:void(0)",
+                linkText: "Отмена",
+            }
+        )
+    ]
+
     const context = {
         date: "21 марта",
         userName: "Вадим",
@@ -98,7 +129,8 @@ export function openChat() {
         message: message.transformToString(),
         messages: [messages1.transformToString(), messages2.transformToString(),messages3.transformToString()],
         popoverItems1: popoverItemsArr1.map((popoverItem: Dictionary) => popoverItem.transformToString()),
-        popoverItems2: popoverItemsArr2.map((popoverItem: Dictionary) => popoverItem.transformToString())
+        popoverItems2: popoverItemsArr2.map((popoverItem: Dictionary) => popoverItem.transformToString()),
+        modals: modals.map((modal: Dictionary) => modal.transformToString()),
     };
 
 
