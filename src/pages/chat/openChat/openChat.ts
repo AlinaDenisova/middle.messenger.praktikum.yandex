@@ -4,7 +4,7 @@ import { Input } from "../../../components/input";
 import { Message } from "../../../components/message";
 import { Modal } from "../../../components/modal";
 import "./chat-open.scss";
-import {PopoverItem} from "../../../components/popoverItem";
+import { PopoverItem } from "../../../components/popoverItem";
 import { Dictionary } from "../../../utils/block";
 import arrowIcon from "../../../assets/icons/arrow-back.svg";
 import addIcon from "../../../assets/icons/add.svg";
@@ -14,15 +14,26 @@ import addPhotoIcon from "../../../assets/icons/add-photo.svg";
 import deleteUserIcon from "../../../assets/icons/delete-user.svg";
 import addUserIcon from "../../../assets/icons/add-user.svg";
 import readIcon from "../../../assets/icons/read.svg";
+import { openModal, showPopover, checkAndCollectDataFromInput } from "../../../utils";
+import { nanoid } from "nanoid";
+import { PopoverHandler } from "../../../components/popoverHandler";
+import { Popover } from "../../../components/popover";
 
 export function openChat() {
     const template = Handlebars.compile(openChatTemplate);
 
-    const message = new Input(
+    const messageInput = new Input(
         {
-            label: "Сообщение",
             name: "message",
             type: "text",
+            inputClassName: "chat-open-send__field",
+            wrapperClassName: "chat-open-send__field-wrapper",
+            placeholder: "Сообщение",
+        },
+        {
+            blur: (event: Event) => {
+                checkAndCollectDataFromInput(event);
+            },
         }
     );
 
@@ -52,6 +63,14 @@ export function openChat() {
                 img: addUserIcon,
                 imgDescr: "Добавить пользователя",
                 text: "Добавить пользователя",
+                className: 'modal-trigger',
+                id: nanoid(6),
+                dataModal: "addUser-modal"
+            },
+        {
+                click: (event: Event) => {
+                    openModal({ event })
+                },
             }
         ),
 
@@ -60,9 +79,22 @@ export function openChat() {
                 img: deleteUserIcon,
                 imgDescr: "Удалить пользователя",
                 text: "Удалить пользователя",
+                className: 'modal-trigger',
+                id: nanoid(6),
+                dataModal: "deleteUser-modal"
+            },
+            {
+                click: (event: Event) => {
+                    openModal({ event })
+                },
             }
         )
     ];
+
+    const popover1 = new Popover({
+        popoverItems: popoverItemsArr1.map((popoverItem: Dictionary) => popoverItem.transformToString()),
+        className: "popover--top-right"
+    })
 
     const popoverItemsArr2 = [
         new PopoverItem(
@@ -70,6 +102,7 @@ export function openChat() {
                 img: addPhotoIcon,
                 imgDescr: "Прикрепить фото или видео",
                 text: "Фото или Видео",
+                id: nanoid(6),
             }
         ),
 
@@ -78,6 +111,7 @@ export function openChat() {
                 img: addFileIcon,
                 imgDescr: "Прикрепить файл",
                 text: "Файл",
+                id: nanoid(6),
             }
         ),
 
@@ -86,14 +120,20 @@ export function openChat() {
                 img: addLocationIcon,
                 imgDescr: "Прикрепить локацию",
                 text: "Локация",
+                id: nanoid(6),
             }
         )
     ];
 
+    const popover2 = new Popover({
+        popoverItems: popoverItemsArr2.map((popoverItem: Dictionary) => popoverItem.transformToString()),
+        className: "popover--bottom-left"
+    })
+
     const modals = [
         new Modal (
             {
-                id: "deleteUser",
+                id: "deleteUser-modal",
                 titleText: "Удалить пользователя",
                 labelText: "ID",
                 inputId: "deleteUserField",
@@ -107,7 +147,7 @@ export function openChat() {
 
         new Modal (
             {
-                id: "addUser",
+                id: "addUser-modal",
                 titleText: "Добавить пользователя",
                 labelText: "ID",
                 inputId: "addUserInput",
@@ -120,17 +160,45 @@ export function openChat() {
         )
     ]
 
+    const popoverHandler1 = new PopoverHandler({
+         classNameBtn: "chat-open-actions__btn",
+         classNameSpan: "chat-open-actions__dot",
+         id: nanoid(6),
+    },
+        {
+            click: (event: Event) => {
+                showPopover({ event })
+            },
+        }
+    );
+
+    const popoverHandler2 = new PopoverHandler({
+         classNameBtn: "chat-open-send__attachment",
+         classNameImg: "chat-open-send__attachment-img",
+         descrImg: "Прикрепить вложение",
+         srcImg: addIcon,
+         id: nanoid(6),
+    },
+        {
+            click: (event: Event) => {
+                showPopover({ event })
+            },
+        }
+    );
+
     const context = {
         date: "21 марта",
         userName: "Вадим",
         readIcon,
         addIcon,
         arrowIcon,
-        message: message.transformToString(),
+        messageInput: messageInput.transformToString(),
         messages: [messages1.transformToString(), messages2.transformToString(),messages3.transformToString()],
-        popoverItems1: popoverItemsArr1.map((popoverItem: Dictionary) => popoverItem.transformToString()),
-        popoverItems2: popoverItemsArr2.map((popoverItem: Dictionary) => popoverItem.transformToString()),
+        popover1: popover1.transformToString(),
+        popover2: popover2.transformToString(),
         modals: modals.map((modal: Dictionary) => modal.transformToString()),
+        popoverHandler1: popoverHandler1.transformToString(),
+        popoverHandler2: popoverHandler2.transformToString(),
     };
 
 

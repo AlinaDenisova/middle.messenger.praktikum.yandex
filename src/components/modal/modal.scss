@@ -3,7 +3,7 @@
 .modal {
   background: $bg-color;
   padding: 40px 2.3% 30px;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
   border-radius: 12px;
   position: fixed;
   top: 50%;
@@ -29,26 +29,20 @@
     text-align: center;
   }
 
-  &__actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 25px;
-  }
-
   &__btn {
-      background: $marker-color;
-      border-radius: 8px;
-      margin: 0;
-      margin-bottom: 13px;
-      cursor: pointer;
-      font-size: 13px;
-      line-height: 13px;
-      padding: 12px;
-      border: none;
-      color: $input-color;
-      max-width: 280px;
-      width: 100%;
+    background: $marker-color;
+    border-radius: 8px;
+    margin: 0;
+    margin-bottom: 13px;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 13px;
+    padding: 12px;
+    border: none;
+    color: $input-color;
+    max-width: 280px;
+    width: 100%;
+    margin-top: 25px;
   }
 
   &-input {
@@ -60,7 +54,7 @@
     font-size: 13px;
     line-height: 13px;
     box-sizing: border-box;
-    padding: 0 0 5px 0;
+    padding: 0 0 5px;
     margin-bottom: 7px;
 
     &__wrapper {
@@ -106,5 +100,6 @@
     color: $marker-color;
     text-decoration: none;
     display: block;
+    text-align: center;
   }
 }

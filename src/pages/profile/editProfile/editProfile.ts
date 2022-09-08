@@ -4,11 +4,14 @@ import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn";
 import { Dictionary } from "../../../utils/block";
 import "./profile-edit.scss";
-import {ProfileAvatar} from "../../../components/profileAvatar";
+import { ProfileAvatar } from "../../../components/profileAvatar";
 import uploadPhoto from "../../../assets/icons/upload-photo.svg";
-import {nanoid} from "nanoid";
-import {Modal} from "../../../components/modal";
-import {validation} from '../../../utils';
+import { Modal } from "../../../components/modal";
+import { checkAndCollectData, validation } from '../../../utils';
+import { Form } from "../../../components/form";
+import { nanoid } from "nanoid";
+import { UploadAvatar } from "../../../components/uploadAvatar";
+import { openModal } from "../../../utils/";
 
 export function editProfile() {
     const template = Handlebars.compile(editProfileTemplate);
@@ -137,25 +140,44 @@ export function editProfile() {
 
     const modal = new Modal (
         {
-            id: "uploadAvatar",
+            id: "uploadAvatar-modal",
             titleText: "Загрузите файл",
             labelText: "Выбрать файл на устройстве",
+            linkText: "Отмена",
+            linkHref: "javascript:void(0)",
             inputId: "uploadAvatarField",
             required: false,
             inputType: "file",
             inputClassName: "modal-input--upload-avatar",
-            labelClassName: "modal-input__label--upload-avatar"
+            labelClassName: "modal-input__label--upload-avatar",
         }
     )
 
+    const form = new Form({
+        inputs: inputs.map((input: Dictionary) => input.transformToString()),
+        btn: button.transformToString(),
+    }, {
+        submit: (event: Event) => {
+            checkAndCollectData(event, "/overviewProfile");
+        },
+    });
+
+    const uploadAvatar = new UploadAvatar({
+        profileAvatar: profileAvatar.transformToString(),
+        id: nanoid(6),
+        dataModal: 'uploadAvatar-modal'
+    },
+        {
+        click: (event: Event) => {
+            openModal({ event })
+        },
+    });
 
     const context = {
-        inputs: inputs.map((input: Dictionary) => input.transformToString()),
-        button: button.transformToString(),
-        profileAvatar: profileAvatar.transformToString(),
-        id: nanoid(),
         modal: modal.transformToString(),
         userName: "Иван",
+        form: form.transformToString(),
+        uploadAvatar: uploadAvatar.transformToString()
     };
 
     return template(context);

@@ -1,9 +1,9 @@
 @import "../../styles/colors";
 
 .message {
-
   &-item {
     $block: &;
+
     color: $text-main-color;
     font-size: 12px;
     line-height: 15px;
@@ -11,7 +11,7 @@
     background: $input-color;
     width: fit-content;
     display: flex;
-    border-radius: 0 10px 10px 10px;
+    border-radius: 0 10px 10px;
     justify-content: flex-end;
     align-items: flex-end;
     margin-bottom: 10px;
@@ -24,7 +24,7 @@
 
     &--my-message {
       background: $my-message-color;
-      border-radius: 10px 10px 0 10px;
+      border-radius: 10px 10px 0;
       margin-right: 0;
       margin-left: auto;
 

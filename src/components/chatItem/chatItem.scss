@@ -2,6 +2,7 @@
 
 .chat-item {
   $block: &;
+
   margin: 2px 10px;
   border-bottom: 1px solid $border-color;
   display: flex;
@@ -51,7 +52,7 @@
     font-weight: 600;
     font-size: 13px;
     line-height: 13px;
-    margin: 0 0 4px 0;
+    margin: 0 0 4px;
   }
 
   &__message {

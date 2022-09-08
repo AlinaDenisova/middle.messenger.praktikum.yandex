@@ -6,6 +6,9 @@ export type TPopoverItem = {
     img: string;
     imgDescr: string;
     text: string;
+    className?: string,
+    id: string,
+    dataModal?: string,
 };
 
 export class PopoverItem extends Block {

@@ -1,3 +1,5 @@
+import { Dictionary } from '../utils/block';
+
 const showWarningMessage = (input: HTMLInputElement, isError: boolean) => {
   const parent = input.parentNode || input.parentElement;
   const messageElement =
@@ -17,7 +19,7 @@ const showWarningMessage = (input: HTMLInputElement, isError: boolean) => {
 const regexp = {
   checkLogin: /^[a-zA-Z0-9-_]{3,20}$/g,
   checkPassword: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/g,
-  checkPhoneNumber: /^\+\d{1,2}\(\d{3,4}\)\d{7,9}/g,
+  checkPhoneNumber: /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/g,
   checkMail: /^([\w.-])+@([\w.-])+\.([A-Za-z]{2,4})$/,
   checkName: /^[А-ЯA-Z][a-zа-я-]{1,20}$/g,
 };
@@ -111,5 +113,57 @@ export const validation = (data: {
       return checkMessageField(input);
     default:
       return false;
+  }
+};
+
+const getFormModel = (form: HTMLFormElement) => {
+  const inputs = form.querySelectorAll('input');
+
+  if (!inputs || inputs?.length === 0) {
+    return;
+  }
+
+  const data: Dictionary = [...inputs].reduce(
+      (model: Dictionary, input: HTMLInputElement) => {
+        const { name, value } = input;
+        model[name] = value;
+        return model;
+      },
+      {}
+  );
+
+  console.log(data);
+};
+
+const checkAllInputsFields = (form: HTMLFormElement) => {
+  const inputs = form.querySelectorAll('input');
+  return [...inputs]
+      .map((input) => validation({ input }))
+      .every((isError) => isError === false);
+};
+
+export const checkAndCollectData = (event: Event, nextRoute?: string) => {
+  const form = event.target as HTMLFormElement;
+  if (form && checkAllInputsFields(form)) {
+    getFormModel(form);
+    if (nextRoute) {
+      window.location.href = nextRoute;
+    }
+  }
+};
+
+const getInputModel = (input: HTMLInputElement) => {
+  if (!input) {
+    return;
+  }
+  const { name, value } = input;
+  const result: Dictionary = { [name]: value };
+  console.log(result);
+};
+
+export const checkAndCollectDataFromInput = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  if (input && !checkMessageField(input)) {
+    getInputModel(input);
   }
 };

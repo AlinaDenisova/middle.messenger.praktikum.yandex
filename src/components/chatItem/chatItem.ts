@@ -11,7 +11,7 @@ export type TChatItem = {
 };
 
 export class ChatItem extends Block {
-    constructor(context: TChatItem, events: Object = {}) {
+    constructor(context: TChatItem, events: object = {}) {
         super("div", {
             context: {
                 ...context,

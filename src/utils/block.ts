@@ -1,5 +1,5 @@
 import * as Handlebars from "handlebars";
-import { EventBus } from './EventBus';
+import { EventBus } from './eventBus';
 
 export type Dictionary = Record<string, any>;
 
@@ -34,7 +34,7 @@ export class Block {
 
     protected _template: Handlebars.TemplateDelegate<any>;
 
-    constructor(tagName: string = "div", props = {}) {
+    constructor(tagName = "div", props = {}) {
         this._meta = {
             tagName,
             props,
@@ -144,7 +144,7 @@ export class Block {
 
     _triggerEvent(event: Event, func: Function) {
         const target = event.target as HTMLElement;
-        const id = target.getAttribute("data-id");
+        const id = target.getAttribute("id");
 
         if (target && this._elementId === id) {
             event.preventDefault();

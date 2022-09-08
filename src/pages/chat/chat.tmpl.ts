@@ -2,7 +2,7 @@ export default
 `<div class="chat">
     <section class="chat-sidebar">
         <div class="chat-sidebar__top">
-        <a class="chat-sidebar__link" href="./profile-overview.hbs">Профиль ></a>
+        <a class="chat-sidebar__link" href="/overviewProfile">Профиль ></a>
             {{{ searchInput }}}
         </div>
         <div class="chat__list">

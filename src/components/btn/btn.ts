@@ -1,6 +1,5 @@
 import btnTemplate from "./btn.tmpl";
 import { Block } from "../../utils/block";
-import { isClassDefined } from "../../utils";
 import "./btn.scss";
 
 export type TBtn = {
@@ -10,11 +9,10 @@ export type TBtn = {
 };
 
 export class Btn extends Block {
-    constructor(context: TBtn, events: Object = {}) {
+    constructor(context: TBtn, events: object = {}) {
         super("div", {
             context: {
                 ...context,
-                btnClassName: `${isClassDefined(context.btnClassName)}`,
             },
             template: btnTemplate,
             events,

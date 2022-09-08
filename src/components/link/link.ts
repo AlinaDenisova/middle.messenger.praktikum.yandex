@@ -1,7 +1,6 @@
 import linkTemplate from "./link.tmpl";
 import { Block } from "../../utils/block";
 import "./link.scss";
-import {isClassDefined} from "../../utils";
 
 export type TBtn = {
     linkHref: string;
@@ -14,7 +13,6 @@ export class Link extends Block {
         super("a", {
             context: {
                 ...context,
-                linkClassName: `${isClassDefined(context.linkClassName)}`,
             },
             template: linkTemplate,
             events,

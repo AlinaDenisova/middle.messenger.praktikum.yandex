@@ -7,15 +7,9 @@ export default
             {{/if}}
         </div>
         <div class="chat-open-interlocutor__name">{{userName}}</div>
-        <div class="chat-open-actions popover-container">
-            <button class="chat-open-actions__btn popover-btn">
-                <span class="chat-open-actions__dot"></span>
-            </button>
-            <div class="popover popover--top-right">
-                {{#each popoverItems1}}
-                    {{{this}}}
-                {{/each}}
-            </div>
+        <div class="chat-open-actions">
+            {{{popoverHandler1}}}
+            {{{popover1}}}
         </div>
     </div>
     <div class="chat-open__container">
@@ -24,17 +18,10 @@ export default
             {{{this}}}
         {{/each}}
 
-        <div class="chat-open-send popover-container">
-            <button class="chat-open-send__attachment popover-btn">
-                <img class="chat-open-send__attachment-img" src="{{addIcon}}" alt="Прикрепить вложение"
-                />
-            </button>
-            <div class="popover popover--bottom-left">
-                {{#each popoverItems2}}
-                    {{{this}}}
-                {{/each}}
-            </div>
-            <input class="chat-open-send__field" id="chat-open" placeholder="Сообщение">
+        <div class="chat-open-send">
+            {{{popoverHandler2}}}
+            {{{popover2}}}
+            {{{messageInput}}}
             <button class="chat-open-send__btn">
                 <img class="chat-open-send__btn-img" src="{{arrowIcon}}" alt="Отправить сообщение"/>
             </button>
@@ -43,6 +30,7 @@ export default
     {{#each modals}}
        {{{this}}}
     {{/each}}
-    <div class="overlay"><div>
+    <div class="overlay"></div>
+    <div class="overlay-popover"></div>
 </div>
 `

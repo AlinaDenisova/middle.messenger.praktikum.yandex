@@ -8,6 +8,7 @@ import {
     errorPageSchema,
     routes,
 } from "./utils";
+import './utils/helpers';
 import "./styles/base.scss";
 
 const app: HTMLElement | null = document.getElementById("app");

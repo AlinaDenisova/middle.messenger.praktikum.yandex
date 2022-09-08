@@ -1,10 +1,10 @@
 import { nanoid } from "nanoid";
 import inputTemplate from "./input.tmpl";
 import inputProfileTemplate from "./inputProfile/inputProfile.tmpl";
+import { isClassDefined, classIfElse } from "../../utils";
 import { Block } from "../../utils/block";
 import "./input.scss";
 import "./inputProfile/inputProfile.scss";
-import { isClassDefined, classIfElse } from "../../utils";
 
 export type TInput = {
     type: string;
@@ -18,11 +18,10 @@ export type TInput = {
     isProfileInput?: boolean;
     wrapperClassName?: string;
     inputClassName?: string;
-    dataType?: string;
 };
 
 export class Input extends Block {
-    constructor(context: TInput, events: Object = {}) {
+    constructor(context: TInput, events: object = {}) {
         super("div", {
             context: {
                 ...context,
