@@ -3,7 +3,7 @@
 Данный проект является учебным и представляет собой веб-мессендежер для обмена сообщениями и файлами.
 
 ## Публикация проекта на Netlify:
-https://beamish-kheer-d03c3d.netlify.app
+https://deploy-preview-2--beamish-kheer-d03c3d.netlify.app/
 
 ## Используемые технологии
 
