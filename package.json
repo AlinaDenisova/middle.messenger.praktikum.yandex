@@ -5,7 +5,7 @@
   "scripts": {
     "clean:output": "rimraf dist .parcel-cache",
     "dev": "npm run clean:output && parcel src/index.html --port 3000 --no-cache",
-    "build": "parcel build src/index.html",
+    "build": "npm run clean:output && parcel build src/index.html",
     "start": "npm run build && node server.js",
     "lint": "eslint node_modules/.bin/eslint . --ext js,ts && stylelint '**/*.scss'",
     "lint:fix": "eslint node_modules/.bin/eslint . --ext js,ts --fix && stylelint '**/*.scss' --fix"

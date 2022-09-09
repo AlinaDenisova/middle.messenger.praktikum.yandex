@@ -43,11 +43,7 @@ export class HTTPTransport {
     options: Options = {},
     timeout = 5000
   ): Promise<XMLHttpRequest> {
-    const {
-      headers = { "Content-Type": "application/json" },
-      method,
-      data,
-    } = options;
+    const { headers, method, data } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
