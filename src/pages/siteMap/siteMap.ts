@@ -2,7 +2,7 @@ import * as Handlebars from "handlebars";
 import siteMapTemplate from "./siteMap.tmpl";
 
 
-export function siteMap(siteMap: any) {
+export function siteMap() {
     const template = Handlebars.compile(siteMapTemplate);
 
     const context = {
