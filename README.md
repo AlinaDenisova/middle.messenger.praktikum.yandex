@@ -1,3 +1,5 @@
+## Pull request: https://github.com/AlinaDenisova/middle.messenger.praktikum.yandex/pull/2
+
 ## Описание
 
 Данный проект является учебным и представляет собой веб-мессендежер для обмена сообщениями и файлами.
