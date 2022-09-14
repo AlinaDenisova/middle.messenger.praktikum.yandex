@@ -8,7 +8,7 @@ export type TForm = {
 };
 
 export class Form extends Block {
-  constructor(context: { inputs: string[]; btn: string }, events: object = {}) {
+  constructor(context: { inputs: string[]; btn: string }, events: { submit: (event: Event) => void }) {
     super('div', {
       context: {
         ...context,

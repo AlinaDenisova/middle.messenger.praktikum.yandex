@@ -1,4 +1,4 @@
-enum METHODS {
+enum Methods {
   GET = "GET",
   POST = "POST",
   PUT = "PUT",
@@ -6,7 +6,7 @@ enum METHODS {
 }
 
 type Options = {
-  method?: METHODS;
+  method?: Methods;
   data?: any;
   timeout?: number;
   headers?: Record<string, string>;
@@ -14,16 +14,16 @@ type Options = {
 
 export class HTTPTransport {
   get = (url: string, options: Options = {}) =>
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+    this.request(url, { ...options, method: Methods.GET }, options.timeout);
 
   post = (url: string, options: Options = {}) =>
-    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+    this.request(url, { ...options, method: Methods.POST }, options.timeout);
 
   put = (url: string, options: Options = {}) =>
-    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+    this.request(url, { ...options, method: Methods.PUT }, options.timeout);
 
   delete = (url: string, options: Options = {}) =>
-    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+    this.request(url, { ...options, method: Methods.DELETE }, options.timeout);
 
   queryStringify(data: any) {
     if (typeof data !== "object") {
@@ -53,7 +53,7 @@ export class HTTPTransport {
 
       const xhr = new XMLHttpRequest();
 
-      const isGetMethod = method === METHODS.GET;
+      const isGetMethod = method === Methods.GET;
 
       const urlData =
         isGetMethod && !!data ? `${url}${this.queryStringify(data)}` : url;

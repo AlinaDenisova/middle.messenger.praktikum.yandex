@@ -21,7 +21,8 @@ export type TInput = {
 };
 
 export class Input extends Block {
-    constructor(context: TInput, events: object = {}) {
+    constructor(context: TInput, events?: { blur: (event: Event) => void }) {
+        console.log(events)
         super("div", {
             context: {
                 ...context,

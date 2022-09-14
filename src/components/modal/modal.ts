@@ -18,7 +18,7 @@ export type TModal = {
 };
 
 export class Modal extends Block {
-    constructor(context: TModal, events: object = {}) {
+    constructor(context: TModal, events?: { click: (event: Event) => void }) {
         super("div", {
             context: {
                 ...context,

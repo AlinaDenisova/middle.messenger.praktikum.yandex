@@ -10,37 +10,31 @@ export function auth() {
   const template = Handlebars.compile(authTemplate);
 
     const inputs = [
-        new Input(
-            {
-                name: "login",
-                label: "Логин",
-                type: "text",
-                required: true,
-                wrapperClassName: "login__input-wrapper",
-                errorMessage: "Неверный логин",
+        new Input({
+            name: "login",
+            label: "Логин",
+            type: "text",
+            required: true,
+            wrapperClassName: "login__input-wrapper",
+            errorMessage: "Неверный логин",
+        }, {
+            blur: (event: Event) => {
+                validation({event});
             },
-            {
-                blur: (event: Event) => {
-                    validation({ event });
-                },
-            }
-        ),
+        }),
 
-        new Input(
-            {
-                name: "password",
-                label: "Пароль",
-                type: "password",
-                required: true,
-                wrapperClassName: "login__input-wrapper",
-                errorMessage: "Неверный пароль",
+        new Input({
+            name: "password",
+            label: "Пароль",
+            type: "password",
+            required: true,
+            wrapperClassName: "login__input-wrapper",
+            errorMessage: "Неверный пароль",
+        }, {
+            blur: (event: Event) => {
+                validation({event});
             },
-            {
-                blur: (event: Event) => {
-                    validation({ event });
-                },
-            }
-        )
+        })
     ]
 
 

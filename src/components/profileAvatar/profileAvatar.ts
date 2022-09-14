@@ -7,7 +7,7 @@ export type TAvatar = {
 };
 
 export class ProfileAvatar extends Block {
-    constructor(context: TAvatar, events = {}) {
+    constructor(context: TAvatar, events?: { click: (event: Event) => void }) {
         super("div", {
             context: {
                 ...context,

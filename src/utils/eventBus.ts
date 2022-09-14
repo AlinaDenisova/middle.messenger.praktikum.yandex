@@ -1,6 +1,6 @@
 export class EventBus {
     listeners: {
-        [event: string]: any[];
+        [propName: string]: Array<Function>;
     };
 
     constructor() {

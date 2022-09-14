@@ -12,14 +12,12 @@ export function chat(route: string) {
     const chatView =
         route === routes.openChat ? openChat : selectChat;
 
-    const searchInput = new Input(
-        {
-            placeholder: "Поиск",
-            name: "search",
-            type: "text",
-            inputClassName: 'chat-sidebar__search-input'
-        }
-    );
+    const searchInput = new Input({
+        placeholder: "Поиск",
+        name: "search",
+        type: "text",
+        inputClassName: 'chat-sidebar__search-input'
+    });
 
     const chatItems = [
         new ChatItem(

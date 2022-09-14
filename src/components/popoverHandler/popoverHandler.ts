@@ -11,7 +11,7 @@ export type TPopoverHandler = {
 };
 
 export class PopoverHandler extends Block {
-  constructor(context: TPopoverHandler, events: object = {}) {
+  constructor(context: TPopoverHandler, events?: { click: (event: Event) => void }) {
     super('div', {
       context: {
         ...context,

@@ -13,52 +13,43 @@ export function editProfilePassword() {
     const template = Handlebars.compile(editProfilePasswordTemplate);
 
     const inputs = [
-            new Input(
-                {
-                    name: "password",
-                    label: "Старый пароль",
-                    type: "password",
-                    required: true,
-                    errorMessage: "Неверный пароль",
-                    isProfileInput: true,
+            new Input({
+                name: "password",
+                label: "Старый пароль",
+                type: "password",
+                required: true,
+                errorMessage: "Неверный пароль",
+                isProfileInput: true,
+            }, {
+                blur: (event: Event) => {
+                    validation({event});
                 },
-                {
-                    blur: (event: Event) => {
-                        validation({ event });
-                    },
-                }
-            ),
-            new Input(
-                {
-                    name: "secondPassword",
-                    label: "Новый пароль",
-                    type: "password",
-                    required: true,
-                    errorMessage:
-                        "Длина пароля 8-40 символов, обязательна заглавная буква и цифра",
-                    isProfileInput: true,
+            }),
+            new Input({
+                name: "secondPassword",
+                label: "Новый пароль",
+                type: "password",
+                required: true,
+                errorMessage:
+                    "Длина пароля 8-40 символов, обязательна заглавная буква и цифра",
+                isProfileInput: true,
+            }, {
+                blur: (event: Event) => {
+                    validation({event});
                 },
-                {
-                    blur: (event: Event) => {
-                        validation({ event });
-                    },
-                }
-            ),
-            new Input(
-                {
-                    name: "secondPassword",
-                    label: "Повторите новый пароль",
-                    type: "password",
-                    required: true,
-                    errorMessage: "Введенные пароли не совпадают",
-                    isProfileInput: true,
+            }),
+            new Input({
+                name: "secondPassword",
+                label: "Повторите новый пароль",
+                type: "password",
+                required: true,
+                errorMessage: "Введенные пароли не совпадают",
+                isProfileInput: true,
+            }, {
+                blur: (event: Event) => {
+                    validation({event});
                 },
-                {
-                    blur: (event: Event) => {
-                        validation({ event });
-                    },
-                }
-            ),
+            }),
         ]
 
     const button = new Btn({

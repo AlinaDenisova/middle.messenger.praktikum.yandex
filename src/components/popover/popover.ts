@@ -8,7 +8,7 @@ export type TPopover = {
 };
 
 export class Popover extends Block {
-  constructor(context: { popoverItems: string[], className: string }, events: object = {}) {
+  constructor(context: { popoverItems: string[], className: string }, events?: { click: (event: Event) => void }) {
     super('div', {
       context: {
         ...context,

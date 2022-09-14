@@ -9,7 +9,7 @@ export type TUploadAvatar = {
 };
 
 export class UploadAvatar extends Block {
-    constructor(context: { dataModal: string; profileAvatar: string; id: string }, events = {}) {
+    constructor(context: { dataModal: string; profileAvatar: string; id: string }, events?: { click: (event: Event) => void }) {
         super("div", {
             context: {
                 ...context,
