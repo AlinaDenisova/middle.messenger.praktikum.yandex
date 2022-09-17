@@ -1,0 +1,1 @@
+export { editProfilePassword } from "./editProfilePassword";

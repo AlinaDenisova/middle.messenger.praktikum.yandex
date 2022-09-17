@@ -1,0 +1,11 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "scss/dollar-variable-pattern": null,
+    "number-leading-zero": null,
+    "selector-type-no-unknown": true,
+    "selector-class-pattern": null,
+    "string-no-newline": true,
+    "block-no-empty": true,
+  }
+}

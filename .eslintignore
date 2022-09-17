@@ -1,0 +1,6 @@
+/dist
+/node_modules
+/src/**/*.tmpl.ts
+/typings
+.parcel-cache
+server.js

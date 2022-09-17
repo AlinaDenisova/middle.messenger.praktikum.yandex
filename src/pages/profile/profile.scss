@@ -1,0 +1,39 @@
+@import "../../styles/colors";
+
+.profile {
+  display: flex;
+
+  &-sidebar {
+    background: $panel-color;
+    display: flex;
+    min-height: 100vh;
+    width: 64px;
+
+    &__link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    &__img {
+      &-wrapper {
+        width: 28px;
+        height: 28px;
+        background: $marker-color;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  &-info {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    padding: 15px;
+  }
+}

@@ -1,0 +1,23 @@
+@import "../../styles/colors";
+
+.profile-avatar {
+  position: relative;
+  margin-bottom: 97px;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 37px;
+  }
+
+  &__photo {
+    &-wrapper {
+      width: 130px;
+      height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background: $input-color;
+      margin: 0 auto;
+    }
+  }
+}

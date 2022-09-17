@@ -1,0 +1,13 @@
+@import "../../../styles/colors";
+
+.chat-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 3.15;
+
+  &__text {
+    text-align: center;
+    color: $text-second-color;
+  }
+}
