@@ -12,6 +12,7 @@ export type TBlockProps = {
 export type TMetaBlock = {
     tagName: string;
     props: Dictionary;
+    className?: string;
 };
 
 export class Block {
@@ -34,10 +35,11 @@ export class Block {
 
     protected _template: Handlebars.TemplateDelegate<any>;
 
-    constructor(tagName = "div", props = {}) {
+    constructor(tagName = "div", props = {}, className?: string) {
         this._meta = {
             tagName,
             props,
+            className,
         };
 
         this.props = this._makePropsProxy(props);
@@ -58,8 +60,8 @@ export class Block {
     }
 
     private _createResources() {
-        const { tagName } = this._meta;
-        this._element = this._createDocumentElement(tagName);
+        const { tagName, className } = this._meta;
+        this._element = this._createDocumentElement(tagName, className);
     }
 
     init() {
@@ -138,8 +140,12 @@ export class Block {
         });
     }
 
-    private _createDocumentElement(tagName: string) {
-        return document.createElement(tagName);
+    private _createDocumentElement(tagName: string, className?: string) {
+        const node = document.createElement(tagName);
+        if (className) {
+            node.classList.add(className);
+        }
+        return node;
     }
 
     private _triggerEvent(event: Event, func: Function) {
@@ -166,16 +172,6 @@ export class Block {
         });
     }
 
-    private _removeEventListeners() {
-        const { events = {} } = this.props;
-        Object.keys(events).forEach((event) => {
-            const app = document.querySelector("#app") as HTMLElement;
-            app.removeEventListener(event, (e: Event) => {
-                this._triggerEvent(e, events[event]);
-            });
-        });
-    }
-
     transformToString(): string {
         const container = document.createElement("div");
         container.appendChild(this.element);
@@ -188,5 +184,9 @@ export class Block {
 
     hide() {
         this.element.classList.add("hidden");
+    }
+
+    remove() {
+        this._element.remove();
     }
 }

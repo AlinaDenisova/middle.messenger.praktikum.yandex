@@ -1,18 +1,58 @@
-import * as Handlebars from "handlebars";
-import errorPageTemplate from "./error.tmpl";
-import "./error.scss";
+import * as Handlebars from 'handlebars';
+import { nanoid } from 'nanoid';
 
-export function errorPage(scheme: {
+import { Btn } from '../../components/btn';
+import { Block } from '../../utils/block';
+import router from '../../router';
+
+import errorPageTemplate from './error.tmpl';
+import './error.scss';
+
+export type Scheme = {
     errorCode: string;
     errorText: string;
     linkText: string;
-}) {
+};
+
+export type TErrorPage = {
+    scheme?: Scheme;
+};
+
+const getTemplate = (scheme?: Scheme) => {
     const template = Handlebars.compile(errorPageTemplate);
+
+    const link = new Btn (
+        {
+            isLink: true,
+            linkText: 'Назад к чатам',
+            btnClassName: 'error__link',
+            btnType: 'button',
+        },
+        {
+            click: async () => {
+                router.go('/');
+            },
+        }
+    );
+
     const context = {
-        errorCode: scheme.errorCode,
-        errorText: scheme.errorText,
-        linkText: scheme.linkText,
+        errorCode: scheme?.errorCode,
+        errorText: scheme?.errorText,
+        link: link.transformToString(),
     };
 
     return template(context);
+};
+
+export class ErrorPage extends Block {
+    constructor(context: TErrorPage, events: Record<string, () => void>) {
+        super('div', {
+            context: {
+                ...context,
+                id: nanoid(6),
+            },
+            template: getTemplate(context.scheme),
+            events,
+        });
+    }
 }

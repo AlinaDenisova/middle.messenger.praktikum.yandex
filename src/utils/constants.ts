@@ -4,8 +4,10 @@ export const routes: Dictionary = Object.freeze({
   siteMap: "siteMap",
   auth: "auth",
   registration: "registration",
-  notFound: "notFound",
-  internalServerError: "internalServerError",
+  notFound: "404",
+  internalServerError: "500",
+  unauthorized: '401',
+  forbidden: '403',
   selectChat: "selectChat",
   openChat: "openChat",
   overviewProfile: "overviewProfile",
@@ -13,12 +15,15 @@ export const routes: Dictionary = Object.freeze({
   editProfilePassword: "editProfilePassword",
 });
 
-export const errorPageCodes: Dictionary = Object.freeze({
-  notFound: "404",
-  internalServerError: "500",
-});
-
 export const errorPageSchema: Dictionary = Object.freeze({
+  401: {
+    errorText: 'Пользователь не авторизован',
+    linkText: 'Назад к странице входа',
+  },
+  403: {
+    errorText: 'Нет доступа',
+    linkText: 'В доступе отказано',
+  },
   404: {
     errorText: "Не туда попали",
     linkText: "Назад к чатам",

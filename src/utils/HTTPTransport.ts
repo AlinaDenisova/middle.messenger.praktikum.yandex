@@ -1,86 +1,129 @@
 enum Methods {
-  GET = "GET",
-  POST = "POST",
-  PUT = "PUT",
-  DELETE = "DELETE",
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE',
 }
 
 type Options = {
   method?: Methods;
-  data?: any;
-  timeout?: number;
+  data?: unknown;
   headers?: Record<string, string>;
+  contentType?: string;
 };
 
-export class HTTPTransport {
-  get = (url: string, options: Options = {}) =>
-    this.request(url, { ...options, method: Methods.GET }, options.timeout);
+export default class HTTPTransport {
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
 
-  post = (url: string, options: Options = {}) =>
-    this.request(url, { ...options, method: Methods.POST }, options.timeout);
+  protected url: string;
 
-  put = (url: string, options: Options = {}) =>
-    this.request(url, { ...options, method: Methods.PUT }, options.timeout);
-
-  delete = (url: string, options: Options = {}) =>
-    this.request(url, { ...options, method: Methods.DELETE }, options.timeout);
-
-  queryStringify(data: any) {
-    if (typeof data !== "object") {
-      throw new Error("Аргумент Data должен быть объектом");
-    }
-
-    const keys = Object.keys(data);
-    return keys.reduce(
-      (result, key, ind) =>
-        `${result}${key}=${data[key]}${ind < keys.length - 1 ? "&" : ""}`,
-      "?"
-    );
+  constructor(path: string) {
+    this.url = `${HTTPTransport.API_URL}${path}`;
   }
 
-  request(
-    url: string,
-    options: Options = {},
-    timeout = 5000
-  ): Promise<XMLHttpRequest> {
-    const { headers, method, data } = options;
+  public get<Response>(
+      path = '/',
+      data?: unknown,
+      headers?: Record<string, string>
+  ): Promise<Response> {
+    return this.request<Response>(this.url + path, {
+      method: Methods.GET,
+      data,
+      headers,
+    });
+  }
+
+  public post<Response = unknown>(
+      path: string,
+      data?: unknown,
+      headers?: Record<string, string>
+  ): Promise<Response> {
+    return this.request<Response>(this.url + path, {
+      method: Methods.POST,
+      data,
+      headers,
+    });
+  }
+
+  public put<Response = void>(
+      path: string,
+      data: unknown,
+      headers?: Record<string, string>,
+      contentType?: string
+  ): Promise<Response> {
+    return this.request<Response>(this.url + path, {
+      method: Methods.PUT,
+      data,
+      headers,
+      contentType,
+    });
+  }
+
+  public patch<Response = void>(
+      path: string,
+      data: unknown,
+      headers?: Record<string, string>
+  ): Promise<Response> {
+    return this.request<Response>(this.url + path, {
+      method: Methods.PATCH,
+      data,
+      headers,
+    });
+  }
+
+  public delete<Response>(
+      path: string,
+      data?: unknown,
+      headers?: Record<string, string>
+  ): Promise<Response> {
+    return this.request<Response>(this.url + path, {
+      method: Methods.DELETE,
+      data,
+      headers,
+    });
+  }
+
+  private request<Response>(
+      url: string,
+      options: Options = { method: Methods.GET }
+  ): Promise<Response> {
+    const { method, data = {}, headers = {} } = options;
 
     return new Promise((resolve, reject) => {
-      if (!method) {
-        reject(new Error("Метод запроса не задан"));
-        return;
-      }
-
       const xhr = new XMLHttpRequest();
+      xhr.open(method || '', url);
 
-      const isGetMethod = method === Methods.GET;
-
-      const urlData =
-        isGetMethod && !!data ? `${url}${this.queryStringify(data)}` : url;
-      xhr.open(method as string, urlData);
-
-      Object.keys(headers).forEach((key) =>
-        xhr.setRequestHeader(key, headers[key])
-      );
-
-      xhr.onload = () => {
-        const { status, response } = xhr;
-        return status >= 200 && status <= 299
-          ? resolve(response)
-          : reject(response);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status >= 200 && xhr.status <= 299) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
       };
 
-      resolve(xhr);
-      xhr.onabort = reject;
-      xhr.onerror = reject;
+      xhr.onabort = () => reject({ reason: 'abort' });
+      xhr.onerror = () => reject({ reason: 'network error' });
+      xhr.ontimeout = () => reject({ reason: 'timeout' });
 
-      xhr.timeout = timeout;
-      xhr.ontimeout = reject;
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
 
-      if (isGetMethod || !data) {
+      Object.entries(headers).forEach((entry) =>
+          xhr.setRequestHeader(entry[0], entry[1])
+      );
+      xhr.setRequestHeader('Accept', 'application/json');
+
+      if (method === Methods.GET || !data) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send();
-      } else {
+      } else if (data instanceof FormData) {
         xhr.send(data);
+      } else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(data));
       }
     });
   }

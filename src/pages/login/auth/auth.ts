@@ -2,12 +2,14 @@ import * as Handlebars from "handlebars";
 import authTemplate from "./auth.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn"
-import { Link } from "../../../components/link";
+import router from '../../../router';
 import { Form } from "../../../components/form";
 import { validation, checkAndCollectData } from '../../../utils';
+import { nanoid } from 'nanoid';
+import { Block } from '../../../utils/block';
 
-export function auth() {
-  const template = Handlebars.compile(authTemplate);
+const getTemplate = () => {
+    const template = Handlebars.compile(authTemplate);
 
     const inputs = [
         new Input({
@@ -38,16 +40,22 @@ export function auth() {
     ]
 
 
-  const button = new Btn({
-    btnText: "Авторизоваться",
-    btnClassName: "login",
-    btnType: "submit"
-  });
+    const button = new Btn({
+        btnText: "Авторизоваться",
+        btnClassName: "login",
+        btnType: "submit"
+    });
 
-  const link = new Link({
-      linkText: "Нет аккаунта?",
-      linkHref: "/registration",
-  });
+    const link = new Btn({
+            btnType: 'button',
+            isLink: true,
+            linkText: "Нет аккаунта?",
+        },
+        {
+            click: async () => {
+                router.go('/sign-up');
+            },
+        });
 
     const form = new Form(
         {
@@ -67,4 +75,17 @@ export function auth() {
     };
 
     return template(context);
+}
+
+export class Auth extends Block {
+    constructor() {
+        super('div', {
+            context: {
+                ...context,
+                id: nanoid(6),
+            },
+            template: getTemplate(),
+            events,
+        });
+    }
 }

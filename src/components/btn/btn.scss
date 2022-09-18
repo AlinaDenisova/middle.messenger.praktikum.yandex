@@ -12,4 +12,18 @@
   color: $input-color;
   max-width: 280px;
   width: 100%;
+
+  &-link {
+    color: $marker-color;
+    text-decoration: none;
+    display: block;
+    border: none;
+    background: transparent;
+    margin: 0 auto;
+    cursor: pointer;
+
+    &--highlight {
+      color: $text-highlight-color;
+    }
+  }
 }

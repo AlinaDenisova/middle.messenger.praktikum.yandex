@@ -1,12 +1,14 @@
 import * as Handlebars from "handlebars";
 import registrationTemplate from "./registration.tmpl";
 import { Input } from "../../../components/input";
-import { Btn } from "../../../components/btn"
-import { Link } from "../../../components/link";
+import { Btn } from "../../../components/btn";
 import {checkAndCollectData, validation} from "../../../utils";
-import {Form} from "../../../components/form";
+import { Form } from "../../../components/form";
+import { Block } from "../../../utils/block";
+import { nanoid } from "nanoid";
+import router from "../../../router";
 
-export function registration() {
+const getTemplate = () => {
   const template = Handlebars.compile(registrationTemplate);
 
   const inputs = [
@@ -107,9 +109,15 @@ export function registration() {
       btnType: "submit"
   });
 
-  const link = new Link({
+  const link = new Btn({
       linkText: "Войти",
-      linkHref: "/auth",
+      isLink: true,
+      btnType: "button",
+  },
+    {
+        click: async () => {
+            router.go("/");
+        }
   });
 
     const form = new Form({
@@ -127,4 +135,17 @@ export function registration() {
     };
 
     return template(context);
+}
+
+export class Registration extends Block {
+    constructor(context = {}, events = {}) {
+        super("div", {
+            context: {
+                ...context,
+                id: nanoid(6),
+            },
+            template: getTemplate(),
+            events,
+        });
+    }
 }
