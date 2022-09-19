@@ -1,16 +1,17 @@
 import * as Handlebars from "handlebars";
 import chatTemplate from "./chat.tmpl";
 import { ChatItem } from "../../components/chatItem";
-import { openChat } from "./openChat";
-import { selectChat } from "./selectChat";
-import { routes } from "../../utils";
+import { OpenChat } from "./openChat";
+import { SelectChat } from "./selectChat";
 import { Input } from "../../components/input";
 import "./chat.scss";
+import { Block } from "../../utils/block";
 
-export function chat(route: string) {
+const getTemplate = (isChatOpen?: boolean) => {
     const template = Handlebars.compile(chatTemplate);
-    const chatView =
-        route === routes.openChat ? openChat : selectChat;
+    const chatView = isChatOpen
+        ? new OpenChat().transformToString()
+        : new SelectChat().transformToString();
 
     const searchInput = new Input({
         placeholder: "Поиск",
@@ -101,4 +102,21 @@ export function chat(route: string) {
     }
 
     return template(context);
+}
+
+export type TChat = {
+    isChatOpen?: boolean;
+    content?: string;
+};
+
+export class Chat extends Block {
+    constructor(context: TChat, events: Record<string, () => void>) {
+        super('div', {
+            context: {
+                ...context,
+            },
+            template: getTemplate(context.isChatOpen),
+            events,
+        });
+    }
 }

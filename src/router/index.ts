@@ -1,6 +1,6 @@
 import { ErrorPage } from "../pages/error";
 import { Login } from "../pages/login";
-// import { chat } from "../pages/chat";
+import { Сhat } from "../pages/chat";
 import {
   errorPageSchema,
   routes,
@@ -23,8 +23,8 @@ router
   .use("/", Login, { isAuth: true })
   .use(`/${routes.auth}`, Login, { isAuth: true })
   .use(`/${routes.registration}`, Login, { isAuth: false })
-  // .use(`/${routes.selectChat}`, chat, { isChatSelected: false })
-  // .use(`/${routes.openChat}`, chat, { isChatSelected: true })
+  .use(`/${routes.selectChat}`, Сhat, { isChatOpen: false })
+  .use(`/${routes.openChat}`, Сhat, { isChatOpen: true })
   .use(`/${routes.forbidden}`, ErrorPage, {
     scheme: getErrorScheme(routes.forbidden),
   })

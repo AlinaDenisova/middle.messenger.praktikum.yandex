@@ -15,11 +15,11 @@ import deleteUserIcon from "../../../assets/icons/delete-user.svg";
 import addUserIcon from "../../../assets/icons/add-user.svg";
 import readIcon from "../../../assets/icons/read.svg";
 import { openModal, showPopover, checkAndCollectDataFromInput } from "../../../utils";
-import { nanoid } from "nanoid";
 import { PopoverHandler } from "../../../components/popoverHandler";
 import { Popover } from "../../../components/popover";
+import { Block } from "../../../utils/block"
 
-export function openChat() {
+const getTemplate = () => {
     const template = Handlebars.compile(openChatTemplate);
 
     const messageInput = new Input(
@@ -203,4 +203,19 @@ export function openChat() {
 
 
     return template(context);
+}
+
+export class OpenChat extends Block {
+    constructor(context = {}, events: Record<string, () => void>) {
+        super(
+            'div',
+            {
+                context: {
+                    ...context,
+                },
+                template: getTemplate(),
+                events,
+            },
+        );
+    }
 }
