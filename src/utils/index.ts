@@ -3,10 +3,9 @@ export {
   errorPageSchema,
 } from "./constants";
 export {
-  validation,
+  checkValidation,
   checkAndCollectData,
-  checkAndCollectDataFromInput,
 } from './validation';
-export { isClassDefined, classIfElse } from "./helpers";
+export { isClassDefined, classIfElse, redirect } from "./helpers";
 export { openModal } from "./openModal"
 export { showPopover } from "./showPopover"

@@ -4,9 +4,11 @@ import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn"
 import router from '../../../router';
 import { Form } from "../../../components/form";
-import { validation, checkAndCollectData } from '../../../utils';
-import { nanoid } from 'nanoid';
+import {checkAndCollectData, checkValidation} from '../../../utils';
 import { Block } from '../../../utils/block';
+import { LoginController } from '../../../controllers';
+
+const controller = new LoginController();
 
 const getTemplate = () => {
     const template = Handlebars.compile(authTemplate);
@@ -19,9 +21,13 @@ const getTemplate = () => {
             required: true,
             wrapperClassName: "login__input-wrapper",
             errorMessage: "Неверный логин",
+            dataType: "login",
         }, {
+            focus: (event: Event) => {
+                checkValidation({ event });
+            },
             blur: (event: Event) => {
-                validation({event});
+                checkValidation({ event });
             },
         }),
 
@@ -32,13 +38,16 @@ const getTemplate = () => {
             required: true,
             wrapperClassName: "login__input-wrapper",
             errorMessage: "Неверный пароль",
+            dataType: "password"
         }, {
+            focus: (event: Event) => {
+                checkValidation({ event });
+            },
             blur: (event: Event) => {
-                validation({event});
+                checkValidation({ event });
             },
         })
     ]
-
 
     const button = new Btn({
         btnText: "Авторизоваться",
@@ -55,7 +64,7 @@ const getTemplate = () => {
             click: async () => {
                 router.go('/sign-up');
             },
-        });
+    });
 
     const form = new Form(
         {
@@ -63,8 +72,8 @@ const getTemplate = () => {
             btn: button.transformToString(),
         },
         {
-            submit: (event: Event) => {
-                checkAndCollectData(event, "/selectChat");
+            submit: async (event: CustomEvent) => {
+                await checkAndCollectData(event, controller, 'login');
             },
         }
     );
@@ -78,11 +87,10 @@ const getTemplate = () => {
 }
 
 export class Auth extends Block {
-    constructor() {
+    constructor(context = {}, events: Record<string, () => void>) {
         super('div', {
             context: {
                 ...context,
-                id: nanoid(6),
             },
             template: getTemplate(),
             events,

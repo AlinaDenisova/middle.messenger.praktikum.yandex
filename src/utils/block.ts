@@ -1,5 +1,6 @@
 import * as Handlebars from "handlebars";
 import { EventBus } from './eventBus';
+import { nanoid } from 'nanoid';
 
 export type Dictionary = Record<string, any>;
 
@@ -101,6 +102,7 @@ export class Block {
 
     private _render() {
         const { context } = this.props;
+        context.id = nanoid(6);
         this._elementId = context && context.id;
         const block = this.render();
         if (block) {

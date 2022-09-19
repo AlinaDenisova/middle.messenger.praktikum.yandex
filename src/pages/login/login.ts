@@ -1,7 +1,6 @@
 import loginTemplate from "./login.tmpl";
 import { Auth } from "./auth";
 import { Registration } from "./registration";
-import { nanoid } from 'nanoid';
 import { Block } from '../../utils/block';
 import "./login.scss";
 
@@ -15,11 +14,10 @@ export class Login extends Block {
         super('div', {
             context: {
                 ...context,
-                header: context.isAuth ? 'Вход' : 'Регистрация',
+                title: context.isAuth ? 'Вход' : 'Регистрация',
                 content: context.isAuth
-                    ? new Auth().transformToString()
-                    : new Registration().transformToString(),
-                id: nanoid(6),
+                    ? new Auth(context, events).transformToString()
+                    : new Registration(context, events).transformToString(),
             },
             template: loginTemplate,
             events,

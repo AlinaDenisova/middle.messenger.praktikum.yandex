@@ -2,11 +2,13 @@ import * as Handlebars from "handlebars";
 import registrationTemplate from "./registration.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn";
-import {checkAndCollectData, validation} from "../../../utils";
+import {checkAndCollectData, checkValidation} from "../../../utils";
 import { Form } from "../../../components/form";
 import { Block } from "../../../utils/block";
-import { nanoid } from "nanoid";
 import router from "../../../router";
+import { LoginController } from '../../../controllers';
+
+const controller = new LoginController();
 
 const getTemplate = () => {
   const template = Handlebars.compile(registrationTemplate);
@@ -20,10 +22,15 @@ const getTemplate = () => {
         wrapperClassName: "login__input-wrapper",
         errorMessage:
             "Адрес электронной почты содержит ошибки",
-    }, {
-        blur: (event: Event) => {
-            validation({event});
-        },
+        dataType: 'email',
+    },
+        {
+          focus: (event: Event) => {
+              checkValidation({ event });
+          },
+          blur: (event: Event) => {
+              checkValidation({ event });
+          },
     }),
     new Input({
         name: "login",
@@ -33,9 +40,13 @@ const getTemplate = () => {
         wrapperClassName: "login__input-wrapper",
         errorMessage:
             "Длина логина 3-20 символов, должен быть написан латиницей",
+        dataType: 'login',
     }, {
+        focus: (event: Event) => {
+            checkValidation({ event });
+        },
         blur: (event: Event) => {
-            validation({event});
+            checkValidation({ event });
         },
     }),
     new Input({
@@ -46,9 +57,13 @@ const getTemplate = () => {
         wrapperClassName: "login__input-wrapper",
         errorMessage:
             "Ввведите имя с заглавной буквы без цифр и символов",
+        dataType: 'name',
     }, {
+        focus: (event: Event) => {
+            checkValidation({ event });
+        },
         blur: (event: Event) => {
-            validation({event});
+            checkValidation({ event });
         },
     }),
     new Input({
@@ -59,9 +74,13 @@ const getTemplate = () => {
         wrapperClassName: "login__input-wrapper",
         errorMessage:
             "Ввведите фамилию с заглавной буквы без цифр и символов",
+        dataType: 'name',
     }, {
+        focus: (event: Event) => {
+            checkValidation({ event });
+        },
         blur: (event: Event) => {
-            validation({event});
+            checkValidation({ event });
         },
     }),
     new Input({
@@ -72,9 +91,13 @@ const getTemplate = () => {
         wrapperClassName: "login__input-wrapper",
         errorMessage:
             "Введите номер в международном формате, например: +7..",
+        dataType: 'phone',
     }, {
+        focus: (event: Event) => {
+            checkValidation({ event });
+        },
         blur: (event: Event) => {
-            validation({event});
+            checkValidation({ event });
         },
     }),
     new Input({
@@ -85,9 +108,13 @@ const getTemplate = () => {
         wrapperClassName: "login__input-wrapper",
         errorMessage:
             "Длина пароля 8-40 символов, обязательна заглавная буква и цифра",
+        dataType: 'password',
     }, {
+        focus: (event: Event) => {
+            checkValidation({ event });
+        },
         blur: (event: Event) => {
-            validation({event});
+            checkValidation({ event });
         },
     }),
     new Input({
@@ -96,9 +123,13 @@ const getTemplate = () => {
         type: "password",
         required: true,
         errorMessage: "Введенные пароли не совпадают",
+        dataType: 'password',
     }, {
+        focus: (event: Event) => {
+            checkValidation({ event });
+        },
         blur: (event: Event) => {
-            validation({event});
+            checkValidation({ event });
         },
     }),
   ];
@@ -124,8 +155,8 @@ const getTemplate = () => {
         inputs: inputs.map((input) => input.transformToString()),
         btn: button.transformToString(),
     }, {
-        submit: (event: Event) => {
-            checkAndCollectData(event, "/selectChat");
+        submit: async (event: CustomEvent) => {
+            await checkAndCollectData(event, controller, 'signUp');
         },
     });
 
@@ -138,11 +169,10 @@ const getTemplate = () => {
 }
 
 export class Registration extends Block {
-    constructor(context = {}, events = {}) {
+    constructor(context = {}, events: Record<string, () => void>) {
         super("div", {
             context: {
                 ...context,
-                id: nanoid(6),
             },
             template: getTemplate(),
             events,

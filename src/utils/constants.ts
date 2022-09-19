@@ -2,14 +2,14 @@ import { Dictionary } from "./block";
 
 export const routes: Dictionary = Object.freeze({
   siteMap: "siteMap",
-  auth: "auth",
-  registration: "registration",
+  auth: "sign-in",
+  registration: "sign-up",
   notFound: "404",
   internalServerError: "500",
   unauthorized: '401',
   forbidden: '403',
-  selectChat: "selectChat",
-  openChat: "openChat",
+  selectChat: "messenger",
+  openChat: "open-messenger",
   overviewProfile: "overviewProfile",
   editProfile: "editProfile",
   editProfilePassword: "editProfilePassword",
