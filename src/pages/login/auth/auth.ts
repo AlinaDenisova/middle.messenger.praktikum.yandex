@@ -6,9 +6,10 @@ import router from '../../../router';
 import { Form } from "../../../components/form";
 import {checkAndCollectData, checkValidation} from '../../../utils';
 import { Block } from '../../../utils/block';
-import { LoginController } from '../../../controllers';
+import { LoginController, ChatController } from '../../../controllers';
 
 const controller = new LoginController();
+const chatController = new ChatController();
 
 const getTemplate = () => {
     const template = Handlebars.compile(authTemplate);
@@ -73,7 +74,13 @@ const getTemplate = () => {
         },
         {
             submit: async (event: CustomEvent) => {
-                await checkAndCollectData(event, controller, 'login');
+                const isError = await checkAndCollectData(event, controller, 'login');
+                if (!isError) {
+                    await chatController.getAllChats();
+                    router.go('/messenger');
+                } else {
+                    console.warn(isError);
+                }
             },
         }
     );

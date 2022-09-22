@@ -12,7 +12,7 @@ const getTemplate = () => {
 };
 
 export class SelectChat extends Block {
-    constructor(context = {}, events: Record<string, () => void>) {
+    constructor(context = {}, events = {}) {
         super(
             'div',
             {

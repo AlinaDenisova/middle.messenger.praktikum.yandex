@@ -6,9 +6,10 @@ import {checkAndCollectData, checkValidation} from "../../../utils";
 import { Form } from "../../../components/form";
 import { Block } from "../../../utils/block";
 import router from "../../../router";
-import { LoginController } from '../../../controllers';
+import { LoginController, ChatController } from '../../../controllers';
 
 const controller = new LoginController();
+const chatController = new ChatController();
 
 const getTemplate = () => {
   const template = Handlebars.compile(registrationTemplate);
@@ -50,7 +51,7 @@ const getTemplate = () => {
         },
     }),
     new Input({
-        name: "name",
+        name: "first_name",
         label: "Имя",
         type: "text",
         required: false,
@@ -67,7 +68,7 @@ const getTemplate = () => {
         },
     }),
     new Input({
-        name: "lastName",
+        name: "second_name",
         label: "Фамилия",
         type: "text",
         required: false,
@@ -118,7 +119,7 @@ const getTemplate = () => {
         },
     }),
     new Input({
-        name: "secondPassword",
+        name: "password",
         label: "Пароль (ещё раз)",
         type: "password",
         required: true,
@@ -134,7 +135,7 @@ const getTemplate = () => {
     }),
   ];
 
-  const button = new Btn({
+  const btn = new Btn({
       btnText: "Зарегистрироваться",
       btnClassName: "login",
       btnType: "submit"
@@ -153,10 +154,17 @@ const getTemplate = () => {
 
     const form = new Form({
         inputs: inputs.map((input) => input.transformToString()),
-        btn: button.transformToString(),
+        btn: btn.transformToString(),
     }, {
         submit: async (event: CustomEvent) => {
-            await checkAndCollectData(event, controller, 'signUp');
+            const isError = await checkAndCollectData(event, controller, 'signUp');
+            if (!isError) {
+                await chatController.getAllChats();
+                router.go('/messenger');
+            } else {
+                console.warn(isError);
+            }
+            await chatController.getAllChats();
         },
     });
 

@@ -17,7 +17,7 @@ export type TInput = {
     isProfileInput?: boolean;
     wrapperClassName?: string;
     inputClassName?: string;
-    dataType: string;
+    dataType?: string;
 };
 
 export type TInputEvents = {
@@ -26,7 +26,7 @@ export type TInputEvents = {
 };
 
 export class Input extends Block {
-    constructor(context: TInput, events: TInputEvents) {
+    constructor(context: TInput, events?: TInputEvents) {
         super("div", {
             context: {
                 ...context,

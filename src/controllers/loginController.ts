@@ -8,6 +8,7 @@ export class LoginController {
   public async login(data: ILoginData) {
     try {
       await authInstance.signIn(data);
+      console.log(data)
       await this.getUser();
     } catch (e) {
       redirect(e.reason);
@@ -18,8 +19,11 @@ export class LoginController {
   public async signUp(data: ISignUpData) {
     try {
       await authInstance.signUp(data);
+      console.log(data)
       await this.getUser();
+      console.log(this.getUser())
     } catch (e) {
+      console.log(e)
       redirect(e.reason);
       return e.reason;
     }

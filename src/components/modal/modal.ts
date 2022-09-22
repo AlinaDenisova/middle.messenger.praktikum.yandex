@@ -3,18 +3,10 @@ import { Block } from "../../utils/block";
 import "./modal.scss";
 
 export type TModal = {
-    id: string,
+    dataId: string,
     titleText: string;
-    labelText: string;
-    inputId: string;
-    required: boolean,
-    inputType: string,
-    errorText?: string,
-    buttonText?: string,
-    linkHref?: string,
-    linkText?: string,
-    inputClassName?: string,
-    labelClassName?: string,
+    form: string;
+    backLink: string;
 };
 
 export class Modal extends Block {

@@ -14,10 +14,13 @@
   min-width: 300px;
   width: 80%;
   max-width: 340px;
-  display: none;
 
   &.show {
     display: block;
+  }
+
+  &.hidden {
+    display: none;
   }
 
   &__title {
