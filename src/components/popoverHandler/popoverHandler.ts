@@ -1,5 +1,5 @@
 import popoverHandlerTemplate from './popoverHandler.tmpl';
-import { Block } from '../../utils/block';
+import { Block } from '../../utils';
 
 export type TPopoverHandler = {
     classNameBtn: string;

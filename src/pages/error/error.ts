@@ -1,6 +1,6 @@
 import * as Handlebars from 'handlebars';
 import { Btn } from '../../components/btn';
-import { Block } from '../../utils/block';
+import { Block } from '../../utils';
 import router from '../../router';
 
 import errorPageTemplate from './error.tmpl';

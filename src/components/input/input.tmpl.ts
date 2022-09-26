@@ -1,7 +1,7 @@
 export default
 `<div class="{{wrapperClassName}}">
     {{#if label}}
-    <label class="input__label" for="{{name}}">{{label}}</label>
+    <label class="input__label {{labelClassName}}" for="{{name}}">{{label}}</label>
     {{/if}}
     <input
     class="{{inputClassName}}"

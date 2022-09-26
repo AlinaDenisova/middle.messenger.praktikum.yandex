@@ -1,4 +1,4 @@
-import { Dictionary } from "../utils/block";
+import { Dictionary } from "../utils";
 
 const isEqual = (lhs: string, rhs: string) => lhs === rhs;
 

@@ -1,11 +1,18 @@
 import * as Handlebars from "handlebars";
 import openChatTemplate from "./openChat.tmpl";
 // import { Input } from "../../../components/input";
-// import { Message } from "../../../components/message";
+import { Message } from "../../../components/message";
 // import { Modal } from "../../../components/modal";
 import "./chat-open.scss";
+import { ChatController, IChatData } from '../../../controllers';
+import router from '../../../router';
+import {
+    avatarIconBase64,
+    checkValidation,
+    createChatWebSocket,
+} from '../../../utils';
 // import { PopoverItem } from "../../../components/popoverItem";
-// import { Dictionary } from "../../../utils/block";
+// import { Dictionary } from "../../../utils";
 import arrowIcon from "../../../assets/icons/arrow-back.svg";
 import addIcon from "../../../assets/icons/add.svg";
 // import addFileIcon from "../../../assets/icons/add-file.svg";
@@ -17,10 +24,125 @@ import readIcon from "../../../assets/icons/read.svg";
 // import { openModal, showPopover, checkAndCollectDataFromInput } from "../../../utils";
 // import { PopoverHandler } from "../../../components/popoverHandler";
 // import { Popover } from "../../../components/popover";
-import { Block } from "../../../utils/block"
+import { Block, Dictionary } from "../../../utils";
+import { closeModal, showModal } from '../chat';
+import { store } from '../../../store';
+
+const chatController = new ChatController();
+
+const getDataFromChat = (
+    currentChatId: string,
+    localStorageKey: string,
+    valueKey: string
+) => {
+    let value: string | string[] = valueKey === 'users' ? [] : '';
+    const item = localStorage.getItem(localStorageKey);
+    let chats;
+    if (item) {
+        chats = JSON.parse(item);
+    }
+
+    if (currentChatId && chats) {
+        const chat = chats.filter(
+            (el: IChatData) => el.id.toString() === currentChatId
+        );
+        if (chat.length > 0) {
+            value = chat[0][valueKey];
+        }
+    }
+
+    return value;
+};
+
+const sendMessage = async (socket: WebSocket) => {
+    const messageInput = document.querySelector(
+        '.input__message'
+    ) as HTMLInputElement;
+    const message = {
+        content: messageInput.value,
+        type: 'message',
+    };
+    socket.send(JSON.stringify(message));
+    messageInput.value = '';
+    await chatController.getAllChats();
+    router.go('/messenger-active');
+};
+
+const getOldMessages = (socket: WebSocket) => {
+    socket.addEventListener('open', () => {
+        socket.send(
+            JSON.stringify({
+                content: '0',
+                type: 'get old',
+            })
+        );
+    });
+};
+
+const handleMessages = (message: Dictionary | Dictionary[]) => {
+    const isMessagesArray = message instanceof Array;
+    const messagesContainer = document.querySelector('.chat-open__container');
+    const chatContainer = document.querySelector('.current-chat__main');
+
+    const addMessage = (elem: Dictionary) => {
+        if (elem.content) {
+            const myMessage = elem.user_id == localStorage.getItem('myID');
+            const dateObject = new Date(elem.time);
+            const options: Intl.DateTimeFormatOptions = {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+            };
+            const time = new Intl.DateTimeFormat('ru-RU', options).format(dateObject);
+            const node = new Message({
+                myMessage,
+                time,
+                read: elem.is_read,
+                text: elem.content,
+                readIcon: readIcon,
+                //image: file,
+            });
+            messagesContainer.appendChild(node.render());
+        }
+    };
+
+    if (isMessagesArray) {
+        // revert array of messages
+        message.map((_, index, array) =>
+            addMessage(array[array.length - 1 - index])
+        );
+    } else {
+        addMessage(message);
+    }
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+};
 
 const getTemplate = () => {
     const template = Handlebars.compile(openChatTemplate);
+
+    const wsParamsString = localStorage.getItem('wsParams');
+    let wsParams;
+    if (wsParamsString) {
+        wsParams = JSON.parse(wsParamsString);
+    }
+
+    const socket = createChatWebSocket(wsParams, handleMessages);
+
+    getOldMessages(socket);
+
+    const currentChatId = localStorage.getItem('currentChat');
+
+    const addUsersToChat = async (chatId: string) => {
+        const input = document.querySelector('.new-user-input') as HTMLInputElement;
+        const usersArray = input.value.split(',');
+        const users = usersArray.map((s) => s.trim());
+        await chatController.addUser({ users, chatId: parseInt(chatId, 10) });
+        store.setStateAndPersist({ usersInChats: [{ id: chatId, users }] });
+        closeModal('add-user-modal', '.new-user-input');
+        router.go('/open-messenger');
+    };
 
     // const messageInput = new Input(
     //     {

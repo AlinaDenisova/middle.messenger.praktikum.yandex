@@ -1,11 +1,11 @@
 import messageTemplate from "./message.tmpl";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import "./message.scss";
 
 export type TMessage = {
     myMessage: boolean;
     image?: string;
-    read?: boolean;
+    read: boolean;
     text?: string;
     time: string;
     readIcon?: any;

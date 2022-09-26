@@ -1,13 +1,13 @@
 export default
-`<button class='{{btnClassName}}' id='{{id}}'>
+`<button class="{{btnClassName}}" id="{{id}}">
   {{#if icon}}
-    <div class='link__content'>
+    <div class="{{linkIconWrapperClassName}}">
       <img
-        class='link__icon'
-        src='{{icon}}'
-        alt='{{linkText}}.'
+        class='{{linkIconClassName}}'
+        src="{{icon}}"
+        alt="{{linkAltText}}"
       />
-      <p class='link__text'>{{{linkText}}}</p>
+      <p class="link__text">{{{linkText}}}></p>
     </div>
   {{else}}
     {{{linkText}}}

@@ -1,8 +1,9 @@
 import { Chat } from "../pages/chat";
 import { ErrorPage } from "../pages/error";
 import { Login } from "../pages/login";
+import { Profile } from "../pages/profile";
 import {
-  errorPageSchema,
+  errorPageSchema, profilePage,
   routes,
 } from "../utils";
 
@@ -25,6 +26,9 @@ router
   .use(`/${routes.registration}`, Login, { isAuth: false })
   .use(`/${routes.selectChat}`, Chat, { isChatOpen: false })
   .use(`/${routes.openChat}`, Chat, { isChatOpen: true })
+  .use(`/${routes.overviewProfile}`, Profile, { profileType: profilePage.overviewProfile })
+  .use(`/${routes.editProfile}`, Profile, { profileType: profilePage.editProfile })
+  .use(`/${routes.editProfilePassword}`, Profile, { profileType: profilePage.editProfilePassword })
   .use(`/${routes.forbidden}`, ErrorPage, {
     scheme: getErrorScheme(routes.forbidden),
   })

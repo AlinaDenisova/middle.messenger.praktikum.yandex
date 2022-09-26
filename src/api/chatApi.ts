@@ -1,7 +1,5 @@
 import HTTPTransport from '../utils/HTTPTransport';
-
 const defaultUrl = '/chats';
-
 const chatAPIInstance = new HTTPTransport(defaultUrl);
 
 export interface IChatUser {

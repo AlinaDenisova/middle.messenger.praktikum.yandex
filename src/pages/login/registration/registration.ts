@@ -4,7 +4,7 @@ import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn";
 import {checkAndCollectData, checkValidation} from "../../../utils";
 import { Form } from "../../../components/form";
-import { Block } from "../../../utils/block";
+import { Block } from "../../../utils";
 import router from "../../../router";
 import { LoginController, ChatController } from '../../../controllers';
 

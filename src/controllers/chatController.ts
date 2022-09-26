@@ -1,5 +1,5 @@
 import { ChatApi, IChatUser, ICreateChat } from '../api';
-import { Dictionary } from '../utils/block';
+import { Dictionary } from '../utils';
 import { store } from '../store';
 import { redirect } from '../utils';
 
@@ -34,6 +34,7 @@ export class ChatController {
     try {
       const chatData = await chatAPIInstance.createChat(data);
       if (chatData) {
+        console.log(chatData)
         store.setStateAndPersist({ currentChat: (chatData as IChatData).id });
       }
       await this.getAllChats();

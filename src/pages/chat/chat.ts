@@ -6,18 +6,20 @@ import { SelectChat } from "./selectChat";
 import { Input } from "../../components/input";
 import {Btn} from "../../components/btn";
 import "./chat.scss";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import router from '../../router';
-import { LoginController, ChatController } from '../../controllers';
+import { store } from '../../store';
+import { LoginController, ChatController, IChatData } from '../../controllers';
 import { Modal } from '../../components/modal'
 import { Form } from '../../components/form';
+import chatItemTemplate from '../../components/chatItem/chatItem.tmpl';
+import { avatarIconBase64 } from '../../utils';
 
 const loginController = new LoginController();
 const chatController = new ChatController();
 
 export const showModal = async (modalId: string) => {
     const modal = document.querySelector(`.modal[data-id = "${modalId}"]`);
-    console.log(modalId)
     if (modal?.classList.contains('hidden')) {
         modal?.classList.remove('hidden');
     }
@@ -25,7 +27,7 @@ export const showModal = async (modalId: string) => {
 
 export const closeModal = (modalId: string, inputClassName: string) => {
     const input = document.querySelector(inputClassName) as HTMLInputElement;
-    const modal = document.getElementById(modalId);
+    const modal = document.querySelector(`.modal[data-id = "${modalId}"]`);
     if (input) {
         input.value = '';
     }
@@ -43,7 +45,7 @@ const createNewChat = async () => {
 
 const getTemplate = (isChatOpen?: boolean) => {
     const template = Handlebars.compile(chatTemplate);
-
+    const elemTemplate = Handlebars.compile(chatItemTemplate);
 
     const chatView = isChatOpen
         ? new OpenChat().transformToString()
@@ -141,81 +143,62 @@ const getTemplate = (isChatOpen?: boolean) => {
         }
     );
 
-    // const chatItems = [
-    //     new ChatItem(
-    //         {
-    //             name: "Андрей",
-    //             message: "Изображение",
-    //             time: "10:49",
-    //             currentChat: false
-    //         }
-    //     ),
-    //     new ChatItem(
-    //         {
-    //             name: "Киноклуб",
-    //             message: "Вы: стикер",
-    //             time: "12:00",
-    //             currentChat: false
-    //         }
-    //     ),
-    //     new ChatItem(
-    //         {
-    //             name: "Илья",
-    //             message: "Друзья, у меня для вас особенный выпуск новостей!",
-    //             time: "15:12",
-    //             currentChat: false
-    //         }
-    //     ),
-    //     new ChatItem(
-    //         {
-    //             name: "Вадим",
-    //             message: "Вы: Круто!",
-    //             time: "Пт",
-    //             currentChat: true
-    //         }
-    //     ),
-    //     new ChatItem(
-    //         {
-    //             name: "тет-а-теты",
-    //             message: "И Human Interface Guidelines и Material Design рекомендуют",
-    //             time: "Пт",
-    //             currentChat: false
-    //         }
-    //     ),
-    //     new ChatItem(
-    //         {
-    //             name: "1, 2, 3",
-    //             message: "Миллионы россиян ежедневно проводят десятки часов свое",
-    //             time: "Пн",
-    //             currentChat: false
-    //         }
-    //     ),
-    //     new ChatItem(
-    //         {
-    //             name: "Design Destroyer",
-    //             message: "В 2008 году художник Jon Rafman начал собирать",
-    //             time: "Пн",
-    //             currentChat: false
-    //         }
-    //     ),
-    //     new ChatItem(
-    //         {
-    //             name: "Day",
-    //             message: "Так увлёкся работой по курсу, что совсем забыл его анонсировать",
-    //             time: "1 Мая 2020",
-    //             currentChat: false
-    //         }
-    //     ),
-    //     new ChatItem(
-    //         {
-    //             name: "Стас Рогозин",
-    //             message: "Можно или сегодня или завтра вечером",
-    //             time: "12 Апр 2020",
-    //             currentChat: false
-    //         }
-    //     ),
-    // ];
+    const item = localStorage.getItem('chats');
+    let chatsData;
+    if (item) {
+        console.log(item)
+        chatsData = JSON.parse(item);
+        chatsData = chatsData.map((el: IChatData) => {
+            const { unread_count } = el || {};
+            const { content } = el.last_message || {};
+            let { time } = el.last_message || {};
+            if (time) {
+                const dateObject = new Date(time);
+                time = dateObject.getHours() + ':' + dateObject.getMinutes();
+            }
+            const elemContext = {
+                ...el,
+                avatar: el.avatar
+                    ? `https://ya-praktikum.tech/api/v2/resources/${el.avatar}`
+                    : avatarIconBase64,
+                last_message: content,
+                unread_count,
+                time,
+            };
 
+            const openSelectedChat = async () => {
+                const { id } = elemContext;
+                store.setStateAndPersist({ currentChat: id });
+
+                const userData = localStorage.getItem('user');
+                let user;
+                if (userData) {
+                    user = JSON.parse(userData);
+                }
+
+                if (user) {
+                    await chatController.connectToChat(user.id, id);
+                }
+                router.go('/open-messenger');
+            };
+
+            const elem = new Btn(
+                {
+                    btnType: 'button',
+                    isLink: true,
+                    btnClassName: 'chat__link',
+                    linkText: elemTemplate(elemContext),
+                },
+                {
+                    click: async () => {
+                        await openSelectedChat();
+                    },
+                }
+            );
+
+            return elem.transformToString();
+        });
+    }
 
     const context = {
         chatView,
@@ -223,6 +206,7 @@ const getTemplate = (isChatOpen?: boolean) => {
         newChat: newChat.transformToString(),
         searchInput: searchInput.transformToString(),
         newChatModal: newChatModal.transformToString(),
+        chatItems: chatsData || [],
     };
 
     return template(context);

@@ -2,14 +2,18 @@ import * as Handlebars from "handlebars";
 import editProfilePasswordTemplate from "./editProfilePassword.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn";
-import { Dictionary } from "../../../utils/block";
+import { Block } from "../../../utils";
+import { ProfileAvatar } from "../../../components/profileAvatar";
 import "./profile-password.scss";
-import {ProfileAvatar} from "../../../components/profileAvatar";
-import uploadPhoto from "../../../assets/icons/upload-photo.svg";
-import {checkAndCollectData, validation} from "../../../utils";
+import {checkAndCollectData, checkValidation } from "../../../utils";
 import {Form} from "../../../components/form";
+import router from "../../../router";
+import {UserController} from "../../../controllers";
+import {getAvatar} from "../profile";
 
-export function editProfilePassword() {
+const controller = new UserController();
+
+const getTemplate = () => {
     const template = Handlebars.compile(editProfilePasswordTemplate);
 
     const inputs = [
@@ -20,11 +24,15 @@ export function editProfilePassword() {
                 required: true,
                 errorMessage: "Неверный пароль",
                 isProfileInput: true,
-            }, {
-                blur: (event: Event) => {
-                    validation({event});
-                },
-            }),
+                }, {
+                    focus: (event: Event) => {
+                        checkValidation({ event });
+                    },
+                    blur: (event: Event) => {
+                        checkValidation({ event });
+                    },
+                }
+            ),
             new Input({
                 name: "secondPassword",
                 label: "Новый пароль",
@@ -33,11 +41,15 @@ export function editProfilePassword() {
                 errorMessage:
                     "Длина пароля 8-40 символов, обязательна заглавная буква и цифра",
                 isProfileInput: true,
-            }, {
-                blur: (event: Event) => {
-                    validation({event});
-                },
-            }),
+                }, {
+                    focus: (event: Event) => {
+                        checkValidation({ event });
+                    },
+                    blur: (event: Event) => {
+                        checkValidation({ event });
+                    },
+                }
+            ),
             new Input({
                 name: "secondPassword",
                 label: "Повторите новый пароль",
@@ -45,29 +57,44 @@ export function editProfilePassword() {
                 required: true,
                 errorMessage: "Введенные пароли не совпадают",
                 isProfileInput: true,
-            }, {
-                blur: (event: Event) => {
-                    validation({event});
-                },
-            }),
+                }, {
+                    focus: (event: Event) => {
+                        checkValidation({ event });
+                    },
+                    blur: (event: Event) => {
+                        checkValidation({ event });
+                    },
+                }
+            ),
         ]
 
     const button = new Btn({
-        btnText: "Сохранить",
-        btnType: "submit",
-        btnClassName: "profile-password"
-    });
+            btnText: "Сохранить",
+            btnType: "submit",
+            btnClassName: "profile-edit",
+        }, {
+            click: async () => {
+                router.go('/settings');
+            },
+        }
+    );
 
     const profileAvatar = new ProfileAvatar ({
-        uploadAvatarImage: uploadPhoto
+        uploadAvatarImage: getAvatar(),
+        isClickableAvatar: false,
     });
 
     const form = new Form({
-        inputs: inputs.map((input: Dictionary) => input.transformToString()),
+        inputs: inputs.map((input) => input.transformToString()),
         btn: button.transformToString(),
     }, {
-        submit: (event: Event) => {
-            checkAndCollectData(event, "/overviewProfile");
+        submit: async (event: Event) => {
+            const isError = await checkAndCollectData(event, controller);
+            if (!isError) {
+                router.go('/settings');
+            } else {
+                console.warn(isError);
+            }
         },
     });
 
@@ -79,3 +106,16 @@ export function editProfilePassword() {
 
     return template(context);
 }
+
+export class EditProfilePassword extends Block {
+    constructor(context = {}, events = {}) {
+        super('div', {
+            context: {
+                ...context,
+            },
+            template: getTemplate(),
+            events,
+        });
+    }
+}
+

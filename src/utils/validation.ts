@@ -1,4 +1,4 @@
-import { Dictionary } from '../utils/block';
+import { Dictionary } from '../utils';
 
 const showWarningMessage = (input: HTMLInputElement, isError: boolean) => {
   const parent = input.parentNode || input.parentElement;

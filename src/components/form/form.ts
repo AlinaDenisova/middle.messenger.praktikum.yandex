@@ -1,5 +1,5 @@
 import formTemplate from './form.tmpl';
-import { Block, Dictionary } from '../../utils/block';
+import { Block, Dictionary } from '../../utils';
 
 export type TForm = {
     inputs?: Dictionary[];

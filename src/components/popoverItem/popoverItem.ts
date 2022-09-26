@@ -1,5 +1,5 @@
 import popoverItemTemplate from "./popoverItem.tmpl";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import "./popover-item.scss";
 
 export type TPopoverItem = {

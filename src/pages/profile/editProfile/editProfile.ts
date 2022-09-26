@@ -2,23 +2,34 @@ import * as Handlebars from "handlebars";
 import editProfileTemplate from "./editProfile.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn";
-import { Dictionary } from "../../../utils/block";
+import { Block, Dictionary } from "../../../utils";
 import "./profile-edit.scss";
 import { ProfileAvatar } from "../../../components/profileAvatar";
 import uploadPhoto from "../../../assets/icons/upload-photo.svg";
 import { Modal } from "../../../components/modal";
-import { checkAndCollectData, validation } from '../../../utils';
+import { checkAndCollectData, checkValidation } from '../../../utils';
+import { UserController } from "../../../controllers";
 import { Form } from "../../../components/form";
-import { nanoid } from "nanoid";
 import { UploadAvatar } from "../../../components/uploadAvatar";
-import { openModal } from "../../../utils/";
+// import { openModal } from "../../../utils/";
+import router from "../../../router";
+import {getAvatar, getName} from "../profile";
+import {closeModal, showModal} from "../../../pages/chat/chat"
 
-export function editProfile() {
+const controller = new UserController();
+
+const getTemplate = () => {
     const template = Handlebars.compile(editProfileTemplate);
+
+    const item = localStorage.getItem('user');
+    let user;
+    if (item) {
+        user = JSON.parse(item);
+    }
 
     const inputs = [
         new Input({
-            value: "pochta@yandex.ru",
+            value: user?.email || '',
             name: "email",
             label: "Почта",
             type: "text",
@@ -27,13 +38,17 @@ export function editProfile() {
             errorMessage:
                 "Адрес электронной почты содержит ошибки",
             isProfileInput: true,
-        }, {
-            blur: (event: Event) => {
-                validation({event});
-            },
-        }),
+            }, {
+                focus: (event: Event) => {
+                    checkValidation({ event });
+                },
+                blur: (event: Event) => {
+                    checkValidation({ event });
+                },
+            }
+        ),
         new Input({
-            value: "ivanivanov",
+            value: user?.login || '',
             name: "login",
             label: "Логин",
             type: "text",
@@ -42,13 +57,17 @@ export function editProfile() {
             errorMessage:
                 "Длина логина 3-20 символов, должен быть написан латиницей",
             isProfileInput: true,
-        }, {
-            blur: (event: Event) => {
-                validation({event});
-            },
-        }),
+            }, {
+                focus: (event: Event) => {
+                    checkValidation({ event });
+                },
+                blur: (event: Event) => {
+                    checkValidation({ event });
+                },
+            }
+        ),
         new Input({
-            value: "Иван",
+            value: user?.first_name || '',
             name: "name",
             label: "Имя",
             type: "text",
@@ -57,13 +76,17 @@ export function editProfile() {
             errorMessage:
                 "Ввведите имя с заглавной буквы без цифр и символов",
             isProfileInput: true,
-        }, {
-            blur: (event: Event) => {
-                validation({event});
-            },
-        }),
+            }, {
+                focus: (event: Event) => {
+                    checkValidation({ event });
+                },
+                blur: (event: Event) => {
+                    checkValidation({ event });
+                },
+            }
+        ),
         new Input({
-            value: "Иванов",
+            value: user?.second_name || '',
             name: "lastName",
             label: "Фамилия",
             type: "text",
@@ -72,13 +95,17 @@ export function editProfile() {
             errorMessage:
                 "Ввведите фамилию с заглавной буквы без цифр и символов",
             isProfileInput: true,
-        }, {
-            blur: (event: Event) => {
-                validation({event});
-            },
-        }),
+            }, {
+                focus: (event: Event) => {
+                    checkValidation({ event });
+                },
+                blur: (event: Event) => {
+                    checkValidation({ event });
+                },
+            }
+        ),
         new Input({
-            value: "Иван",
+            value: user?.display_name || '',
             name: "nickname",
             label: "Имя в чате",
             type: "text",
@@ -88,12 +115,16 @@ export function editProfile() {
                 "Длина ника 3-20 символов, должен быть написан латиницей",
             isProfileInput: true,
         }, {
-            blur: (event: Event) => {
-                validation({event});
-            },
-        }),
+                focus: (event: Event) => {
+                    checkValidation({ event });
+                },
+                blur: (event: Event) => {
+                    checkValidation({ event });
+                },
+            }
+        ),
         new Input({
-            value: "+7(909)9673030",
+            value: user?.phone || '',
             name: "phone",
             label: "Телефон",
             type: "text",
@@ -103,64 +134,119 @@ export function editProfile() {
                 "Введите номер в международном формате, например: +7..",
             isProfileInput: true,
         }, {
-            blur: (event: Event) => {
-                validation({event});
-            },
-        })
+                focus: (event: Event) => {
+                    checkValidation({ event });
+                },
+                blur: (event: Event) => {
+                    checkValidation({ event });
+                },
+            }
+        )
     ]
 
     const button = new Btn({
         btnText: "Сохранить",
         btnType: "submit",
         btnClassName: "profile-edit",
-    },
-        );
+    }, {
+            click: async () => {
+                router.go('/settings');
+            },
+        }
+    );
 
     const profileAvatar = new ProfileAvatar ({
-        uploadAvatarImage: uploadPhoto
+        uploadAvatarImage: getAvatar(),
+        isClickableAvatar: true,
+    },
+        {
+            click: async () => {
+                await showModal('upload-avatar-modal');
+            },
     });
 
-    const modal = new Modal (
+    const uploadInput = new Input({
+        name: 'file',
+        label: 'Выбрать файл на устройстве',
+        type: 'file',
+        required: true,
+        dataType: 'file',
+        labelClassName: 'modal-input__label--upload-avatar',
+        inputClassName: 'modal-input--upload-avatar'
+    },
+    {
+        change: async (e: CustomEvent) => {
+            const input = e.target as HTMLInputElement;
+            const image = document.getElementById('avatar') as HTMLImageElement;
+            const file = input.files[0];
+            if (file && image) {
+                await controller.changeUserAvatar(file, image);
+            }
+        },
+    })
+
+    const backLink = new Btn(
         {
-            id: "uploadAvatar-modal",
+            btnType: 'button',
+            linkText: 'Отмена',
+            isLink: true,
+        },
+        {
+            click: () => {
+                closeModal('upload-avatar-modal', '.modal-input--upload-avatar');
+            },
+        }
+    );
+
+    const avatarModal = new Modal (
+        {
+            dataId: "upload-avatar-modal",
             titleText: "Загрузите файл",
-            labelText: "Выбрать файл на устройстве",
-            linkText: "Отмена",
-            linkHref: "javascript:void(0)",
-            inputId: "uploadAvatarField",
-            required: false,
-            inputType: "file",
-            inputClassName: "modal-input--upload-avatar",
-            labelClassName: "modal-input__label--upload-avatar",
+            input: uploadInput.transformToString(),
+            backLink: backLink.transformToString()
+            // labelText: "Выбрать файл на устройстве",
+            // linkText: "Отмена",
+            // linkHref: "javascript:void(0)",
+            // inputId: "uploadAvatarField",
+            // required: false,
+            // inputType: "file",
+            // inputClassName: "modal-input--upload-avatar",
+            // labelClassName: "modal-input__label--upload-avatar",
         }
     )
 
     const form = new Form({
-        inputs: inputs.map((input: Dictionary) => input.transformToString()),
+        inputs: inputs.map((input) => input.transformToString()),
         btn: button.transformToString(),
     }, {
-        submit: (event: Event) => {
-            checkAndCollectData(event, "/overviewProfile");
-        },
-    });
-
-    const uploadAvatar = new UploadAvatar({
-        profileAvatar: profileAvatar.transformToString(),
-        id: nanoid(6),
-        dataModal: 'uploadAvatar-modal'
-    },
-        {
-        click: (event: Event) => {
-            openModal({ event })
+        submit: async (event: Event) => {
+            const isError = await checkAndCollectData(event, controller, 'changeUserProfile');
+            if (!isError) {
+                router.go('/settings');
+            } else {
+                console.warn(isError);
+            }
         },
     });
 
     const context = {
-        modal: modal.transformToString(),
-        userName: "Иван",
+        avatarModal: avatarModal.transformToString(),
+        userName: getName(),
         form: form.transformToString(),
-        uploadAvatar: uploadAvatar.transformToString()
+        profileAvatar: profileAvatar.transformToString()
     };
 
     return template(context);
+}
+
+export class EditProfile extends Block {
+    constructor(context = {}, events = {}) {
+        super('div', {
+            context: {
+                ...context,
+            },
+            template: getTemplate(),
+            events,
+        });
+    }
 }

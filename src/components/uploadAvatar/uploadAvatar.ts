@@ -1,10 +1,9 @@
 import uploadAvatarTemplate from "./uploadAvatar.tmpl";
-import {Block, Dictionary} from "../../utils/block";
+import {Block, Dictionary} from "../../utils";
 import "./profile-upload.scss";
 
 export type TUploadAvatar = {
     profileAvatar: Dictionary;
-    id: string,
     dataModal: string;
 };
 

@@ -1,6 +1,8 @@
 export {
   routes,
   errorPageSchema,
+  profilePage,
+  avatarIconBase64
 } from "./constants";
 export {
   checkValidation,
@@ -9,3 +11,4 @@ export {
 export { isClassDefined, classIfElse, redirect } from "./helpers";
 export { openModal } from "./openModal"
 export { showPopover } from "./showPopover"
+export { Block, Dictionary } from "./block"

@@ -5,7 +5,7 @@ import { Btn } from "../../../components/btn"
 import router from '../../../router';
 import { Form } from "../../../components/form";
 import {checkAndCollectData, checkValidation} from '../../../utils';
-import { Block } from '../../../utils/block';
+import { Block } from '../../../utils';
 import { LoginController, ChatController } from '../../../controllers';
 
 const controller = new LoginController();

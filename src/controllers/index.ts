@@ -1,2 +1,3 @@
 export { LoginController } from './loginController';
-export { ChatController } from './chatController';
+export { ChatController, IChatData } from './chatController';
+export { UserController } from './userController';

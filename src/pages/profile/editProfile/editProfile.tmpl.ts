@@ -1,9 +1,9 @@
 export default
 `<div class="profile-edit">
 
-    {{{uploadAvatar}}}
+    {{{ profileAvatar }}}
     
-    {{{ modal }}}
+    {{{ avatarModal }}}
     <div class="overlay"></div>
     
   <h2 class="profile-edit__name">{{userName}}</h2>

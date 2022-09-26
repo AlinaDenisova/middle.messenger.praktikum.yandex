@@ -1,4 +1,4 @@
-import { Dictionary } from "../utils/block";
+import { Dictionary } from "../utils";
 import { routes } from "../utils";
 
 import { Route, IRoute } from "./Route";

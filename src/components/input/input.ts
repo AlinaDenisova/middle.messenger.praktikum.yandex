@@ -1,7 +1,7 @@
 import inputTemplate from "./input.tmpl";
 import inputProfileTemplate from "./inputProfile/inputProfile.tmpl";
 import { isClassDefined, classIfElse } from "../../utils";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import "./input.scss";
 import "./inputProfile/inputProfile.scss";
 
@@ -17,12 +17,14 @@ export type TInput = {
     isProfileInput?: boolean;
     wrapperClassName?: string;
     inputClassName?: string;
+    labelClassName?: string;
     dataType?: string;
 };
 
 export type TInputEvents = {
-    blur: (event: Event) => void;
-    focus: (event: Event) => void;
+    blur?: (event: Event) => void;
+    focus?: (event: Event) => void;
+    change?: (event: Event) => void;
 };
 
 export class Input extends Block {

@@ -1,6 +1,6 @@
 import btnTemplate from "./btn.tmpl";
 import linkTemplate from "./link.tmpl";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import { isClassDefined } from '../../utils';
 import "./btn.scss";
 
@@ -11,6 +11,9 @@ export type TBtn = {
     isLink?: boolean;
     linkText?: string;
     icon?: string;
+    linkIconWrapperClassName?: string;
+    linkIconClassName?: string;
+    linkAltText?: string;
 };
 
 const getClassName = (context: TBtn): string => {

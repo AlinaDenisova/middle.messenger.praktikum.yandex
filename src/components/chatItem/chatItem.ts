@@ -1,5 +1,5 @@
 import chatItemTemplate from "./chatItem.tmpl";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import "./chatItem.scss";
 
 export type TChatItem = {
@@ -8,6 +8,7 @@ export type TChatItem = {
     message: string;
     time: string;
     currentChat: boolean;
+    counter?: string;
 };
 
 export class ChatItem extends Block {

@@ -1,11 +1,12 @@
 import modalTemplate from "./modal.tmpl";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import "./modal.scss";
 
 export type TModal = {
     dataId: string,
     titleText: string;
-    form: string;
+    form?: string;
+    input?: string;
     backLink: string;
 };
 
