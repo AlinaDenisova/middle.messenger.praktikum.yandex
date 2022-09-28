@@ -1,6 +1,5 @@
 import * as Handlebars from "handlebars";
 import chatTemplate from "./chat.tmpl";
-// import { ChatItem } from "../../components/chatItem";
 import { OpenChat } from "./openChat";
 import { SelectChat } from "./selectChat";
 import { Input } from "../../components/input";
@@ -12,7 +11,7 @@ import { store } from '../../store';
 import { LoginController, ChatController, IChatData } from '../../controllers';
 import { Modal } from '../../components/modal'
 import { Form } from '../../components/form';
-import chatItemTemplate from '../../components/chatItem/chatItem.tmpl';
+import chatItemTemplate from './chatItem.tmpl';
 import { avatarIconBase64 } from '../../utils';
 
 const loginController = new LoginController();
@@ -21,30 +20,51 @@ const chatController = new ChatController();
 export const showModal = async (modalId: string) => {
     const modal = document.querySelector(`.modal[data-id = "${modalId}"]`);
     const popover = document.querySelector(`.chat-open__popover[data-id = "${modalId}"]`);
-    console.log(popover)
+    const overlay = document.querySelector('.overlay');
+    const popoverOverlay = document.querySelector(".overlay-popover");
     if (modal?.classList.contains('hidden')) {
         modal?.classList.remove('hidden');
+        overlay?.classList.remove("hidden");
     }
     if (popover?.classList.contains('hidden')) {
         popover?.classList.remove('hidden');
+        console.log(popoverOverlay)
+        popoverOverlay?.classList.remove("hidden");
     }
 };
 
 export const closeModal = (modalId: string, inputClassName: string) => {
     const input = document.querySelector(inputClassName) as HTMLInputElement;
     const modal = document.querySelector(`.modal[data-id = "${modalId}"]`);
+    const overlay = document.querySelector('.overlay');
     if (input) {
         input.value = '';
     }
     modal?.classList.add('hidden');
+    overlay?.classList.add("hidden");
 };
+
+// export const closePopover = () => {
+//     const popoverOverlay = document.querySelector(".popover-overlay");
+//     const popover = document.querySelector(`.chat-open__popover`);
+//     if (!popover?.classList.contains('show')) {
+//         popoverOverlay?.addEventListener("click", function() {
+//             popoverOverlay.classList.add('hidden')
+//             popover.classList.add('hidden')
+//         });
+//     }
+// };
+
+closePopover();
 
 const createNewChat = async () => {
     const input = document.querySelector('.new-chat-input') as HTMLInputElement;
-    const title = input.value;
-    await chatController.createChat({ title });
-    closeModal('new-chat-modal', '.new-chat-input');
-    router.go('/messenger');
+    if (input) {
+        const title = input.value;
+        await chatController.createChat({title});
+        closeModal('new-chat-modal', '.new-chat-input');
+        router.go('/messenger');
+    }
 };
 
 
@@ -144,15 +164,14 @@ const getTemplate = (isChatOpen?: boolean) => {
     const item = localStorage.getItem('chats');
     let chatsData;
     if (item) {
-        console.log(item)
         chatsData = JSON.parse(item);
         chatsData = chatsData.map((el: IChatData) => {
             const { unread_count } = el || {};
-            const { content } = el.last_message || {};
-            let { time } = el.last_message || {};
+            const { content, time } = el.last_message || {};
+            let messageTime = null;
             if (time) {
                 const dateObject = new Date(time);
-                time = dateObject.getHours() + ':' + dateObject.getMinutes();
+                messageTime = dateObject.getHours() + ':' + dateObject.getMinutes();
             }
             const elemContext = {
                 ...el,
@@ -161,7 +180,7 @@ const getTemplate = (isChatOpen?: boolean) => {
                     : avatarIconBase64,
                 last_message: content,
                 unread_count,
-                time,
+                time: messageTime,
             };
 
             const openSelectedChat = async () => {
@@ -169,13 +188,8 @@ const getTemplate = (isChatOpen?: boolean) => {
                 store.setStateAndPersist({ currentChat: id });
 
                 const userData = localStorage.getItem('user');
-                let user;
                 if (userData) {
-                    user = JSON.parse(userData);
-                }
-
-                if (user) {
-                    await chatController.connectToChat(user.id, id);
+                    await chatController.connectToChat(JSON.parse(userData).id, id);
                 }
                 router.go('/open-messenger');
             };

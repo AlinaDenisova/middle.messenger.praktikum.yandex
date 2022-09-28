@@ -2,7 +2,6 @@ import * as Handlebars from "handlebars";
 import profileTemplate from "./profile.tmpl";
 import { OverviewProfile } from "./overviewProfile";
 import { EditProfile } from "./editProfile";
-import { routes } from "../../utils";
 import router from '../../router';
 import "./profile.scss";
 import { Block } from "../../utils"
@@ -10,7 +9,7 @@ import { Btn } from "../../components/btn"
 import arrowIcon from "../../assets/icons/arrow-back.svg";
 import uploadPhoto from "../../assets/icons/upload-photo.svg";
 import { EditProfilePassword } from "./editProfilePassword";
-import { UserController, LoginController } from '../../controllers';
+import { LoginController } from '../../controllers';
 
 const loginController = new LoginController();
 
@@ -31,7 +30,6 @@ export const getName = () => {
 
 export const getAvatar = () => {
     const avatar = localStorage.getItem('avatarIcon');
-    console.log(localStorage)
 
     return avatar || uploadPhoto;
 };

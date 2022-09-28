@@ -2,16 +2,13 @@ import * as Handlebars from "handlebars";
 import editProfileTemplate from "./editProfile.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn";
-import { Block, Dictionary } from "../../../utils";
+import { Block } from "../../../utils";
 import "./profile-edit.scss";
 import { ProfileAvatar } from "../../../components/profileAvatar";
-import uploadPhoto from "../../../assets/icons/upload-photo.svg";
 import { Modal } from "../../../components/modal";
 import { checkAndCollectData, checkValidation } from '../../../utils';
 import { UserController } from "../../../controllers";
 import { Form } from "../../../components/form";
-import { UploadAvatar } from "../../../components/uploadAvatar";
-// import { openModal } from "../../../utils/";
 import router from "../../../router";
 import {getAvatar, getName} from "../profile";
 import {closeModal, showModal} from "../../../pages/chat/chat"
@@ -23,6 +20,7 @@ const getTemplate = () => {
 
     const item = localStorage.getItem('user');
     let user;
+    console.log(item)
     if (item) {
         user = JSON.parse(item);
     }
@@ -68,7 +66,7 @@ const getTemplate = () => {
         ),
         new Input({
             value: user?.first_name || '',
-            name: "name",
+            name: "first_name",
             label: "Имя",
             type: "text",
             required: false,
@@ -87,7 +85,7 @@ const getTemplate = () => {
         ),
         new Input({
             value: user?.second_name || '',
-            name: "lastName",
+            name: "second_name",
             label: "Фамилия",
             type: "text",
             required: false,
@@ -106,7 +104,7 @@ const getTemplate = () => {
         ),
         new Input({
             value: user?.display_name || '',
-            name: "nickname",
+            name: "display_name",
             label: "Имя в чате",
             type: "text",
             required: false,
@@ -148,11 +146,7 @@ const getTemplate = () => {
         btnText: "Сохранить",
         btnType: "submit",
         btnClassName: "profile-edit",
-    }, {
-            click: async () => {
-                router.go('/settings');
-            },
-        }
+    }
     );
 
     const profileAvatar = new ProfileAvatar ({
@@ -204,14 +198,6 @@ const getTemplate = () => {
             titleText: "Загрузите файл",
             input: uploadInput.transformToString(),
             backLink: backLink.transformToString()
-            // labelText: "Выбрать файл на устройстве",
-            // linkText: "Отмена",
-            // linkHref: "javascript:void(0)",
-            // inputId: "uploadAvatarField",
-            // required: false,
-            // inputType: "file",
-            // inputClassName: "modal-input--upload-avatar",
-            // labelClassName: "modal-input__label--upload-avatar",
         }
     )
 

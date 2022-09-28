@@ -124,7 +124,6 @@ export default class HTTPTransport {
       } else {
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data));
-        console.log(data)
       }
     });
   }

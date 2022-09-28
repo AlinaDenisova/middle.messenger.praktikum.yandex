@@ -12,7 +12,7 @@ export default
             {{{newUser}}}
             {{{removeUser}}}
         </div>
-                    {{{addUserModal}}}
+            {{{addUserModal}}}
             {{{removeUserModal}}}
         </div>
     </div>
@@ -33,9 +33,6 @@ export default
         <div class="chat-open-send">
             {{{ message }}}
             {{{ sendButton }}}
-<!--            <button class="chat-open-send__btn">-->
-<!--                <img class="chat-open-send__btn-img" src="{{arrowIcon}}" alt="Отправить сообщение"/>-->
-<!--            </button>-->
         </div>
     </div>
     <div class="overlay"></div>

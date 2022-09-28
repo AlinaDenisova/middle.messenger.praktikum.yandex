@@ -11,7 +11,6 @@ export interface IPasswordData {
 
 export class UserApi {
   changeUserProfile(data: ISignUpData) {
-    console.log(data)
     return userAPIInstance.put('/profile', data);
   }
 

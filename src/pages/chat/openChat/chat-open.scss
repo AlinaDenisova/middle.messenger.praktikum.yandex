@@ -49,7 +49,7 @@
     margin-left: auto;
     position: relative;
 
-    &__btn {
+    &__btn.btn-link {
       background: transparent;
       cursor: pointer;
       border: none;
@@ -156,8 +156,19 @@
       margin-top: 8px;
       position: relative;
 
-      &-img {
+      img {
         transform: rotate(180deg);
+      }
+
+      &::after {
+        content: "";
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
       }
     }
   }

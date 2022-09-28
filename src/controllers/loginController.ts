@@ -49,6 +49,7 @@ export class LoginController {
     }
     if (res !== 'Not found') {
       store.setStateAndPersist({ user: res });
+      console.log(res)
       store.setStateAndPersist({ myID: res.id });
     }
     return res;

@@ -72,10 +72,6 @@ const getTemplate = () => {
             btnText: "Сохранить",
             btnType: "submit",
             btnClassName: "profile-edit",
-        }, {
-            click: async () => {
-                router.go('/settings');
-            },
         }
     );
 
@@ -89,7 +85,7 @@ const getTemplate = () => {
         btn: button.transformToString(),
     }, {
         submit: async (event: Event) => {
-            const isError = await checkAndCollectData(event, controller);
+            const isError = await checkAndCollectData(event, controller, "changeUserPassword");
             if (!isError) {
                 router.go('/settings');
             } else {

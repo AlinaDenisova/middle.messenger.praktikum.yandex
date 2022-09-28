@@ -34,8 +34,9 @@ export class ChatController {
     try {
       const chatData = await chatAPIInstance.createChat(data);
       if (chatData) {
-        console.log(chatData)
-        store.setStateAndPersist({ currentChat: (chatData as IChatData).id });
+        store.setStateAndPersist({
+          currentChat: (chatData as unknown as IChatData).id,
+        });
       }
       await this.getAllChats();
     } catch (e) {
@@ -73,12 +74,12 @@ export class ChatController {
       const chatId = data.chatId;
       const users = store.getState().usersInChats;
       const storeItem = users.filter(
-        (el: IUsers) => el.id === chatId.toString()
+          (el: IUsers) => el.id === chatId.toString()
       );
-      const usersInChats = storeItem[0].users.filter(
-        (id: string) => id != data.users[0]
-      );
-      storeItem[0].users = usersInChats;
+      let chatUsers = storeItem[0];
+      const userId = data.users[0];
+      const usersInChats = chatUsers.users.filter((id: string) => id != userId);
+      chatUsers.users = usersInChats;
       store.setStateAndPersist({ usersInChats: users });
     } catch (e) {
       redirect(e.reason);
@@ -87,17 +88,14 @@ export class ChatController {
   }
 
   public async getChatToken(id?: number) {
-    let res;
     try {
-      res = await chatAPIInstance.getChatUsers(id);
+      const res = await chatAPIInstance.getChatUsers(id);
+      store.setStateAndPersist({ savedToken: res });
+      return res;
     } catch (e) {
       redirect(e.reason);
-      res = e.reason;
+      return e.reason;
     }
-    if (res !== 'Not found') {
-      store.setStateAndPersist({ savedToken: res });
-    }
-    return res;
   }
 
   public async getChatUsers(id: number) {
