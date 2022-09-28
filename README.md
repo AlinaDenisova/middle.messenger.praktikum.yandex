@@ -1,4 +1,4 @@
-## Pull request: https://github.com/AlinaDenisova/middle.messenger.praktikum.yandex/pull/2
+## Pull request: https://github.com/AlinaDenisova/middle.messenger.praktikum.yandex/pull/3
 
 ## Описание
 
