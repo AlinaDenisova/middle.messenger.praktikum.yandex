@@ -1,6 +1,6 @@
-import { AuthApi, ILoginData, ISignUpData } from '../api';
-import { store } from '../store';
-import { redirect } from '../utils';
+import { AuthApi, ILoginData, ISignUpData } from "../api";
+import { store } from "../store";
+import { redirect } from "../utils";
 
 const authInstance = new AuthApi();
 
@@ -47,9 +47,8 @@ export class LoginController {
       redirect(e.reason);
       res = e.reason;
     }
-    if (res !== 'Not found') {
+    if (res !== "Not found") {
       store.setStateAndPersist({ user: res });
-      console.log(res)
       store.setStateAndPersist({ myID: res.id });
     }
     return res;

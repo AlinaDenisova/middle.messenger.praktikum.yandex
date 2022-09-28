@@ -2,9 +2,19 @@ export default
 `<div class="chat-open">
    <div class="chat-open-interlocutor">
        <div class="chat-open-interlocutor__avatar">
-            <img  src='{{avatarIcon}}' alt="Фото собеседника" />
+            <img  src="{{avatarIcon}}" alt="Фото собеседника" />
         </div>
         <div class="chat-open-interlocutor__name">{{chatTitle}}</div>
+        <div class="chat-open__user-list">
+          <span>
+           Пользователи в чате:
+          </span>
+          {{#each users}}
+            <span class="chat-open__user-item">
+              {{{this}}},
+            </span>
+          {{/each}}
+        </div>
         <div class="chat-open-actions">
         {{{userActionsPopoverTrigger}}}
         
@@ -17,19 +27,8 @@ export default
         </div>
     </div>
     <div class="chat-open__container">
-        <div class='users-list'>
-          <span>
-           Пользователи в чате:
-          </span>
-          {{#each users}}
-            <span class='user-item'>
-              {{{this}}},
-            </span>
-          {{/each}}
-        </div>
-        <div class='messages__container'></div>
+        <div class="chat-open__messages-container"></div>
     </div>
-
         <div class="chat-open-send">
             {{{ message }}}
             {{{ sendButton }}}

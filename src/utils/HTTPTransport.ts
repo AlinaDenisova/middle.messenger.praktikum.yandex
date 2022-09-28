@@ -14,7 +14,7 @@ type Options = {
 };
 
 export default class HTTPTransport {
-  static API_URL = 'https://ya-praktikum.tech/api/v2';
+  static API_URL = "https://ya-praktikum.tech/api/v2";
 
   protected url: string;
 
@@ -23,7 +23,7 @@ export default class HTTPTransport {
   }
 
   public get<Response>(
-      path = '/',
+      path = "/",
       data?: unknown,
       headers?: Record<string, string>
   ): Promise<Response> {
@@ -92,7 +92,7 @@ export default class HTTPTransport {
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method || '', url);
+      xhr.open(method || "", url);
 
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -104,25 +104,25 @@ export default class HTTPTransport {
         }
       };
 
-      xhr.onabort = () => reject({ reason: 'abort' });
-      xhr.onerror = () => reject({ reason: 'network error' });
-      xhr.ontimeout = () => reject({ reason: 'timeout' });
+      xhr.onabort = () => reject({ reason: "abort" });
+      xhr.onerror = () => reject({ reason: "network error" });
+      xhr.ontimeout = () => reject({ reason: "timeout" });
 
       xhr.withCredentials = true;
-      xhr.responseType = 'json';
+      xhr.responseType = "json";
 
       Object.entries(headers).forEach((entry) =>
           xhr.setRequestHeader(entry[0], entry[1])
       );
-      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.setRequestHeader("Accept", "application/json");
 
       if (method === Methods.GET || !data) {
-        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send();
       } else if (data instanceof FormData) {
         xhr.send(data);
       } else {
-        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify(data));
       }
     });

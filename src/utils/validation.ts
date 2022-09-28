@@ -1,4 +1,4 @@
-import { Dictionary } from '../utils';
+import { Dictionary } from "../utils";
 
 const showWarningMessage = (input: HTMLInputElement, isError: boolean) => {
   const parent = input.parentNode || input.parentElement;
@@ -85,7 +85,7 @@ const checkMessageField = (input: HTMLInputElement): boolean => {
   let isError = false;
   if (input) {
     const { value } = input;
-    isError = value === '';
+    isError = value === "";
   }
   return isError;
 };
@@ -95,20 +95,20 @@ export const checkValidation = (data: {
   input?: HTMLInputElement;
 }): boolean => {
   const input = (data.event?.target as HTMLInputElement) || data.input;
-  const type = input.getAttribute('data-type') || 'text';
+  const type = input.getAttribute("data-type") || "text";
 
   switch (type) {
-    case 'password':
+    case "password":
       return checkPasswordField(input);
-    case 'login':
+    case "login":
       return checkLoginField(input);
-    case 'email':
+    case "email":
       return checkMailField(input);
-    case 'name':
+    case "name":
       return checkNameField(input);
-    case 'phone':
+    case "phone":
       return checkPhoneNumberField(input);
-    case 'message':
+    case "message":
       return checkMessageField(input);
     default:
       return false;
@@ -116,7 +116,7 @@ export const checkValidation = (data: {
 };
 
 const getFormModel = (form: HTMLFormElement): Dictionary => {
-  const inputs = form.querySelectorAll('input');
+  const inputs = form.querySelectorAll("input");
 
   if (!inputs || inputs?.length === 0) {
     return {};
@@ -135,7 +135,7 @@ const getFormModel = (form: HTMLFormElement): Dictionary => {
 };
 
 const checkAllInputsFields = (form: HTMLFormElement) => {
-  const inputs = form.querySelectorAll('input');
+  const inputs = form.querySelectorAll("input");
   if (inputs) {
     return [...inputs]
         .map((input) => checkValidation({input}))

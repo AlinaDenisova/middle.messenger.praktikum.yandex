@@ -7,9 +7,7 @@ export {
 export {
   checkValidation,
   checkAndCollectData,
-} from './validation';
-export { createChatWebSocket } from './chatWebSocket';
+} from "./validation";
+export { createChatWebSocket } from "./chatWebSocket";
 export { isClassDefined, classIfElse, redirect } from "./helpers";
-export { openModal } from "./openModal"
-export { showPopover } from "./showPopover"
 export { Block, Dictionary } from "./block"

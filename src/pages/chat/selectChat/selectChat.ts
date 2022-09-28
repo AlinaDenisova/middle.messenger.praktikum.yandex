@@ -14,7 +14,7 @@ const getTemplate = () => {
 export class SelectChat extends Block {
     constructor(context = {}, events = {}) {
         super(
-            'div',
+            "div",
             {
                 context: {
                     ...context,

@@ -1,6 +1,6 @@
 import * as Handlebars from "handlebars";
-import { EventBus } from './eventBus';
-import { nanoid } from 'nanoid';
+import { EventBus } from "./eventBus";
+import { nanoid } from "nanoid";
 
 export type Dictionary = Record<string, any>;
 

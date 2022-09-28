@@ -7,7 +7,7 @@ export default
             </div>
             
             <div class="profile-avatar">
-                   <div class="profile-avatar__photo-wrapper" id='avatar'>
+                   <div class="profile-avatar__photo-wrapper" id="avatar">
                         <img class="profile-avatar__photo" src="{{uploadAvatarImage}}" />
                    </div>
             </div>

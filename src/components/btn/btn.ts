@@ -1,7 +1,7 @@
 import btnTemplate from "./btn.tmpl";
 import linkTemplate from "./link.tmpl";
 import { Block } from "../../utils";
-import { isClassDefined } from '../../utils';
+import { isClassDefined } from "../../utils";
 import "./btn.scss";
 
 export type TBtn = {
@@ -17,7 +17,7 @@ export type TBtn = {
 };
 
 const getClassName = (context: TBtn): string => {
-    const className = context.isLink ? 'btn-link' : 'btn';
+    const className = context.isLink ? "btn-link" : "btn";
     return `${className} ${isClassDefined(context.btnClassName)}`;
 };
 

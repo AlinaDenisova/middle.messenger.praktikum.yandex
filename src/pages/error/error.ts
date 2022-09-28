@@ -1,10 +1,10 @@
-import * as Handlebars from 'handlebars';
-import { Btn } from '../../components/btn';
-import { Block } from '../../utils';
-import router from '../../router';
+import * as Handlebars from "handlebars";
+import { Btn } from "../../components/btn";
+import { Block } from "../../utils";
+import router from "../../router";
 
-import errorPageTemplate from './error.tmpl';
-import './error.scss';
+import errorPageTemplate from "./error.tmpl";
+import "./error.scss";
 
 export type Scheme = {
     errorCode: string;
@@ -22,13 +22,13 @@ const getTemplate = (scheme?: Scheme) => {
     const link = new Btn (
         {
             isLink: true,
-            linkText: 'Назад к чатам',
-            btnClassName: 'error__link',
-            btnType: 'button',
+            linkText: "Назад к чатам",
+            btnClassName: "error__link",
+            btnType: "button",
         },
         {
             click: async () => {
-                router.go('/');
+                router.go("/");
             },
         }
     );
@@ -44,7 +44,7 @@ const getTemplate = (scheme?: Scheme) => {
 
 export class ErrorPage extends Block {
     constructor(context: TErrorPage, events: Record<string, () => void>) {
-        super('div', {
+        super("div", {
             context: {
                 ...context,
             },

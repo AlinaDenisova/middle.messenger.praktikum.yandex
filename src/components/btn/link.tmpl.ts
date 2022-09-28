@@ -3,7 +3,7 @@ export default
   {{#if icon}}
     <div class="{{linkIconWrapperClassName}}">
       <img
-        class='{{linkIconClassName}}'
+        class="{{linkIconClassName}}"
         src="{{icon}}"
         alt="{{linkAltText}}"
       />

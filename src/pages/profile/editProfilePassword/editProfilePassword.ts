@@ -87,7 +87,7 @@ const getTemplate = () => {
         submit: async (event: Event) => {
             const isError = await checkAndCollectData(event, controller, "changeUserPassword");
             if (!isError) {
-                router.go('/settings');
+                router.go("/settings");
             } else {
                 console.warn(isError);
             }
@@ -105,7 +105,7 @@ const getTemplate = () => {
 
 export class EditProfilePassword extends Block {
     constructor(context = {}, events = {}) {
-        super('div', {
+        super("div", {
             context: {
                 ...context,
             },

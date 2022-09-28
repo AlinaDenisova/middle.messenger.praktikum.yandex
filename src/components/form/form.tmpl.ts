@@ -1,5 +1,5 @@
 export default
-`<form class='form' id='{{id}}'>
+`<form class="form" id="{{id}}">
 
     {{#if this.inputs}}
     {{#each inputs}}

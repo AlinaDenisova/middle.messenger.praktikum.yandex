@@ -2,14 +2,14 @@ import * as Handlebars from "handlebars";
 import profileTemplate from "./profile.tmpl";
 import { OverviewProfile } from "./overviewProfile";
 import { EditProfile } from "./editProfile";
-import router from '../../router';
+import router from "../../router";
 import "./profile.scss";
 import { Block } from "../../utils"
 import { Btn } from "../../components/btn"
 import arrowIcon from "../../assets/icons/arrow-back.svg";
 import uploadPhoto from "../../assets/icons/upload-photo.svg";
 import { EditProfilePassword } from "./editProfilePassword";
-import { LoginController } from '../../controllers';
+import { LoginController } from "../../controllers";
 
 const loginController = new LoginController();
 
@@ -19,17 +19,17 @@ export type TProfilePage = {
 };
 
 export const getName = () => {
-    const item = localStorage.getItem('user');
+    const item = localStorage.getItem("user");
     let user;
     if (item) {
         user = JSON.parse(item);
     }
 
-    return user?.display_name || user?.first_name || '';
+    return user?.display_name || user?.first_name || "";
 };
 
 export const getAvatar = () => {
-    const avatar = localStorage.getItem('avatarIcon');
+    const avatar = localStorage.getItem("avatarIcon");
 
     return avatar || uploadPhoto;
 };
@@ -39,12 +39,12 @@ const getTemplate = (profileType?: string) => {
 
     const returnButton = new Btn (
         {
-            btnType: 'button',
+            btnType: "button",
             isLink: true,
-            btnClassName: 'profile-sidebar__link',
-            linkIconClassName: 'profile-sidebar__img',
-            linkIconWrapperClassName: 'profile-sidebar__img-wrapper',
-            linkAltText: 'Вернуться назад',
+            btnClassName: "profile-sidebar__link",
+            linkIconClassName: "profile-sidebar__img",
+            linkIconWrapperClassName: "profile-sidebar__img-wrapper",
+            linkAltText: "Вернуться назад",
             icon: arrowIcon,
         },
         {
@@ -54,8 +54,8 @@ const getTemplate = (profileType?: string) => {
         }
     );
 
-    const content = profileType === 'overviewProfile' ? new OverviewProfile().transformToString() :
-        profileType === 'editProfile' ? new EditProfile().transformToString() :
+    const content = profileType === "overviewProfile" ? new OverviewProfile().transformToString() :
+        profileType === "editProfile" ? new EditProfile().transformToString() :
         new EditProfilePassword().transformToString()
 
     const context = {
@@ -69,7 +69,7 @@ const getTemplate = (profileType?: string) => {
 
 export class Profile extends Block {
     constructor(context: TProfilePage, events = {}) {
-        super('div', {
+        super("div", {
             context: {
                 ...context,
             },

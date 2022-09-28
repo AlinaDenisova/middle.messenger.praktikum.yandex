@@ -3,7 +3,7 @@ import { Dictionary } from "../utils";
 const isEqual = (lhs: string, rhs: string) => lhs === rhs;
 
 const render = (block: any) => {
-  const app: HTMLElement | null = document.getElementById('app');
+  const app: HTMLElement | null = document.getElementById("app");
   if (app) app.innerHTML = block.transformToString();
 };
 

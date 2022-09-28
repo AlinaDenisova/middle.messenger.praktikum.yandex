@@ -4,7 +4,7 @@ export default
     {{{ profileAvatar }}}
     
     {{{ avatarModal }}}
-    <div class="overlay"></div>
+    <div class="overlay hidden"></div>
     
   <h2 class="profile-edit__name">{{userName}}</h2>
     

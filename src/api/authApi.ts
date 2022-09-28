@@ -1,5 +1,5 @@
-import HTTPTransport from '../utils/HTTPTransport';
-const defaultUrl = '/auth';
+import HTTPTransport from "../utils/HTTPTransport";
+const defaultUrl = "/auth";
 const authAPIInstance = new HTTPTransport(defaultUrl);
 
 export interface ISignUpData {
@@ -18,18 +18,18 @@ export interface ILoginData {
 
 export class AuthApi {
   signUp(data: ISignUpData) {
-    return authAPIInstance.post('/signup', data);
+    return authAPIInstance.post("/signup", data);
   }
 
   signIn(data: ILoginData) {
-    return authAPIInstance.post('/signin', data);
+    return authAPIInstance.post("/signin", data);
   }
 
   getUser() {
-    return authAPIInstance.get('/user');
+    return authAPIInstance.get("/user");
   }
 
   logOut() {
-    return authAPIInstance.post('/logout');
+    return authAPIInstance.post("/logout");
   }
 }

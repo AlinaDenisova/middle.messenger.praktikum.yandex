@@ -1,7 +1,7 @@
-import { UserApi, IPasswordData, ISignUpData } from '../api';
-import { store } from '../store';
-import { redirect } from '../utils';
-import { LoginController } from '.';
+import { UserApi, IPasswordData, ISignUpData } from "../api";
+import { store } from "../store";
+import { redirect } from "../utils";
+import { LoginController } from ".";
 
 const userInstance = new UserApi();
 const loginController = new LoginController();
@@ -20,7 +20,7 @@ export class UserController {
   public async changeUserAvatar(file: File, image: HTMLImageElement) {
     try {
       const data = new FormData();
-      data.append('avatar', file, `avatar.${file.type.split('/')[1]}`);
+      data.append("avatar", file, `avatar.${file.type.split("/")[1]}`);
       await userInstance.changeUserAvatar(data);
       this.updateImage(file, image);
       await loginController.getUser();

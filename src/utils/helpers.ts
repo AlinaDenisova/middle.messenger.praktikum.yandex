@@ -1,4 +1,4 @@
-import router from '../router';
+import router from "../router";
 
 export const isClassDefined = (className: string | undefined) =>
   className && className !== undefined ? className : "";
@@ -10,10 +10,10 @@ export const classIfElse = (
 ) => (isFirstClass ? firstClassName : secondClassName);
 
 export const redirect = (err: unknown) => {
-    if (err === 'Cookie is not valid') {
-        router.go('/401');
-    } else if (err === 'User already in system') {
-        router.go('/messenger');
+    if (err === "Cookie is not valid") {
+        router.go("/401");
+    } else if (err === "User already in system") {
+        router.go("/messenger");
     }
 };
 

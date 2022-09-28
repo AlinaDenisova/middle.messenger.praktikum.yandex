@@ -6,7 +6,7 @@ import { Block } from "../../../utils";
 import "./profile-edit.scss";
 import { ProfileAvatar } from "../../../components/profileAvatar";
 import { Modal } from "../../../components/modal";
-import { checkAndCollectData, checkValidation } from '../../../utils';
+import { checkAndCollectData, checkValidation } from "../../../utils";
 import { UserController } from "../../../controllers";
 import { Form } from "../../../components/form";
 import router from "../../../router";
@@ -18,7 +18,7 @@ const controller = new UserController();
 const getTemplate = () => {
     const template = Handlebars.compile(editProfileTemplate);
 
-    const item = localStorage.getItem('user');
+    const item = localStorage.getItem("user");
     let user;
     console.log(item)
     if (item) {
@@ -27,7 +27,7 @@ const getTemplate = () => {
 
     const inputs = [
         new Input({
-            value: user?.email || '',
+            value: user?.email || "",
             name: "email",
             label: "Почта",
             type: "text",
@@ -46,7 +46,7 @@ const getTemplate = () => {
             }
         ),
         new Input({
-            value: user?.login || '',
+            value: user?.login || "",
             name: "login",
             label: "Логин",
             type: "text",
@@ -65,7 +65,7 @@ const getTemplate = () => {
             }
         ),
         new Input({
-            value: user?.first_name || '',
+            value: user?.first_name || "",
             name: "first_name",
             label: "Имя",
             type: "text",
@@ -84,7 +84,7 @@ const getTemplate = () => {
             }
         ),
         new Input({
-            value: user?.second_name || '',
+            value: user?.second_name || "",
             name: "second_name",
             label: "Фамилия",
             type: "text",
@@ -103,7 +103,7 @@ const getTemplate = () => {
             }
         ),
         new Input({
-            value: user?.display_name || '',
+            value: user?.display_name || "",
             name: "display_name",
             label: "Имя в чате",
             type: "text",
@@ -122,7 +122,7 @@ const getTemplate = () => {
             }
         ),
         new Input({
-            value: user?.phone || '',
+            value: user?.phone || "",
             name: "phone",
             label: "Телефон",
             type: "text",
@@ -155,23 +155,23 @@ const getTemplate = () => {
     },
         {
             click: async () => {
-                await showModal('upload-avatar-modal');
+                await showModal("upload-avatar-modal");
             },
     });
 
     const uploadInput = new Input({
-        name: 'file',
-        label: 'Выбрать файл на устройстве',
-        type: 'file',
+        name: "file",
+        label: "Выбрать файл на устройстве",
+        type: "file",
         required: true,
-        dataType: 'file',
-        labelClassName: 'modal-input__label--upload-avatar',
-        inputClassName: 'modal-input--upload-avatar'
+        dataType: "file",
+        labelClassName: "modal-input__label--upload-avatar",
+        inputClassName: "modal-input--upload-avatar"
     },
     {
         change: async (e: CustomEvent) => {
             const input = e.target as HTMLInputElement;
-            const image = document.getElementById('avatar') as HTMLImageElement;
+            const image = document.getElementById("avatar") as HTMLImageElement;
             const file = input.files[0];
             if (file && image) {
                 await controller.changeUserAvatar(file, image);
@@ -181,13 +181,13 @@ const getTemplate = () => {
 
     const backLink = new Btn(
         {
-            btnType: 'button',
-            linkText: 'Отмена',
+            btnType: "button",
+            linkText: "Отмена",
             isLink: true,
         },
         {
             click: () => {
-                closeModal('upload-avatar-modal', '.modal-input--upload-avatar');
+                closeModal("upload-avatar-modal", ".modal-input--upload-avatar");
             },
         }
     );
@@ -206,9 +206,9 @@ const getTemplate = () => {
         btn: button.transformToString(),
     }, {
         submit: async (event: Event) => {
-            const isError = await checkAndCollectData(event, controller, 'changeUserProfile');
+            const isError = await checkAndCollectData(event, controller, "changeUserProfile");
             if (!isError) {
-                router.go('/settings');
+                router.go("/settings");
             } else {
                 console.warn(isError);
             }
@@ -227,7 +227,7 @@ const getTemplate = () => {
 
 export class EditProfile extends Block {
     constructor(context = {}, events = {}) {
-        super('div', {
+        super("div", {
             context: {
                 ...context,
             },

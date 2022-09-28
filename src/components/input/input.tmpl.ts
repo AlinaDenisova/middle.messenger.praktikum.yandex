@@ -9,7 +9,7 @@ export default
     name="{{name}}"
     value="{{value}}"
     id="{{id}}"
-    data-type='{{dataType}}'
+    data-type="{{dataType}}"
     {{#if placeholder }}placeholder = "{{placeholder}}"{{/if}}
     required={{required}}>
     <div class="input__error hidden">{{errorMessage}}</div>

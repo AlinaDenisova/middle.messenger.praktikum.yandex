@@ -8,7 +8,6 @@ export default
         {{{newChat}}}
         {{{newChatModal}}}
         <div class="overlay hidden"></div>
-        <div class="overlay-popover hidden"></div>
         <div class="chat__list">
             {{#each chatItems}}
                 {{{this}}}

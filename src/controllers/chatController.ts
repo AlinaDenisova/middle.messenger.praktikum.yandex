@@ -1,7 +1,7 @@
-import { ChatApi, IChatUser, ICreateChat } from '../api';
-import { Dictionary } from '../utils';
-import { store } from '../store';
-import { redirect } from '../utils';
+import { ChatApi, IChatUser, ICreateChat } from "../api";
+import { Dictionary } from "../utils";
+import { store } from "../store";
+import { redirect } from "../utils";
 
 const chatAPIInstance = new ChatApi();
 
@@ -53,7 +53,7 @@ export class ChatController {
       redirect(e.reason);
       res = e.reason;
     }
-    if (res !== 'Not found') {
+    if (res !== "Not found") {
       store.setStateAndPersist({ chats: res });
     }
     return res;

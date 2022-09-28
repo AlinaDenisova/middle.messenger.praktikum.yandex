@@ -2,11 +2,11 @@ import * as Handlebars from "handlebars";
 import authTemplate from "./auth.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn"
-import router from '../../../router';
+import router from "../../../router";
 import { Form } from "../../../components/form";
-import {checkAndCollectData, checkValidation} from '../../../utils';
-import { Block } from '../../../utils';
-import { LoginController, ChatController } from '../../../controllers';
+import {checkAndCollectData, checkValidation} from "../../../utils";
+import { Block } from "../../../utils";
+import { LoginController, ChatController } from "../../../controllers";
 
 const controller = new LoginController();
 const chatController = new ChatController();
@@ -57,13 +57,13 @@ const getTemplate = () => {
     });
 
     const link = new Btn({
-            btnType: 'button',
+            btnType: "button",
             isLink: true,
             linkText: "Нет аккаунта?",
         },
         {
             click: async () => {
-                router.go('/sign-up');
+                router.go("/sign-up");
             },
     });
 
@@ -74,10 +74,10 @@ const getTemplate = () => {
         },
         {
             submit: async (event: CustomEvent) => {
-                const isError = await checkAndCollectData(event, controller, 'login');
+                const isError = await checkAndCollectData(event, controller, "login");
                 if (!isError) {
                     await chatController.getAllChats();
-                    router.go('/messenger');
+                    router.go("/messenger");
                 } else {
                     console.warn(isError);
                 }
@@ -95,7 +95,7 @@ const getTemplate = () => {
 
 export class Auth extends Block {
     constructor(context = {}, events: Record<string, () => void>) {
-        super('div', {
+        super("div", {
             context: {
                 ...context,
             },
