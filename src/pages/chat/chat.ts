@@ -20,8 +20,13 @@ const chatController = new ChatController();
 
 export const showModal = async (modalId: string) => {
     const modal = document.querySelector(`.modal[data-id = "${modalId}"]`);
+    const popover = document.querySelector(`.chat-open__popover[data-id = "${modalId}"]`);
+    console.log(popover)
     if (modal?.classList.contains('hidden')) {
         modal?.classList.remove('hidden');
+    }
+    if (popover?.classList.contains('hidden')) {
+        popover?.classList.remove('hidden');
     }
 };
 
@@ -133,13 +138,6 @@ const getTemplate = (isChatOpen?: boolean) => {
             titleText: "Создание нового чата",
             form: chatForm.transformToString(),
             backLink: backLink.transformToString()
-            // labelText: "ID",
-            // inputId: "newChatInput",
-            // required: false,
-            // inputType: "text",
-            // buttonText: "Добавить",
-            // linkHref: "javascript:void(0)",
-            // linkText: "Отмена",
         }
     );
 

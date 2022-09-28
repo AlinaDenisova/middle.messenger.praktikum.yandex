@@ -21,7 +21,8 @@ export class SelectChat extends Block {
                 },
                 template: getTemplate(),
                 events,
-            }
+            },
+            "chat-select"
         );
     }
 }

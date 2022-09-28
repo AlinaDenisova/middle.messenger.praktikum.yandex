@@ -7,8 +7,10 @@ export default
         src="{{icon}}"
         alt="{{linkAltText}}"
       />
-      <p class="link__text">{{{linkText}}}></p>
     </div>
+    {{#if linkText}}
+      <p class="link__text">{{{linkText}}}</p>
+    {{/if}}
   {{else}}
     {{{linkText}}}
   {{/if}}

@@ -15,18 +15,23 @@ import {
 // import { Dictionary } from "../../../utils";
 import arrowIcon from "../../../assets/icons/arrow-back.svg";
 import addIcon from "../../../assets/icons/add.svg";
-// import addFileIcon from "../../../assets/icons/add-file.svg";
-// import addLocationIcon from "../../../assets/icons/add-location.svg";
-// import addPhotoIcon from "../../../assets/icons/add-photo.svg";
-// import deleteUserIcon from "../../../assets/icons/delete-user.svg";
-// import addUserIcon from "../../../assets/icons/add-user.svg";
+import addFileIcon from "../../../assets/icons/add-file.svg";
+import addLocationIcon from "../../../assets/icons/add-location.svg";
+import addPhotoIcon from "../../../assets/icons/add-photo.svg";
+import deleteUserIcon from "../../../assets/icons/delete-user.svg";
+import addUserIcon from "../../../assets/icons/add-user.svg";
 import readIcon from "../../../assets/icons/read.svg";
+import dot from "../../../assets/icons/dot.svg"
 // import { openModal, showPopover, checkAndCollectDataFromInput } from "../../../utils";
 // import { PopoverHandler } from "../../../components/popoverHandler";
 // import { Popover } from "../../../components/popover";
 import { Block, Dictionary } from "../../../utils";
 import { closeModal, showModal } from '../chat';
 import { store } from '../../../store';
+import {Input} from "../../../components/input";
+import {Btn} from "../../../components/btn";
+import {Form} from "../../../components/form";
+import {Modal} from "../../../components/modal";
 
 const chatController = new ChatController();
 
@@ -56,7 +61,7 @@ const getDataFromChat = (
 
 const sendMessage = async (socket: WebSocket) => {
     const messageInput = document.querySelector(
-        '.input__message'
+        '.chat-open-send__field'
     ) as HTMLInputElement;
     const message = {
         content: messageInput.value,
@@ -65,7 +70,7 @@ const sendMessage = async (socket: WebSocket) => {
     socket.send(JSON.stringify(message));
     messageInput.value = '';
     await chatController.getAllChats();
-    router.go('/messenger-active');
+    router.go('/open-messenger');
 };
 
 const getOldMessages = (socket: WebSocket) => {
@@ -81,8 +86,8 @@ const getOldMessages = (socket: WebSocket) => {
 
 const handleMessages = (message: Dictionary | Dictionary[]) => {
     const isMessagesArray = message instanceof Array;
-    const messagesContainer = document.querySelector('.chat-open__container');
-    const chatContainer = document.querySelector('.current-chat__main');
+    const messagesContainer = document.querySelector('.messages__container');
+    const chatContainer = document.querySelector('.chat-open__container');
 
     const addMessage = (elem: Dictionary) => {
         if (elem.content) {
@@ -116,6 +121,7 @@ const handleMessages = (message: Dictionary | Dictionary[]) => {
     } else {
         addMessage(message);
     }
+    console.log(chatContainer)
     chatContainer.scrollTop = chatContainer.scrollHeight;
 };
 
@@ -143,6 +149,189 @@ const getTemplate = () => {
         closeModal('add-user-modal', '.new-user-input');
         router.go('/open-messenger');
     };
+
+    const removeUsersFromChat = async (chatId: string) => {
+        const input = document.querySelector(
+            '.remove-user-input'
+        ) as HTMLInputElement;
+        const users = input.value.split(',');
+        await chatController.removeUser({ users, chatId: parseInt(chatId, 10) });
+        closeModal('remove-user-modal', '.remove-user-input');
+        router.go('/open-messenger');
+    };
+
+    const addUserInput = new Input({
+        name: 'title',
+        label: 'Введите ID пользователя',
+        type: 'text',
+        required: true,
+        dataType: 'text',
+        inputClassName: 'new-user-input',
+    });
+
+    const backLink = new Btn(
+        {
+            btnType: 'button',
+            linkText: 'Отмена',
+            isLink: true,
+        },
+        {
+            click: () => {
+                closeModal('add-user-modal', '.add-user-input');
+                closeModal('remove-user-modal', '.remove-user-input');
+            },
+        }
+    );
+
+    const addUserBtn = new Btn(
+        {
+            btnType: "submit",
+            btnText: "Добавить",
+            btnClassName: ""
+        }
+    )
+
+    const removeUserInput = new Input({
+        name: 'title',
+        label: 'Введите ID пользователя',
+        type: 'text',
+        required: true,
+        dataType: 'text',
+        inputClassName: 'remove-user-input',
+    });
+
+    const removeUserBtn = new Btn(
+        {
+            btnType: "submit",
+            btnText: "Удалить",
+            btnClassName: ""
+        }
+    )
+
+    const addUserForm = new Form(
+        {
+            input: addUserInput.transformToString(),
+            btn: addUserBtn.transformToString(),
+        },
+        {
+            submit: async () => {
+                await addUsersToChat(currentChatId || '');
+            },
+        }
+    );
+
+    const removeUserForm = new Form(
+        {
+            input: removeUserInput.transformToString(),
+            btn: removeUserBtn.transformToString(),
+        },
+        {
+            submit: async () => {
+                await removeUsersFromChat(currentChatId || '');
+            },
+        }
+    );
+
+    const addUserModal = new Modal (
+        {
+            dataId: "add-user-modal",
+            titleText: "Добавить пользователя",
+            form: addUserForm.transformToString(),
+            backLink: backLink.transformToString()
+        }
+    );
+
+    const removeUserModal = new Modal (
+        {
+            dataId: "remove-user-modal",
+            titleText: "Удалить пользователя",
+            form: removeUserForm.transformToString(),
+            backLink: backLink.transformToString()
+        }
+    );
+
+    const message = new Input(
+        {
+            name: 'message',
+            type: 'text',
+            dataType: 'message',
+            inputClassName: "chat-open-send__field",
+            wrapperClassName: "chat-open-send__field-wrapper",
+            placeholder: "Сообщение",
+        },
+        {
+            focus: (event: Event) => {
+                checkValidation({ event });
+            },
+            blur: (event: Event) => {
+                checkValidation({ event });
+            },
+            keyup: (event: KeyboardEvent) => {
+                if (['Enter', 'NumpadEnter'].includes(event.key)) {
+                    event.preventDefault();
+                    sendMessage(socket);
+                }
+            },
+        }
+    );
+
+    const sendButton = new Btn(
+        {
+            isLink: true,
+            icon: arrowIcon,
+            btnClassName: 'chat-open-send__btn',
+            btnType: 'button',
+        },
+        {
+            click: () => {
+                sendMessage(socket);
+            },
+        }
+    );
+
+    const newUser = new Btn (
+        {
+            btnClassName: 'chat-open__popover-item',
+            btnType: 'button',
+            isLink: true,
+            icon: addUserIcon,
+            linkText: 'Добавить пользователя',
+        },
+        {
+            click: async () => {
+                await showModal('add-user-modal');
+            },
+        }
+    );
+
+    const removeUser = new Btn (
+        {
+            btnClassName: 'chat-open__popover-item',
+            btnType: 'button',
+            isLink: true,
+            icon: deleteUserIcon,
+            linkText: 'Удалить пользователя',
+        },
+        {
+            click: async () => {
+                await showModal('remove-user-modal');
+            },
+        }
+    );
+
+    const userActionsPopoverTrigger = new Btn (
+        {
+            btnClassName: 'chat-open-actions__btn',
+            btnType: 'button',
+            isLink: true,
+            icon: dot,
+        },
+        {
+            click: async () => {
+                await showModal('user-actions-popover');
+            },
+        }
+    )
 
     // const messageInput = new Input(
     //     {
@@ -309,11 +498,19 @@ const getTemplate = () => {
     // );
 
     const context = {
-        date: "21 марта",
-        userName: "Вадим",
         readIcon,
         addIcon,
         arrowIcon,
+        addUserModal: addUserModal.transformToString(),
+        removeUserModal: removeUserModal.transformToString(),
+        sendButton: sendButton.transformToString(),
+        chatTitle: getDataFromChat(currentChatId || '', 'chats', 'title'),
+        message: message.transformToString(),
+        users: getDataFromChat(currentChatId || '', 'usersInChats', 'users'),
+        avatarIcon: avatarIconBase64,
+        newUser: newUser.transformToString(),
+        removeUser: removeUser.transformToString(),
+        userActionsPopoverTrigger: userActionsPopoverTrigger.transformToString(),
         // messageInput: messageInput.transformToString(),
         // messages: [messages1.transformToString(), messages2.transformToString(),messages3.transformToString()],
         // popover1: popover1.transformToString(),
@@ -338,6 +535,7 @@ export class OpenChat extends Block {
                 template: getTemplate(),
                 events,
             },
+            'chat-open'
         );
     }
 }

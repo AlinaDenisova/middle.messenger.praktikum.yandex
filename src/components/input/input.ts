@@ -25,6 +25,7 @@ export type TInputEvents = {
     blur?: (event: Event) => void;
     focus?: (event: Event) => void;
     change?: (event: Event) => void;
+    keyup?: (event: Event) => void;
 };
 
 export class Input extends Block {
