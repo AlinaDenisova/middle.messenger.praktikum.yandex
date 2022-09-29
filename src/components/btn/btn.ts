@@ -1,11 +1,24 @@
 import btnTemplate from "./btn.tmpl";
-import { Block } from "../../utils/block";
+import linkTemplate from "./link.tmpl";
+import { Block } from "../../utils";
+import { isClassDefined } from "../../utils";
 import "./btn.scss";
 
 export type TBtn = {
-    btnText: string;
+    btnText?: string;
     btnClassName?: string;
     btnType: string,
+    isLink?: boolean;
+    linkText?: string;
+    icon?: string;
+    linkIconWrapperClassName?: string;
+    linkIconClassName?: string;
+    linkAltText?: string;
+};
+
+const getClassName = (context: TBtn): string => {
+    const className = context.isLink ? "btn-link" : "btn";
+    return `${className} ${isClassDefined(context.btnClassName)}`;
 };
 
 export class Btn extends Block {
@@ -13,8 +26,9 @@ export class Btn extends Block {
         super("div", {
             context: {
                 ...context,
+                btnClassName: getClassName(context),
             },
-            template: btnTemplate,
+            template: context.isLink ? linkTemplate : btnTemplate,
             events,
         });
     }

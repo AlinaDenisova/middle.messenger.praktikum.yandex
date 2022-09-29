@@ -1,7 +1,7 @@
 export default
 `<div class="{{wrapperClassName}}">
     {{#if label}}
-    <label class="input__label" for="{{name}}">{{label}}</label>
+    <label class="input__label {{labelClassName}}" for="{{name}}">{{label}}</label>
     {{/if}}
     <input
     class="{{inputClassName}}"
@@ -9,6 +9,7 @@ export default
     name="{{name}}"
     value="{{value}}"
     id="{{id}}"
+    data-type="{{dataType}}"
     {{#if placeholder }}placeholder = "{{placeholder}}"{{/if}}
     required={{required}}>
     <div class="input__error hidden">{{errorMessage}}</div>

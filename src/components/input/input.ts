@@ -1,8 +1,7 @@
-import { nanoid } from "nanoid";
 import inputTemplate from "./input.tmpl";
 import inputProfileTemplate from "./inputProfile/inputProfile.tmpl";
 import { isClassDefined, classIfElse } from "../../utils";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import "./input.scss";
 import "./inputProfile/inputProfile.scss";
 
@@ -18,11 +17,19 @@ export type TInput = {
     isProfileInput?: boolean;
     wrapperClassName?: string;
     inputClassName?: string;
+    labelClassName?: string;
+    dataType?: string;
+};
+
+export type TInputEvents = {
+    blur?: (event: Event) => void;
+    focus?: (event: Event) => void;
+    change?: (event: Event) => void;
+    keyup?: (event: Event) => void;
 };
 
 export class Input extends Block {
-    constructor(context: TInput, events?: { blur: (event: Event) => void }) {
-        console.log(events)
+    constructor(context: TInput, events?: TInputEvents) {
         super("div", {
             context: {
                 ...context,
@@ -38,7 +45,6 @@ export class Input extends Block {
                     "input-profile__input",
                     "input"
                 )} ${isClassDefined(context.inputClassName)}`,
-                id: nanoid(6),
             },
                 template: context.isProfileInput ? inputProfileTemplate : inputTemplate,
                 events,

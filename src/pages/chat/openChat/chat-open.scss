@@ -27,6 +27,10 @@
       border-radius: 50%;
       background: $input-color;
       margin-right: 10px;
+
+      img {
+        width: 100%;
+      }
     }
 
     &__name {
@@ -45,7 +49,7 @@
     margin-left: auto;
     position: relative;
 
-    &__btn {
+    &__btn.btn-link {
       background: transparent;
       cursor: pointer;
       border: none;
@@ -55,25 +59,15 @@
       position: relative;
       padding: 0;
 
-      &::after,
-      &::before {
-        content: "";
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        display: block;
-        border-radius: 50%;
-        background: $text-main-color;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      &::before {
-        top: 0;
-      }
-
       &::after {
-        bottom: 0;
+        content: "";
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
       }
     }
 
@@ -103,7 +97,7 @@
     margin-top: 30px;
     position: relative;
 
-    div:nth-child(3) {
+    div:first-child {
       width: 100%;
     }
 
@@ -123,7 +117,7 @@
       margin-right: 10px;
     }
 
-    &__field {
+    &__field.input {
       width: 100%;
       background: $input-color;
       border-radius: 30px;
@@ -145,7 +139,7 @@
       }
     }
 
-    &__btn {
+    &__btn.btn-link {
       cursor: pointer;
       border: none;
       padding: 0;
@@ -159,10 +153,81 @@
       justify-content: center;
       align-items: center;
       margin-left: 10px;
+      margin-top: 8px;
+      position: relative;
 
-      &-img {
+      img {
         transform: rotate(180deg);
       }
+
+      &::after {
+        content: "";
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+      }
     }
+  }
+
+  &__popover {
+      background: $bg-color;
+      position: absolute;
+      padding: 10px 0;
+      box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+      border-radius: 12px;
+      z-index: 10;
+      display: block;
+
+      &--top-right {
+        right: 0;
+        top: 50px;
+      }
+
+      &--bottom-left {
+        left: 0;
+        bottom: 50px;
+      }
+
+    &.hidden {
+      display: none;
+    }
+
+    &-item.btn-link {
+      font-size: 12px;
+      line-height: 14px;
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+      text-decoration: none;
+      color: $text-main-color;
+      white-space: nowrap;
+      position: relative;
+
+      img {
+        margin-right: 15px;
+      }
+
+      &::after {
+        content: "";
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+      }
+    }
+  }
+
+  &__user-list {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 13px;
   }
 }

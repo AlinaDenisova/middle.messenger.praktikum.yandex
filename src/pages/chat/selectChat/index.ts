@@ -1,1 +1,1 @@
-export { selectChat } from "./selectChat";
+export { SelectChat } from "./selectChat";

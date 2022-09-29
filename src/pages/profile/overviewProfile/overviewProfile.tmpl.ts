@@ -7,19 +7,9 @@ export default
         {{{this}}}
       {{/each}}
     </div>
-    <div class="profile-overview__actions">
-        <a class="profile-overview__actions-link" href="/editProfile">
-            <span>{{changeData}}</span>
-        </a>
-        <a class="profile-overview__actions-link" href="/editProfilePassword">
-          <span>
-            {{changePassword}}
-          </span>
-        </a>
-        <a class="profile-overview__actions-link profile-overview__actions-link--highlight" href="/login">
-          <span>
-            {{back}}
-          </span>
-        </a>
+    <div class="profile-overview__actions">        
+            {{{changeData}}}
+            {{{changePassword}}}
+            {{{signOutBtn}}}
     </div>
 </div>`;

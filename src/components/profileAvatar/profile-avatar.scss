@@ -18,6 +18,60 @@
       border-radius: 50%;
       background: $input-color;
       margin: 0 auto;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  &-upload {
+    $block: &;
+
+    position: relative;
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 37px;
+    }
+
+    &__overlay {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: $overlay-color;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      color: $text-button-color;
+      font-size: 13px;
+      line-height: 14px;
+      display: none;
+      z-index: 5;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      text-align: center;
+
+      &-label {
+        width: 50%;
+        text-align: center;
+      }
+
+      &-input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+      }
+    }
+
+    &:focus,
+    &:hover {
+      #{$block}__overlay {
+        display: flex;
+      }
     }
   }
 }
