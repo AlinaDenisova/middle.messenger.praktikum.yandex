@@ -147,4 +147,3 @@ export class OverviewProfile extends Block {
         });
     }
 }
-

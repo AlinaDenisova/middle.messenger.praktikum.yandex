@@ -36,5 +36,4 @@ export default
     </div>
     <div class="overlay"></div>
     <div class="overlay-popover"></div>
-</div>
-`
+</div>`

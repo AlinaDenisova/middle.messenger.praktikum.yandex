@@ -1,8 +1,5 @@
 import HTTPTransport from "../utils/HTTPTransport";
 import { ISignUpData } from ".";
-const defaultUrl = "/user";
-
-const userAPIInstance = new HTTPTransport(defaultUrl);
 
 export interface IPasswordData {
   oldPassword: string;
@@ -10,15 +7,17 @@ export interface IPasswordData {
 }
 
 export class UserApi {
-  changeUserProfile(data: ISignUpData) {
-    return userAPIInstance.put("/profile", data);
+  userAPIInstance = new HTTPTransport('/user');
+
+  changeUserProfile(data: ISignUpData): Promise<XMLHttpRequest> {
+    return this.userAPIInstance.put("/profile", data);
   }
 
-  changeUserAvatar(avatar: FormData) {
-    return userAPIInstance.put("/profile/avatar", avatar);
+  changeUserAvatar(avatar: FormData): Promise<XMLHttpRequest> {
+    return this.userAPIInstance.put("/profile/avatar", avatar);
   }
 
-  changeUserPassword(data: IPasswordData) {
-    return userAPIInstance.put("/password", data);
+  changeUserPassword(data: IPasswordData): Promise<XMLHttpRequest> {
+    return this.userAPIInstance.put("/password", data);
   }
 }

@@ -9,5 +9,4 @@ export default
   <h2 class="profile-edit__name">{{userName}}</h2>
     
     {{{form}}}
-</div>
-`;
+</div>`;

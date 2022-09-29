@@ -1,6 +1,4 @@
 import HTTPTransport from "../utils/HTTPTransport";
-const defaultUrl = "/chats";
-const chatAPIInstance = new HTTPTransport(defaultUrl);
 
 export interface IChatUser {
   users: string[];
@@ -12,23 +10,25 @@ export interface ICreateChat {
 }
 
 export class ChatApi {
-  get() {
-    return chatAPIInstance.get("/");
+  chatAPIInstance = new HTTPTransport("/chats");
+
+  get(): Promise<XMLHttpRequest> {
+    return this.chatAPIInstance.get("/");
   }
 
-  createChat(data: ICreateChat) {
-    return chatAPIInstance.post("/", data);
+  createChat(data: ICreateChat): Promise<XMLHttpRequest> {
+    return this.chatAPIInstance.post("/", data);
   }
 
-  addUser(data: IChatUser) {
-    return chatAPIInstance.put("/users", data);
+  addUser(data: IChatUser): Promise<XMLHttpRequest> {
+    return this.chatAPIInstance.put("/users", data);
   }
 
-  removeUser(data: IChatUser) {
-    return chatAPIInstance.delete("/users", data);
+  removeUser(data: IChatUser): Promise<XMLHttpRequest> {
+    return this.chatAPIInstance.delete("/users", data);
   }
 
-  getChatUsers(chatId: number = 0) {
-    return chatAPIInstance.post(`/token/${chatId}`);
+  getChatUsers(chatId: number = 0): Promise<XMLHttpRequest> {
+    return this.chatAPIInstance.post(`/token/${chatId}`);
   }
 }

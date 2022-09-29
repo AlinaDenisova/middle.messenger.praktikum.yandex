@@ -6,17 +6,17 @@ import router from "../../router";
 import errorPageTemplate from "./error.tmpl";
 import "./error.scss";
 
-export type Scheme = {
+export type TScheme = {
     errorCode: string;
     errorText: string;
     linkText: string;
 };
 
 export type TErrorPage = {
-    scheme?: Scheme;
+    scheme?: TScheme;
 };
 
-const getTemplate = (scheme?: Scheme) => {
+const getTemplate = (scheme?: TScheme) => {
     const template = Handlebars.compile(errorPageTemplate);
 
     const link = new Btn (
