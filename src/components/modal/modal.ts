@@ -1,20 +1,13 @@
 import modalTemplate from "./modal.tmpl";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import "./modal.scss";
 
 export type TModal = {
-    id: string,
+    dataId: string,
     titleText: string;
-    labelText: string;
-    inputId: string;
-    required: boolean,
-    inputType: string,
-    errorText?: string,
-    buttonText?: string,
-    linkHref?: string,
-    linkText?: string,
-    inputClassName?: string,
-    labelClassName?: string,
+    form?: string;
+    input?: string;
+    backLink: string;
 };
 
 export class Modal extends Block {

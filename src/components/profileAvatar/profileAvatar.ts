@@ -1,9 +1,10 @@
 import profileAvatarTemplate from "./profileAvatar.tmpl";
-import { Block } from "../../utils/block";
+import { Block } from "../../utils";
 import "./profile-avatar.scss";
 
 export type TAvatar = {
-    uploadAvatarImage: string
+    uploadAvatarImage: string,
+    isClickableAvatar: boolean,
 };
 
 export class ProfileAvatar extends Block {

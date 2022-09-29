@@ -44,10 +44,8 @@
       font-size: 12px;
       line-height: 12px;
       color: $text-second-color;
-      text-decoration: none;
-      margin-bottom: 23px;
       display: block;
-      margin-left: auto;
+      margin: 0 0 23px auto;
     }
 
     &__search-input {
@@ -74,6 +72,111 @@
         background-position: calc(50% - 32px);
         padding: 7px 12px;
       }
+    }
+
+    &__btn {
+      margin: 20px auto 20px;
+      display: block;
+    }
+  }
+
+  &-item {
+    $block: &;
+
+    margin: 2px 10px;
+    border-bottom: 1px solid $border-color;
+    display: flex;
+    padding: 10px 0;
+    cursor: pointer;
+    position: relative;
+
+    &--current {
+      margin: 2px 0;
+      padding: 10px;
+      background: $my-message-color;
+      position: relative;
+      border-bottom: none;
+
+      &::after {
+        position: absolute;
+        content: "";
+        border-bottom: 1px solid $border-color;
+        width: 90%;
+        transform: translateX(-50%);
+        bottom: -3px;
+        left: 50%;
+      }
+
+      #{$block}__time {
+        right: 10px;
+      }
+    }
+
+    &__avatar {
+      max-width: 47px;
+      min-width: 47px;
+      min-height: 47px;
+      max-height: 47px;
+      border-radius: 50%;
+      background: $input-color;
+      margin-right: 10px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      text-align: left;
+    }
+
+    &__name {
+      color: $text-main-color;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 13px;
+      margin: 0 0 4px;
+    }
+
+    &__message {
+      font-size: 12px;
+      line-height: 15px;
+      color: $text-second-color;
+      margin: 0;
+      width: 83%;
+      display: block;
+      max-height: 30px;
+      overflow: hidden;
+    }
+
+    &__time {
+      font-size: 9px;
+      line-height: 13px;
+      color: $text-second-color;
+      position: absolute;
+      top: 10px;
+      right: 0;
+    }
+  }
+
+  &__link {
+    width: 100%;
+    margin: 0;
+    position: relative;
+
+    &::after {
+        content: "";
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
     }
   }
 }

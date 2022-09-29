@@ -1,2 +1,2 @@
 export default
-`<button class="btn {{btnClassName}}__btn" type="{{btnType}}">{{btnText}}</button>`;
+`<button class="{{btnClassName}}__btn" id="{{id}}" type="{{btnType}}">{{btnText}}</button>`;

@@ -1,1 +1,1 @@
-export { openChat } from "./openChat";
+export { OpenChat } from "./openChat";

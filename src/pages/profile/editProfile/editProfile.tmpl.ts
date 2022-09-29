@@ -1,10 +1,10 @@
 export default
 `<div class="profile-edit">
 
-    {{{uploadAvatar}}}
+    {{{ profileAvatar }}}
     
-    {{{ modal }}}
-    <div class="overlay"></div>
+    {{{ avatarModal }}}
+    <div class="overlay hidden"></div>
     
   <h2 class="profile-edit__name">{{userName}}</h2>
     

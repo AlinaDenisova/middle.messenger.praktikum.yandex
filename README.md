@@ -5,7 +5,7 @@
 Данный проект является учебным и представляет собой веб-мессендежер для обмена сообщениями и файлами.
 
 ## Публикация проекта на Netlify:
-https://deploy-preview-2--beamish-kheer-d03c3d.netlify.app/
+https://deploy-preview-3--iridescent-tanuki-e174b8.netlify.app
 
 ## Используемые технологии
 

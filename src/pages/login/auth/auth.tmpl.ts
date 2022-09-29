@@ -1,4 +1,6 @@
 export default
-`{{{form}}}
-{{{link}}}
+`<div>
+    {{{form}}}
+    {{{link}}}
+</div>
 `;
