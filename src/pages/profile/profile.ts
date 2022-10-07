@@ -6,8 +6,8 @@ import router from "../../router";
 import "./profile.scss";
 import { Block } from "../../utils"
 import { Btn } from "../../components/btn"
-import arrowIcon from "../../assets/icons/arrow-back.svg";
-import uploadPhoto from "../../assets/icons/upload-photo.svg";
+import arrowIcon from "../../static/icons/arrow-back.svg";
+import uploadPhoto from "../../static/icons/upload-photo.svg";
 import { EditProfilePassword } from "./editProfilePassword";
 import { LoginController } from "../../controllers";
 

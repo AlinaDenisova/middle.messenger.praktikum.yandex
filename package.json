@@ -2,11 +2,12 @@
   "name": "yandex-messenger",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "scripts": {
-    "clean:output": "rimraf dist .parcel-cache",
-    "dev": "npm run clean:output && parcel src/index.html --port 3000 --no-cache",
-    "build": "npm run clean:output && parcel build src/index.html",
-    "start": "npm run build && node server.js",
+    "build": "webpack --mode=production",
+    "start": "node server.js",
+    "dev": "webpack serve --mode=development",
+    "server": "node server.js",
     "lint": "eslint node_modules/.bin/eslint . --ext js,ts && stylelint '**/*.scss'",
     "lint:fix": "eslint node_modules/.bin/eslint . --ext js,ts --fix && stylelint '**/*.scss' --fix"
   },
@@ -15,25 +16,45 @@
   "license": "ISC",
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars": "1.0.9",
-    "@parcel/packager-raw-url": "2.7.0",
-    "@parcel/transformer-sass": "2.7.0",
-    "@parcel/transformer-typescript-tsc": "2.7.0",
-    "@parcel/transformer-webmanifest": "2.7.0",
     "@types/node": "18.7.16",
     "@typescript-eslint/eslint-plugin": "5.36.2",
     "@typescript-eslint/parser": "5.36.2",
     "eslint": "8.23.0",
     "express": "4.18.1",
-    "parcel": "2.7.0",
-    "rimraf": "3.0.2",
     "sass": "1.49.9",
     "stylelint": "14.11.0",
     "stylelint-config-standard-scss": "5.0.0",
-    "typescript": "4.8.2"
+    "ts-loader": "9.4.1",
+    "typescript": "4.8.2",
+    "webpack": "5.74.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all eslint:fix stylelint:fix test"
+    }
   },
   "dependencies": {
+    "@types/chai": "4.3.3",
+    "@types/jsdom": "20.0.0",
+    "@types/mocha": "10.0.0",
+    "ajv": "8.11.0",
+    "case-sensitive-paths-webpack-plugin": "2.4.0",
+    "chai": "4.3.6",
+    "compression-webpack-plugin": "10.0.0",
     "console-browserify": "1.2.0",
+    "copy-webpack-plugin": "11.0.0",
+    "css-loader": "6.7.1",
+    "express-static-gzip": "2.1.7",
     "handlebars": "4.7.7",
-    "nanoid": "4.0.0"
+    "html-webpack-plugin": "5.5.0",
+    "husky": "8.0.1",
+    "mini-css-extract-plugin": "2.6.1",
+    "mocha": "10.0.0",
+    "nanoid": "4.0.0",
+    "npm-run-all": "4.1.5",
+    "sass-loader": "13.0.2",
+    "style-loader": "3.3.1",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.11.1"
   }
 }

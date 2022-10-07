@@ -9,12 +9,12 @@ import {
     checkValidation,
     createChatWebSocket,
 } from "../../../utils";
-import arrowIcon from "../../../assets/icons/arrow-back.svg";
-import addIcon from "../../../assets/icons/add.svg";
-import deleteUserIcon from "../../../assets/icons/delete-user.svg";
-import addUserIcon from "../../../assets/icons/add-user.svg";
-import readIcon from "../../../assets/icons/read.svg";
-import dot from "../../../assets/icons/dot.svg"
+import arrowIcon from "../../../static/icons/arrow-back.svg";
+import addIcon from "../../../static/icons/add.svg";
+import deleteUserIcon from "../../../static/icons/delete-user.svg";
+import addUserIcon from "../../../static/icons/add-user.svg";
+import readIcon from "../../../static/icons/read.svg";
+import dot from "../../../static/icons/dot.svg"
 import { Block, Dictionary } from "../../../utils";
 import { closeModal, showModal } from "../chat";
 import { store } from "../../../store";
@@ -138,10 +138,15 @@ const getTemplate = () => {
         if (input) {
             const usersArray = input.value.split(",");
             const users = usersArray.map((s) => s.trim());
-            await chatController.addUser({users, chatId: parseInt(chatId, 10)});
-            store.setStateAndPersist({usersInChats: [{id: chatId, users}]});
-            closeModal("add-user-modal", ".new-user-input");
-            router.go("/open-messenger");
+            try {
+                await chatController.addUser({users, chatId: parseInt(chatId, 10)});
+                store.setStateAndPersist({usersInChats: [{id: chatId, users}]});
+                closeModal("add-user-modal", ".new-user-input");
+                router.go("/open-messenger");
+            }
+            catch (e) {
+                console.log("Пользователь не найден")
+            }
         }
     };
 

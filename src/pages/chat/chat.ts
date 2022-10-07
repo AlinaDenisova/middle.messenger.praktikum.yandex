@@ -5,7 +5,7 @@ import { SelectChat } from "./selectChat";
 import { Input } from "../../components/input";
 import {Btn} from "../../components/btn";
 import "./chat.scss";
-import {Block, redirect} from "../../utils";
+import {Block} from "../../utils";
 import router from "../../router";
 import { store } from "../../store";
 import { LoginController, ChatController, IChatData } from "../../controllers";
