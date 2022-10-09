@@ -1,8 +1,30 @@
 import router from "./router";
 import "./utils/helpers";
 import "./static/styles/base.scss";
+import {routes} from "./utils";
 
-// @ts-ignore
-window.router = router;
+window.addEventListener('DOMContentLoaded', async () => {
 
-router.start();
+    let isProtectedRoute = true;
+
+    switch (window.location.pathname) {
+        case "/":
+        case routes.registration:
+            isProtectedRoute = false;
+            break;
+    }
+
+    try {
+        router.start();
+
+        if (!isProtectedRoute) {
+            router.go(routes.selectChat)
+        }
+    } catch (e) {
+        router.start();
+
+        if (isProtectedRoute) {
+            router.go("/");
+        }
+    }
+})

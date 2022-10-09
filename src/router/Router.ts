@@ -112,3 +112,5 @@ export class Router {
     this.history.forward();
   }
 }
+
+export default new Router('#app');

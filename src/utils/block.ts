@@ -92,12 +92,15 @@ export class Block {
         if (!nextProps) {
             return;
         }
-
         Object.assign(this.props, nextProps);
     };
 
     get element() {
         return this._element;
+    }
+
+    public getContent() {
+        return this.element;
     }
 
     private _render() {
