@@ -23,7 +23,7 @@ export default class HTTPTransport {
   }
 
   public get<Response>(
-      path = "/",
+      path: string = "/",
       data?: unknown,
       headers?: Record<string, string>
   ): Promise<Response> {

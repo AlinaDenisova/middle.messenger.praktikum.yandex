@@ -3,19 +3,17 @@ import openChatTemplate from "./openChat.tmpl";
 import { Message } from "../../../components/message";
 import "./chat-open.scss";
 import { ChatController, IChatData } from "../../../controllers";
-import router from "../../../router";
-import {
-    avatarIconBase64,
-    checkValidation,
-    createChatWebSocket,
-} from "../../../utils";
+import router from "../../../router/Router";
+import { avatarIconBase64 } from "../../../utils/constants"
+import {checkValidation} from "../../../utils/validation";
+import {createChatWebSocket} from "../../../utils/chatWebSocket"
 import arrowIcon from "../../../static/icons/arrow-back.svg";
 import addIcon from "../../../static/icons/add.svg";
 import deleteUserIcon from "../../../static/icons/delete-user.svg";
 import addUserIcon from "../../../static/icons/add-user.svg";
 import readIcon from "../../../static/icons/read.svg";
 import dot from "../../../static/icons/dot.svg"
-import { Block, Dictionary } from "../../../utils";
+import { Block, Dictionary } from "../../../utils/block";
 import { closeModal, showModal } from "../chat";
 import { store } from "../../../store";
 import {Input} from "../../../components/input";

@@ -22,7 +22,7 @@ describe('Router', () => {
   }
 
   it('use() should return Router instance', () => {
-    const result = Router.use('/', BlockMock);
+    const result = Router.use('/', BlockMock, {});
 
     expect(result).to.eq(Router);
   });
@@ -30,20 +30,26 @@ describe('Router', () => {
   describe('.back()', () => {
     it('should render a page on history back action', () => {
       Router
-          .use('/', BlockMock)
+          .use('/', BlockMock, {})
           .start();
 
       Router.back();
 
-      expect(getContentFake.callCount).to.eq(1);
+      expect(window.history.length).to.eq(2);
     });
   });
 
   it('should render a page on start', () => {
     Router
-        .use('/', BlockMock)
+        .use('/', BlockMock, {})
         .start();
 
-    expect(getContentFake.callCount).to.eq(1);
+    expect(window.history.length).to.eq(1);
+  });
+
+  it('should return "/sign-in"', () => {
+    Router
+        .go('/sign-in')
+    expect(window.location.pathname).to.eq('/sign-in');
   });
 });

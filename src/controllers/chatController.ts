@@ -1,7 +1,7 @@
 import { ChatApi, IChatUser, ICreateChat } from "../api";
-import { Dictionary } from "../utils";
+import { Dictionary } from "../utils/block";
 import { store } from "../store";
-import { redirect } from "../utils";
+import { redirect } from "../utils/helpers";
 
 const chatAPIInstance = new ChatApi();
 

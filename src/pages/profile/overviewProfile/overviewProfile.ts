@@ -3,10 +3,10 @@ import overviewProfileTemplate from "./overviewProfile.tmpl";
 import {ProfileAvatar} from "../../../components/profileAvatar";
 import { Input } from "../../../components/input";
 import "./profile-overview.scss";
-import { Block } from "../../../utils";
+import { Block } from "../../../utils/block";
 import { Btn } from "../../../components/btn"
 import { LoginController } from "../../../controllers";
-import router from "../../../router";
+import router from "../../../router/Router";
 import { getName, getAvatar } from "../profile";
 
 const controller = new LoginController();

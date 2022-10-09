@@ -2,12 +2,12 @@ import * as Handlebars from "handlebars";
 import editProfilePasswordTemplate from "./editProfilePassword.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn";
-import { Block } from "../../../utils";
+import { Block } from "../../../utils/block";
 import { ProfileAvatar } from "../../../components/profileAvatar";
 import "./profile-password.scss";
-import {checkAndCollectData, checkValidation } from "../../../utils";
+import {checkAndCollectData, checkValidation } from "../../../utils/validation";
 import {Form} from "../../../components/form";
-import router from "../../../router";
+import router from "../../../router/Router";
 import {UserController} from "../../../controllers";
 import {getAvatar} from "../profile";
 

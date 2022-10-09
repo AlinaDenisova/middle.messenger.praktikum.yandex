@@ -1,5 +1,5 @@
 import modalTemplate from "./modal.tmpl";
-import { Block } from "../../utils";
+import { Block } from "../../utils/block";
 import "./modal.scss";
 
 export type TModal = {

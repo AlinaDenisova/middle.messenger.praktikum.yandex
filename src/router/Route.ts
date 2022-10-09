@@ -1,4 +1,4 @@
-import { Dictionary } from "../utils";
+import { Dictionary } from "../utils/block";
 import { render } from '../utils/helpers';
 
 export interface IRoute {

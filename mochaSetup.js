@@ -17,3 +17,4 @@ require.extensions['.hbs'] = function (module, filename) {
 }
 
 require.extensions['.scss'] = function (m) { m.exports = {}; }
+require.extensions['.svg'] = function (m) { m.exports = {}; }

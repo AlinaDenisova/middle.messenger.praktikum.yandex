@@ -2,10 +2,10 @@ import * as Handlebars from "handlebars";
 import registrationTemplate from "./registration.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn";
-import {checkAndCollectData, checkValidation} from "../../../utils";
+import {checkAndCollectData, checkValidation} from "../../../utils/validation";
 import { Form } from "../../../components/form";
-import { Block } from "../../../utils";
-import router from "../../../router";
+import { Block } from "../../../utils/block";
+import router from "../../../router/Router";
 import { LoginController, ChatController } from "../../../controllers";
 
 const controller = new LoginController();

@@ -2,14 +2,14 @@ import * as Handlebars from "handlebars";
 import editProfileTemplate from "./editProfile.tmpl";
 import { Input } from "../../../components/input";
 import { Btn } from "../../../components/btn";
-import { Block } from "../../../utils";
+import { Block } from "../../../utils/block";
 import "./profile-edit.scss";
 import { ProfileAvatar } from "../../../components/profileAvatar";
 import { Modal } from "../../../components/modal";
-import { checkAndCollectData, checkValidation } from "../../../utils";
+import { checkAndCollectData, checkValidation } from "../../../utils/validation";
 import { UserController } from "../../../controllers";
 import { Form } from "../../../components/form";
-import router from "../../../router";
+import router from "../../../router/Router";
 import {getAvatar, getName} from "../profile";
 import {closeModal, showModal} from "../../../pages/chat/chat"
 

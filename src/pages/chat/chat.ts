@@ -5,14 +5,14 @@ import { SelectChat } from "./selectChat";
 import { Input } from "../../components/input";
 import {Btn} from "../../components/btn";
 import "./chat.scss";
-import {Block} from "../../utils";
-import router from "../../router";
+import {Block} from "../../utils/block";
+import router from "../../router/Router";
 import { store } from "../../store";
 import { LoginController, ChatController, IChatData } from "../../controllers";
 import { Modal } from "../../components/modal"
 import { Form } from "../../components/form";
 import chatItemTemplate from "./chatItem.tmpl";
-import { avatarIconBase64 } from "../../utils";
+import { avatarIconBase64 } from "../../utils/constants";
 
 const loginController = new LoginController();
 const chatController = new ChatController();

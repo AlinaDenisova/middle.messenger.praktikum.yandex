@@ -1,6 +1,6 @@
 import * as Handlebars from "handlebars";
 import selectChatTemplate from "./selectChat.tmpl";
-import { Block } from "../../../utils";
+import { Block } from "../../../utils/block";
 import "./chat-select.scss";
 
 const getTemplate = () => {

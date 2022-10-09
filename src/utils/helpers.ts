@@ -1,4 +1,4 @@
-import router from "../router";
+import router from "../router/Router";
 
 export const isClassDefined = (className: string | undefined) =>
   className && className !== undefined ? className : "";
