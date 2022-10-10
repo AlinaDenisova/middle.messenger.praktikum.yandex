@@ -4,7 +4,6 @@ import {
     errorPageSchema, profilePage,
     routes,
 } from "./utils/constants";
-
 import Router from "./router/Router";
 import {Login} from "./pages/login";
 import {Chat} from "./pages/chat";
@@ -22,14 +21,14 @@ window.addEventListener('DOMContentLoaded', async () => {
     });
 
     Router
-        .use("/", Login, { isAuth: true })
-        .use(`/${routes.auth}`, Login, { isAuth: true })
-        .use(`/${routes.registration}`, Login, { isAuth: false })
-        .use(`/${routes.selectChat}`, Chat, { isChatOpen: false })
-        .use(`/${routes.openChat}`, Chat, { isChatOpen: true })
-        .use(`/${routes.overviewProfile}`, Profile, { profileType: profilePage.overviewProfile })
-        .use(`/${routes.editProfile}`, Profile, { profileType: profilePage.editProfile })
-        .use(`/${routes.editProfilePassword}`, Profile, { profileType: profilePage.editProfilePassword })
+        .use("/", Login, {isAuth: true})
+        .use(`/${routes.auth}`, Login, {isAuth: true})
+        .use(`/${routes.registration}`, Login, {isAuth: false})
+        .use(`/${routes.selectChat}`, Chat, {isChatOpen: false})
+        .use(`/${routes.openChat}`, Chat, {isChatOpen: true})
+        .use(`/${routes.overviewProfile}`, Profile, {profileType: profilePage.overviewProfile})
+        .use(`/${routes.editProfile}`, Profile, {profileType: profilePage.editProfile})
+        .use(`/${routes.editProfilePassword}`, Profile, {profileType: profilePage.editProfilePassword})
         .use(`/${routes.forbidden}`, ErrorPage, {
             scheme: getErrorScheme(routes.forbidden),
         })
@@ -42,28 +41,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         .use(`/${routes.notFound}`, ErrorPage, {
             scheme: getErrorScheme(routes.notFound),
         })
-        .notFound(ErrorPage, { scheme: getErrorScheme(routes.notFound) });
+        .notFound(ErrorPage, {scheme: getErrorScheme(routes.notFound)});
 
-    let isProtectedRoute = true;
-
-    switch (window.location.pathname) {
-        case "/":
-        case routes.registration:
-            isProtectedRoute = false;
-            break;
-    }
-
-    try {
-        Router.start();
-
-        if (!isProtectedRoute) {
-            Router.go(routes.selectChat)
-        }
-    } catch (e) {
-        Router.start();
-
-        if (isProtectedRoute) {
-            Router.go("/");
-        }
-    }
+    Router.start();
 })

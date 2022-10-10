@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { assert } from "chai";
 import {Block} from "./block";
 import Handlebars from "handlebars";
 
@@ -29,23 +28,12 @@ describe("Block", () => {
   }
 
   const mock = new Mock({
-    dataId: "old",
+    dataId: "newId",
   });
 
-  it("Создаем экземпляр класса", () => {
-    expect(mock.props.context.dataId).to.eq("old");
-  });
-
-  it("Задаем новые пропсы", () => {
-    mock.setProps({
-        dataId: "new"
-    });
-    assert.equal(mock.props.dataId, "new");
-  });
-
-  it('Сам компонент с новыми пропсами <div data-id="new"></div>', () => {
+  it('should fire init event on initialization', () => {
     let res = mock.getContent().innerHTML;
-    assert.equal(res, '<div data-id="new"></div>');
+    expect(res).to.eq('<div data-id="newId"></div>');
   });
 });
 
