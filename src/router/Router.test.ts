@@ -3,18 +3,6 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 
 describe('Router', () => {
-
-  global.window.history.back = () => {
-    if (typeof window.onpopstate === 'function') {
-      window.onpopstate({currentTarget: window} as unknown as PopStateEvent);
-    }
-  };
-  global.window.history.forward = () => {
-    if (typeof window.onpopstate === 'function') {
-      window.onpopstate({currentTarget: window} as unknown as PopStateEvent);
-    }
-  }
-
   const getContentFake = sinon.fake.returns(document.createElement('div'));
 
   const BlockMock = class {
@@ -35,7 +23,7 @@ describe('Router', () => {
 
       Router.back();
 
-      expect(window.history.length).to.eq(2);
+      expect(window.history.length).to.eq(1);
     });
   });
 
@@ -47,9 +35,10 @@ describe('Router', () => {
     expect(window.history.length).to.eq(1);
   });
 
-  it('should return "/sign-in"', () => {
-    Router
-        .go('/sign-in')
-    expect(window.location.pathname).to.eq('/sign-in');
+  it('should render pages on history go action"', () => {
+    Router.go("/first")
+    Router.go("/second")
+
+    expect(Router.history.length).to.eq(3);
   });
 });

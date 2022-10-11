@@ -8,6 +8,7 @@ export type TModal = {
     form?: string;
     input?: string;
     backLink: string;
+    errorMessage?: string;
 };
 
 export class Modal extends Block {

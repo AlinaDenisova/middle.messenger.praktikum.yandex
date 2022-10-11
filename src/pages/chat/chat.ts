@@ -38,6 +38,7 @@ export const closeModal = (modalId: string, inputClassName: string) => {
     const input = document.querySelector(inputClassName) as HTMLInputElement;
     const modal = document.querySelector(`.modal[data-id = "${modalId}"]`) as HTMLElement;
     const overlay = document.querySelector(".overlay") as HTMLElement;
+    const errorMessage = modal.querySelector(".modal__error-message") as HTMLElement;
     if (input) {
         input.value = "";
     }
@@ -46,6 +47,11 @@ export const closeModal = (modalId: string, inputClassName: string) => {
     }
     if (overlay) {
         overlay?.classList.add("hidden");
+    }
+    if (errorMessage) {
+        if (!errorMessage.classList.contains("hidden")) {
+            errorMessage.classList.add("hidden")
+        }
     }
 };
 

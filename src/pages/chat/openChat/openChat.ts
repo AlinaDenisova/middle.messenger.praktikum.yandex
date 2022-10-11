@@ -133,6 +133,8 @@ const getTemplate = () => {
 
     const addUsersToChat = async (chatId: string) => {
         const input = document.querySelector(".new-user-input") as HTMLInputElement;
+        const modal = document.querySelector("[data-id = 'add-user-modal']")
+        const errorMessage = modal.querySelector(".modal__error-message") as HTMLElement;
         if (input) {
             const usersArray = input.value.split(",");
             const users = usersArray.map((s) => s.trim());
@@ -140,10 +142,13 @@ const getTemplate = () => {
                 await chatController.addUser({users, chatId: parseInt(chatId, 10)});
                 store.setStateAndPersist({usersInChats: [{id: chatId, users}]});
                 closeModal("add-user-modal", ".new-user-input");
+                if (!errorMessage.classList.contains("hidden")) {
+                    errorMessage.classList.add("hidden")
+                }
                 router.go("/open-messenger");
             }
             catch (e) {
-                console.log("Пользователь не найден")
+                errorMessage.classList.remove("hidden")
             }
         }
     };
@@ -154,9 +159,19 @@ const getTemplate = () => {
         ) as HTMLInputElement;
         if (input) {
             const users = input.value.split(",");
-            await chatController.removeUser({users, chatId: parseInt(chatId, 10)});
-            closeModal("remove-user-modal", ".remove-user-input");
-            router.go("/open-messenger");
+            const modal = document.querySelector("[data-id = 'remove-user-modal']")
+            const errorMessage = modal.querySelector(".modal__error-message") as HTMLElement;
+            try {
+                await chatController.removeUser({users, chatId: parseInt(chatId, 10)});
+                closeModal("remove-user-modal", ".remove-user-input");
+                if (!errorMessage.classList.contains("hidden")) {
+                    errorMessage.classList.add("hidden")
+                }
+                router.go("/open-messenger");
+            }
+            catch {
+                errorMessage.classList.remove("hidden")
+            }
         }
     };
 
@@ -237,7 +252,8 @@ const getTemplate = () => {
             dataId: "add-user-modal",
             titleText: "Добавить пользователя",
             form: addUserForm.transformToString(),
-            backLink: backLink.transformToString()
+            backLink: backLink.transformToString(),
+            errorMessage: "Пользователь не найден"
         }
     );
 
@@ -246,7 +262,8 @@ const getTemplate = () => {
             dataId: "remove-user-modal",
             titleText: "Удалить пользователя",
             form: removeUserForm.transformToString(),
-            backLink: backLink.transformToString()
+            backLink: backLink.transformToString(),
+            errorMessage: "Пользователь не найден"
         }
     );
 

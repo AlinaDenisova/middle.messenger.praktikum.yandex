@@ -12,4 +12,7 @@ export default
         {{{btn}}}
     {{/if}}
     {{{backLink}}}
+    {{#if this.errorMessage}}
+       <div class="modal__error-message hidden">{{errorMessage}}</div>
+    {{/if}}
 </div>`
