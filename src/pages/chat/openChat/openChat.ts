@@ -82,24 +82,29 @@ const handleMessages = (message: Dictionary | Dictionary[]) => {
     const addMessage = (elem: Dictionary) => {
         if (messagesContainer && elem.content) {
             const myMessage = elem.user_id == localStorage.getItem("myID");
-            const dateObject = new Date(elem.time);
-            const options: Intl.DateTimeFormatOptions = {
-                weekday: "short",
-                month: "short",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-            };
-            const time = new Intl.DateTimeFormat("ru-RU", options).format(dateObject);
-            const node = new Message({
-                myMessage,
-                time,
-                read: elem.is_read,
-                text: elem.content,
-                readIcon: readIcon,
-                //image: file,
-            });
-            messagesContainer.appendChild(node.render());
+
+            if(elem.time) {
+                const dateObject = new Date(elem.time);
+                const options: Intl.DateTimeFormatOptions = {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                };
+
+                const time = new Intl.DateTimeFormat("ru-RU", options).format(dateObject);
+                const node = new Message({
+                    myMessage,
+                    time,
+                    read: elem.is_read,
+                    text: elem.content,
+                    readIcon: readIcon,
+                    //image: file,
+                });
+
+                messagesContainer.appendChild(node.render());
+            }
         }
     };
 

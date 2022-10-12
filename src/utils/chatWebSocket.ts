@@ -14,9 +14,19 @@ export function createChatWebSocket(
 ) {
   const { userId, chatId, token } = params;
   const socket = new WebSocket(`${API_URL}chats/${userId}/${chatId}/${token}`);
+  let timerId: ReturnType<typeof setTimeout> = setTimeout(() => {});
 
   socket.addEventListener("open", () => {
     console.log("Соединение по WebSocket установлено");
+
+    function keepAlive(timeout = 20000) {
+      if (socket.readyState == socket.OPEN) {
+        socket.send('');
+      }
+      timerId = setTimeout(keepAlive, timeout);
+    }
+
+    keepAlive()
   });
 
   socket.addEventListener("close", (event) => {
@@ -34,6 +44,14 @@ export function createChatWebSocket(
     }
 
     console.log(`Код: ${code} | Причина: ${reason}`);
+
+    function cancelKeepAlive() {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    }
+
+    cancelKeepAlive()
   });
 
   socket.addEventListener("message", (event) => {
