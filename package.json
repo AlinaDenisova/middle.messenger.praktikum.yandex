@@ -10,7 +10,8 @@
     "server": "node server.js",
     "lint": "eslint node_modules/.bin/eslint . --ext js,ts && stylelint '**/*.scss'",
     "lint:fix": "eslint node_modules/.bin/eslint . --ext js,ts --fix && stylelint '**/*.scss' --fix",
-    "test": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'"
+    "test": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
