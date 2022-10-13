@@ -3,19 +3,17 @@ import openChatTemplate from "./openChat.tmpl";
 import { Message } from "../../../components/message";
 import "./chat-open.scss";
 import { ChatController, IChatData } from "../../../controllers";
-import router from "../../../router";
-import {
-    avatarIconBase64,
-    checkValidation,
-    createChatWebSocket,
-} from "../../../utils";
-import arrowIcon from "../../../assets/icons/arrow-back.svg";
-import addIcon from "../../../assets/icons/add.svg";
-import deleteUserIcon from "../../../assets/icons/delete-user.svg";
-import addUserIcon from "../../../assets/icons/add-user.svg";
-import readIcon from "../../../assets/icons/read.svg";
-import dot from "../../../assets/icons/dot.svg"
-import { Block, Dictionary } from "../../../utils";
+import router from "../../../router/Router";
+import { avatarIconBase64 } from "../../../utils/constants"
+import {checkValidation} from "../../../utils/validation";
+import {createChatWebSocket} from "../../../utils/chatWebSocket"
+import arrowIcon from "../../../static/icons/arrow-back.svg";
+import addIcon from "../../../static/icons/add.svg";
+import deleteUserIcon from "../../../static/icons/delete-user.svg";
+import addUserIcon from "../../../static/icons/add-user.svg";
+import readIcon from "../../../static/icons/read.svg";
+import dot from "../../../static/icons/dot.svg"
+import { Block, Dictionary } from "../../../utils/block";
 import { closeModal, showModal } from "../chat";
 import { store } from "../../../store";
 import {Input} from "../../../components/input";
@@ -84,24 +82,29 @@ const handleMessages = (message: Dictionary | Dictionary[]) => {
     const addMessage = (elem: Dictionary) => {
         if (messagesContainer && elem.content) {
             const myMessage = elem.user_id == localStorage.getItem("myID");
-            const dateObject = new Date(elem.time);
-            const options: Intl.DateTimeFormatOptions = {
-                weekday: "short",
-                month: "short",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-            };
-            const time = new Intl.DateTimeFormat("ru-RU", options).format(dateObject);
-            const node = new Message({
-                myMessage,
-                time,
-                read: elem.is_read,
-                text: elem.content,
-                readIcon: readIcon,
-                //image: file,
-            });
-            messagesContainer.appendChild(node.render());
+
+            if(elem.time) {
+                const dateObject = new Date(elem.time);
+                const options: Intl.DateTimeFormatOptions = {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                };
+
+                const time = new Intl.DateTimeFormat("ru-RU", options).format(dateObject);
+                const node = new Message({
+                    myMessage,
+                    time,
+                    read: elem.is_read,
+                    text: elem.content,
+                    readIcon: readIcon,
+                    //image: file,
+                });
+
+                messagesContainer.appendChild(node.render());
+            }
         }
     };
 
@@ -135,13 +138,23 @@ const getTemplate = () => {
 
     const addUsersToChat = async (chatId: string) => {
         const input = document.querySelector(".new-user-input") as HTMLInputElement;
+        const modal = document.querySelector("[data-id = 'add-user-modal']")
+        const errorMessage = modal.querySelector(".modal__error-message") as HTMLElement;
         if (input) {
             const usersArray = input.value.split(",");
             const users = usersArray.map((s) => s.trim());
-            await chatController.addUser({users, chatId: parseInt(chatId, 10)});
-            store.setStateAndPersist({usersInChats: [{id: chatId, users}]});
-            closeModal("add-user-modal", ".new-user-input");
-            router.go("/open-messenger");
+            try {
+                await chatController.addUser({users, chatId: parseInt(chatId, 10)});
+                store.setStateAndPersist({usersInChats: [{id: chatId, users}]});
+                closeModal("add-user-modal", ".new-user-input");
+                if (!errorMessage.classList.contains("hidden")) {
+                    errorMessage.classList.add("hidden")
+                }
+                router.go("/open-messenger");
+            }
+            catch (e) {
+                errorMessage.classList.remove("hidden")
+            }
         }
     };
 
@@ -151,9 +164,19 @@ const getTemplate = () => {
         ) as HTMLInputElement;
         if (input) {
             const users = input.value.split(",");
-            await chatController.removeUser({users, chatId: parseInt(chatId, 10)});
-            closeModal("remove-user-modal", ".remove-user-input");
-            router.go("/open-messenger");
+            const modal = document.querySelector("[data-id = 'remove-user-modal']")
+            const errorMessage = modal.querySelector(".modal__error-message") as HTMLElement;
+            try {
+                await chatController.removeUser({users, chatId: parseInt(chatId, 10)});
+                closeModal("remove-user-modal", ".remove-user-input");
+                if (!errorMessage.classList.contains("hidden")) {
+                    errorMessage.classList.add("hidden")
+                }
+                router.go("/open-messenger");
+            }
+            catch {
+                errorMessage.classList.remove("hidden")
+            }
         }
     };
 
@@ -234,7 +257,8 @@ const getTemplate = () => {
             dataId: "add-user-modal",
             titleText: "Добавить пользователя",
             form: addUserForm.transformToString(),
-            backLink: backLink.transformToString()
+            backLink: backLink.transformToString(),
+            errorMessage: "Пользователь не найден"
         }
     );
 
@@ -243,7 +267,8 @@ const getTemplate = () => {
             dataId: "remove-user-modal",
             titleText: "Удалить пользователя",
             form: removeUserForm.transformToString(),
-            backLink: backLink.transformToString()
+            backLink: backLink.transformToString(),
+            errorMessage: "Пользователь не найден"
         }
     );
 

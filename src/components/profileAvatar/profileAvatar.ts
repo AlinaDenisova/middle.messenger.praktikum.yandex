@@ -1,5 +1,5 @@
 import profileAvatarTemplate from "./profileAvatar.tmpl";
-import { Block } from "../../utils";
+import { Block } from "../../utils/block";
 import "./profile-avatar.scss";
 
 export type TAvatar = {

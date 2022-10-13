@@ -1,4 +1,4 @@
-@import "../../styles/colors";
+@import "../../static/styles/colors";
 
 .login {
   display: flex;
@@ -26,7 +26,7 @@
     width: 280px;
   }
 
-  &__btn {
+  &__btn.btn {
     margin-bottom: 14px;
     margin-top: 47px;
   }

@@ -1,4 +1,4 @@
-import { Dictionary } from "../utils";
+import { Dictionary } from "../utils/block";
 
 export class Store {
     private state: Dictionary = {};

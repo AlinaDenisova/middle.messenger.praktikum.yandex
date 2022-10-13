@@ -1,5 +1,5 @@
-import { Dictionary } from "../utils";
-import { routes } from "../utils";
+import { Dictionary } from "../utils/block";
+import { routes } from "../utils/constants";
 
 import { Route, IRoute } from "./Route";
 
@@ -66,7 +66,7 @@ export class Router {
     this._onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string) {
+  private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
 
     if (this._currentRoute && this._currentRoute !== route) {
@@ -112,3 +112,5 @@ export class Router {
     this.history.forward();
   }
 }
+
+export default new Router('#app');

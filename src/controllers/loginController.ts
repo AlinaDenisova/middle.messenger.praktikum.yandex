@@ -1,6 +1,6 @@
 import { AuthApi, ILoginData, ISignUpData } from "../api";
 import { store } from "../store";
-import { redirect } from "../utils";
+import { redirect } from "../utils/helpers";
 
 const authInstance = new AuthApi();
 

@@ -1,4 +1,4 @@
-@import "../../../styles/colors";
+@import "../../../static/styles/colors";
 
 .chat-open {
   padding: 10px 20px;
@@ -102,7 +102,7 @@
     }
 
     &__attachment {
-      background-image: url("../../../assets/icons/add.svg");
+      background-image: url("../../../static/icons/add.svg");
       background-position: center center;
       background-color: #ffffff;
       cursor: pointer;

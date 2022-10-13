@@ -2,5 +2,7 @@
 /node_modules
 /src/**/*.tmpl.ts
 /typings
+/src/**/*.test.*
 .parcel-cache
 server.js
+webpack.config.js

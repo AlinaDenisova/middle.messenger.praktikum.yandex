@@ -5,40 +5,54 @@ import { SelectChat } from "./selectChat";
 import { Input } from "../../components/input";
 import {Btn} from "../../components/btn";
 import "./chat.scss";
-import { Block } from "../../utils";
-import router from "../../router";
+import {Block} from "../../utils/block";
+import router from "../../router/Router";
 import { store } from "../../store";
 import { LoginController, ChatController, IChatData } from "../../controllers";
 import { Modal } from "../../components/modal"
 import { Form } from "../../components/form";
 import chatItemTemplate from "./chatItem.tmpl";
-import { avatarIconBase64 } from "../../utils";
+import { avatarIconBase64 } from "../../utils/constants";
 
 const loginController = new LoginController();
 const chatController = new ChatController();
 
 export const showModal = async (modalId: string) => {
-    const modal = document.querySelector(`.modal[data-id = "${modalId}"]`);
-    const popover = document.querySelector(`.chat-open__popover[data-id = "${modalId}"]`);
-    const overlay = document.querySelector(".overlay");
-    if (modal?.classList.contains("hidden")) {
-        modal?.classList.remove("hidden");
-        overlay?.classList.remove("hidden");
+    const modal = document.querySelector(`.modal[data-id = "${modalId}"]`) as HTMLElement;
+    const popover = document.querySelector(`.chat-open__popover[data-id = "${modalId}"]`) as HTMLElement;
+    const overlay = document.querySelector(".overlay") as HTMLElement;
+    if (modal) {
+        if (modal?.classList.contains("hidden")) {
+            modal?.classList.remove("hidden");
+            overlay?.classList.remove("hidden");
+        }
     }
-    if (popover?.classList.contains("hidden")) {
-        popover?.classList.remove("hidden");
+    if (popover) {
+        if (popover?.classList.contains("hidden")) {
+            popover?.classList.remove("hidden");
+        }
     }
 };
 
 export const closeModal = (modalId: string, inputClassName: string) => {
     const input = document.querySelector(inputClassName) as HTMLInputElement;
-    const modal = document.querySelector(`.modal[data-id = "${modalId}"]`);
-    const overlay = document.querySelector(".overlay");
+    const modal = document.querySelector(`.modal[data-id = "${modalId}"]`) as HTMLElement;
+    const overlay = document.querySelector(".overlay") as HTMLElement;
+    const errorMessage = modal.querySelector(".modal__error-message") as HTMLElement;
     if (input) {
         input.value = "";
     }
-    modal?.classList.add("hidden");
-    overlay?.classList.add("hidden");
+    if (modal) {
+        modal?.classList.add("hidden");
+    }
+    if (overlay) {
+        overlay?.classList.add("hidden");
+    }
+    if (errorMessage) {
+        if (!errorMessage.classList.contains("hidden")) {
+            errorMessage.classList.add("hidden")
+        }
+    }
 };
 
 const createNewChat = async () => {
@@ -54,10 +68,12 @@ const createNewChat = async () => {
 (function() {
     window.onclick = function (event: MouseEvent) {
         const target = event.target as HTMLElement;
-        var popover = document.querySelector(".chat-open__popover");
+        var popover = document.querySelector(".chat-open__popover") as HTMLElement;
 
-        if (target.contains(popover) && event.target !== popover) {
-            popover?.classList.add("hidden");
+        if (popover) {
+            if (target.contains(popover) && event.target !== popover) {
+                popover?.classList.add("hidden");
+            }
         }
     }
 }());
@@ -173,20 +189,23 @@ const getTemplate = (isChatOpen?: boolean) => {
                 avatar: el.avatar
                     ? `https://ya-praktikum.tech/api/v2/resources/${el.avatar}`
                     : avatarIconBase64,
-                last_message: content,
-                unread_count,
+                lastMessage: content,
+                unreadCount: unread_count,
                 time: messageTime,
             };
 
             const openSelectedChat = async () => {
                 const { id } = elemContext;
                 store.setStateAndPersist({ currentChat: id });
-
-                const userData = localStorage.getItem("user");
-                if (userData) {
-                    await chatController.connectToChat(JSON.parse(userData).id, id);
+                try {
+                    const userData = localStorage.getItem("user");
+                    if (userData) {
+                        await chatController.connectToChat(JSON.parse(userData).id, id);
+                    }
+                    router.go("/open-messenger");
+                } catch (e) {
+                    return e.reason;
                 }
-                router.go("/open-messenger");
             };
 
             const elem = new Btn(

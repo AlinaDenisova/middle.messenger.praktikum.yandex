@@ -1,4 +1,4 @@
-@import "../../styles/colors";
+@import "../../static/styles/colors";
 
 .modal {
   background: $bg-color;
@@ -95,10 +95,16 @@
     }
   }
 
-  &__error {
+  &__error-message {
     font-size: 15px;
     line-height: 20px;
     color: $text-highlight-color;
+    text-align: center;
+    margin-top: 10px;
+
+    .hidden {
+      display: none;
+    }
   }
 
   &__link {

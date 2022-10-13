@@ -1,7 +1,7 @@
 import loginTemplate from "./login.tmpl";
 import { Auth } from "./auth";
 import { Registration } from "./registration";
-import { Block } from "../../utils";
+import { Block } from "../../utils/block";
 import "./login.scss";
 
 export type TLogin = {

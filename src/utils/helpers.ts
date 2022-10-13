@@ -1,4 +1,4 @@
-import router from "../router";
+import router from "../router/Router";
 
 export const isClassDefined = (className: string | undefined) =>
   className && className !== undefined ? className : "";
@@ -15,5 +15,10 @@ export const redirect = (err: unknown) => {
     } else if (err === "User already in system") {
         router.go("/messenger");
     }
+};
+
+export const render = (block: any) => {
+    const app: HTMLElement | null = document.getElementById("app");
+    if (app) app.innerHTML = block.transformToString();
 };
 

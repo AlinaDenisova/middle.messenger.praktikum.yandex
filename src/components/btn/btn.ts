@@ -1,7 +1,7 @@
 import btnTemplate from "./btn.tmpl";
 import linkTemplate from "./link.tmpl";
-import { Block } from "../../utils";
-import { isClassDefined } from "../../utils";
+import { Block } from "../../utils/block";
+import { isClassDefined } from "../../utils/helpers";
 import "./btn.scss";
 
 export type TBtn = {

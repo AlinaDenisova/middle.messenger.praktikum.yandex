@@ -1,7 +1,7 @@
 import { ChatApi, IChatUser, ICreateChat } from "../api";
-import { Dictionary } from "../utils";
+import { Dictionary } from "../utils/block";
 import { store } from "../store";
-import { redirect } from "../utils";
+import { redirect } from "../utils/helpers";
 
 const chatAPIInstance = new ChatApi();
 
@@ -70,14 +70,15 @@ export class ChatController {
 
   public async removeUser(data: IChatUser) {
     try {
-      await chatAPIInstance.removeUser(data);
-      const chatId = data.chatId;
+      const userData = Object.assign(data);
+      await chatAPIInstance.removeUser(userData);
+      const chatId = userData.chatId;
       const users = store.getState().usersInChats;
       const storeItem = users.filter(
           (el: IUsers) => el.id === chatId.toString()
       );
       let chatUsers = storeItem[0];
-      const userId = data.users[0];
+      const userId = userData.users[0];
       const usersInChats = chatUsers.users.filter((id: string) => id != userId);
       chatUsers.users = usersInChats;
       store.setStateAndPersist({ usersInChats: users });

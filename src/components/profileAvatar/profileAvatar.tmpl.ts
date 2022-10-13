@@ -15,12 +15,8 @@ export default
     {{else}}
     <div class="profile-avatar">
            <div class="profile-avatar__photo-wrapper">
-                <img src="{{uploadAvatarImage}}" />
+                <img src="{{uploadAvatarImage}}" alt="Фото пользователя" />
            </div>
     </div>
     {{/if}}
-</div>
-
-
-
-`
+</div>`

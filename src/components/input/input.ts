@@ -1,7 +1,7 @@
 import inputTemplate from "./input.tmpl";
 import inputProfileTemplate from "./inputProfile/inputProfile.tmpl";
-import { isClassDefined, classIfElse } from "../../utils";
-import { Block } from "../../utils";
+import { isClassDefined, classIfElse } from "../../utils/helpers";
+import { Block } from "../../utils/block";
 import "./input.scss";
 import "./inputProfile/inputProfile.scss";
 

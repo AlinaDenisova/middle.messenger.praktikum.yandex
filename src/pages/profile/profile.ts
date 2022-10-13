@@ -2,12 +2,12 @@ import * as Handlebars from "handlebars";
 import profileTemplate from "./profile.tmpl";
 import { OverviewProfile } from "./overviewProfile";
 import { EditProfile } from "./editProfile";
-import router from "../../router";
+import router from "../../router/Router";
 import "./profile.scss";
-import { Block } from "../../utils"
+import { Block } from "../../utils/block"
 import { Btn } from "../../components/btn"
-import arrowIcon from "../../assets/icons/arrow-back.svg";
-import uploadPhoto from "../../assets/icons/upload-photo.svg";
+import arrowIcon from "../../static/icons/arrow-back.svg";
+import uploadPhoto from "../../static/icons/upload-photo.svg";
 import { EditProfilePassword } from "./editProfilePassword";
 import { LoginController } from "../../controllers";
 

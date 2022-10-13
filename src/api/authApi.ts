@@ -1,6 +1,4 @@
 import HTTPTransport from "../utils/HTTPTransport";
-const defaultUrl = "/auth";
-const authAPIInstance = new HTTPTransport(defaultUrl);
 
 export interface ISignUpData {
   first_name: string;
@@ -17,19 +15,21 @@ export interface ILoginData {
 }
 
 export class AuthApi {
-  signUp(data: ISignUpData) {
-    return authAPIInstance.post("/signup", data);
+  authAPIInstance = new HTTPTransport("/auth");
+
+  signUp(data: ISignUpData): Promise<XMLHttpRequest> {
+    return this.authAPIInstance.post("/signup", data);
   }
 
-  signIn(data: ILoginData) {
-    return authAPIInstance.post("/signin", data);
+  signIn(data: ILoginData): Promise<XMLHttpRequest> {
+    return this.authAPIInstance.post("/signin", data);
   }
 
-  getUser() {
-    return authAPIInstance.get("/user");
+  getUser(): Promise<XMLHttpRequest> {
+    return this.authAPIInstance.get("/user");
   }
 
-  logOut() {
-    return authAPIInstance.post("/logout");
+  logOut(): Promise<XMLHttpRequest> {
+    return this.authAPIInstance.post("/logout");
   }
 }

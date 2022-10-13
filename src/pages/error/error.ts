@@ -1,22 +1,22 @@
 import * as Handlebars from "handlebars";
 import { Btn } from "../../components/btn";
-import { Block } from "../../utils";
-import router from "../../router";
+import { Block } from "../../utils/block";
+import router from "../../router/Router";
 
 import errorPageTemplate from "./error.tmpl";
 import "./error.scss";
 
-export type Scheme = {
+export type TScheme = {
     errorCode: string;
     errorText: string;
     linkText: string;
 };
 
 export type TErrorPage = {
-    scheme?: Scheme;
+    scheme?: TScheme;
 };
 
-const getTemplate = (scheme?: Scheme) => {
+const getTemplate = (scheme?: TScheme) => {
     const template = Handlebars.compile(errorPageTemplate);
 
     const link = new Btn (
