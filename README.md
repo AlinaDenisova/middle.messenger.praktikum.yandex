@@ -1,4 +1,4 @@
-## Pull request: https://github.com/AlinaDenisova/middle.messenger.praktikum.yandex/pull/3
+## Pull request: https://github.com/AlinaDenisova/middle.messenger.praktikum.yandex/pull/4
 
 ## Описание
 
@@ -6,6 +6,9 @@
 
 ## Публикация проекта на Netlify:
 https://deploy-preview-3--iridescent-tanuki-e174b8.netlify.app
+
+## Публикация проекта на Heroku:
+https://yandex-denisova.herokuapp.com/
 
 ## Используемые технологии
 
@@ -17,7 +20,11 @@ https://deploy-preview-3--iridescent-tanuki-e174b8.netlify.app
 
 Для линтинга используется Stylelint и ESlint.
 
-Сборка проекта осуществляется Parcel.
+Сборка проекта осуществляется Webpack.
+
+Данные раздаются с помощью Express.js.
+
+Для контейнеризации используется Docker.
 
 ## Установка
 
@@ -26,6 +33,7 @@ https://deploy-preview-3--iridescent-tanuki-e174b8.netlify.app
 - `npm run build` — сборка стабильной версии,
 - `npm run start` — запсук проекта на express сервере
 - `npm run lint:fix` — запсук линтера для форматирования кода
+- `npm run server` - запуск проекта на express сервере
 
 
 ## Макет проекта
