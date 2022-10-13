@@ -5,7 +5,7 @@
 Данный проект является учебным и представляет собой веб-мессендежер для обмена сообщениями и файлами.
 
 ## Публикация проекта на Netlify:
-https://deploy-preview-3--iridescent-tanuki-e174b8.netlify.app
+https://deploy-preview-4--iridescent-tanuki-e174b8.netlify.app/
 
 ## Публикация проекта на Heroku:
 https://yandex-denisova.herokuapp.com/
